@@ -784,12 +784,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.getWriter().write(<span class="string">"好好学习"</span>);</span><br></pre></td></tr></table></figure>
 
 <p>显然这是不行的：</p>
-<p><img src="/.io//servlet1.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet5-%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/servlet1.png" alt="img"></p>
 <p>主要问题是，编码格式的问题，所以只需要在响应之前，设置响应的编码格式，也就是在http报文的响应头部中添加响应信息：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setContentType(<span class="string">"text/html;charset=utf8"</span>);</span><br></pre></td></tr></table></figure>
 
 <p>告诉浏览器，我们相应的信息是<code>html</code>文本，字符编码是<code>utf-8</code>：</p>
-<p><img src="/.io//servlet2.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet5-%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/servlet2.png" alt="img"></p>
 <h2 id="处理request中的乱码"><a href="#处理request中的乱码" class="headerlink" title="处理request中的乱码"></a>处理request中的乱码</h2><p>如果，客户端发送过来的请求中有中文数据，那么也会出现乱码（现在好多浏览器都不会了。。。）</p>
 <p>有两种方法可以解决：</p>
 <ul>

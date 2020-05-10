@@ -108,7 +108,7 @@
 
       
       <h1 id="Servlet与Tomcat"><a href="#Servlet与Tomcat" class="headerlink" title="Servlet与Tomcat"></a>Servlet与Tomcat</h1><h2 id="1-Tomcat"><a href="#1-Tomcat" class="headerlink" title="1. Tomcat"></a>1. Tomcat</h2><h3 id="1-1-Tomcat简介"><a href="#1-1-Tomcat简介" class="headerlink" title="1.1 Tomcat简介"></a>1.1 Tomcat简介</h3><p> <strong>Tomcat</strong>一个<strong>Web服务器</strong>，同时也是<strong>Servlet容器</strong>，通过它我们可以很方便地<strong>接收和响应</strong>到请求（如果不用Tomcat，那我们需要自己写Socket来接收和返回请求）。</p>
-<h2 id="1-2-Tomcat目录层次结构"><a href="#1-2-Tomcat目录层次结构" class="headerlink" title="1.2 Tomcat目录层次结构"></a>1.2 Tomcat目录层次结构</h2><p><img src="/.io//tomcat_cat.png" alt="img"></p>
+<h2 id="1-2-Tomcat目录层次结构"><a href="#1-2-Tomcat目录层次结构" class="headerlink" title="1.2 Tomcat目录层次结构"></a>1.2 Tomcat目录层次结构</h2><p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/tomcat_cat.png" alt="img"></p>
 <ul>
 <li><p><strong>bin</strong>：存放二进制文件，tomcat的启动（startup）和关闭（shutdown）</p>
 </li>
@@ -142,31 +142,31 @@
 <h3 id="1-4-IDEA-创建Tomcat项目"><a href="#1-4-IDEA-创建Tomcat项目" class="headerlink" title="1.4 IDEA 创建Tomcat项目"></a>1.4 IDEA 创建Tomcat项目</h3><ul>
 <li>启动IDEA，New JAVAEE Project，选择<code>Web Application</code></li>
 </ul>
-<p><img src="/.io//create1.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create1.png" alt="img"></p>
 <ul>
 <li>创建项目之后，在<code>WEB-INF</code>文件夹下创建<code>classes</code>和<code>lib</code>文件夹</li>
 </ul>
-<p><img src="/.io//create2.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create2.png" alt="img"></p>
 <ul>
 <li>然后点击File——&gt;Project Structure——&gt;Modules——&gt;Paths，修改Output path和Test output path的路径修改到刚才创建的<code>classes</code>文件夹中，就是生存.class文件的位置：</li>
 </ul>
-<p><img src="/.io//create3.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create3.png" alt="img"></p>
 <ul>
 <li>在IDE的工具栏处的如下图的地方点击Edit Configurations</li>
 </ul>
-<p><img src="/.io//create4.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create4.png" alt="img"></p>
 <ul>
 <li>上述操作完成后点击左上角的“+”号，往下翻，找到Tomcat Server，选择Tomcat Server——&gt;Local</li>
 </ul>
-<p><img src="/.io//create5.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create5.png" alt="img"></p>
 <ul>
 <li>自定义设置Name，然后点击Deployment—&gt;+—&gt;Artifact…，设置Application context，建议和你建的project名字一样</li>
 </ul>
-<p><img src="/.io//create6.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create6.png" alt="img"></p>
 <ul>
 <li>选择File——&gt;Project Structure——&gt;Modules——&gt;Dependencies——&gt;+——&gt;Libraries，选择Application Server Libraries下的Tomcat 9.0.1，点击Add Selected，这样就可以导入jsp和servlet的jar包了</li>
 </ul>
-<p><img src="/.io//create7.png" alt="img"></p>
+<p><img src="/2020/05/08/Servlet1-Servlet%E4%B8%8ETomcat/create7.png" alt="img"></p>
 <p>这样，我们IDEA就配置好Tomcat环境了。</p>
 <h2 id><a href="#" class="headerlink" title></a></h2>
       
