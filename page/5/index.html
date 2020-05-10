@@ -80,6 +80,88 @@
     
     
     
+    <article id="post-leetcode-399-Evaluate-Division" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-399-Evaluate-Division/"
+    >leetcode 399.Evaluate Division</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-399-Evaluate-Division/" class="article-date">
+  <time datetime="2020-05-08T05:56:00.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Equations are given in the format <code>A / B = k</code>, where <code>A</code> and <code>B</code> are variables represented as strings, and <code>k</code> is a real number (floating point number). Given some queries, return the answers. If the answer does not exist, return <code>-1.0</code>.</p>
+<p><strong>Example:</strong><br>Given <code>a / b = 2.0, b / c = 3.0.</code><br>queries are: <code>a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? .</code><br>return <code>[6.0, 0.5, -1.0, 1.0, -1.0 ].</code></p>
+<p>The input is: <code>vector&gt; equations, vector&amp; values, vector&gt; queries</code>, where <code>equations.size() == values.size()</code>, and the values are positive. This represents the equations. Return <code>vector</code>.</p>
+<p>According to the example above:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">equations &#x3D; [ [&quot;a&quot;, &quot;b&quot;], [&quot;b&quot;, &quot;c&quot;] ],</span><br><span class="line">values &#x3D; [2.0, 3.0],</span><br><span class="line">queries &#x3D; [ [&quot;a&quot;, &quot;c&quot;], [&quot;b&quot;, &quot;a&quot;], [&quot;a&quot;, &quot;e&quot;], [&quot;a&quot;, &quot;a&quot;], [&quot;x&quot;, &quot;x&quot;] ].</span><br></pre></td></tr></table></figure>
+
+<p>The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.</p>
+<hr>
+<p><strong>并查集</strong>：</p>
+<p><img src="/2020/05/08/leetcode-399-Evaluate-Division/leet399_1.png" alt="img"></p>
+<p><img src="/2020/05/08/leetcode-399-Evaluate-Division/leet399_2.png" alt="img"></p>
+<h3 id="代码-0ms"><a href="#代码-0ms" class="headerlink" title="代码 0ms"></a>代码 0ms</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">node</span></span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="keyword">double</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">node</span><span class="params">(String name, <span class="keyword">double</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name; <span class="comment">//parent name</span></span><br><span class="line">            <span class="keyword">this</span>.value = value;	<span class="comment">// parent = value * children</span></span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> name.toString() + <span class="string">" "</span> + value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">double</span>[] calcEquation(List&lt;List&lt;String&gt;&gt; equations, <span class="keyword">double</span>[] values, List&lt;List&lt;String&gt;&gt; queries) &#123;</span><br><span class="line">        <span class="keyword">double</span>[] ans = <span class="keyword">new</span> <span class="keyword">double</span>[queries.size()];</span><br><span class="line">        Map&lt;String , node&gt; parent = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;  i&lt; values.length ; i++)&#123;</span><br><span class="line">            String a , b;</span><br><span class="line">            <span class="keyword">double</span> v = values[i];</span><br><span class="line">            a = equations.get(i).get(<span class="number">0</span>);</span><br><span class="line">            b = equations.get(i).get(<span class="number">1</span>);</span><br><span class="line">            node roota = getParent(parent , a);</span><br><span class="line">                node rootb = getParent(parent , b);</span><br><span class="line">            parent.put(rootb.name , <span class="keyword">new</span> node(roota.name , roota.value / rootb.value * v));</span><br><span class="line">            <span class="comment">// System.out.println(parent);</span></span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; queries.size() ; i++)&#123;</span><br><span class="line">            List&lt;String&gt; pair = queries.get(i);</span><br><span class="line">                 <span class="keyword">if</span>(!parent.containsKey(pair.get(<span class="number">0</span>)) || !parent.containsKey(pair.get(<span class="number">1</span>))) &#123;ans[i] = -<span class="number">1</span>;<span class="keyword">continue</span>;&#125;</span><br><span class="line">            node p1 = getParent(parent , pair.get(<span class="number">0</span>));</span><br><span class="line">            node p2 = getParent(parent , pair.get(<span class="number">1</span>));           </span><br><span class="line">            ans[i] = p1.name .equals(p2.name) ? p2.value / p1.value : -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// get root</span></span><br><span class="line">    <span class="function">node <span class="title">getParent</span><span class="params">(Map&lt;String , node&gt; parent , String b)</span></span>&#123;</span><br><span class="line">        node root;</span><br><span class="line">        <span class="keyword">if</span>(!parent.containsKey(b))&#123;</span><br><span class="line">            root = <span class="keyword">new</span> node(b , <span class="number">1</span>);</span><br><span class="line">            parent.put(b , root);</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(parent.get(b).name.equals(b)) <span class="keyword">return</span> parent.get(b);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            root = getParent(parent , parent.get(b).name);</span><br><span class="line">            parent.get(b).name = root.name;</span><br><span class="line">            parent.get(b).value *= root.value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent.get(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-树" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
