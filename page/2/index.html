@@ -80,6 +80,203 @@
     
     
     
+    <article id="post-leetcode-1263-Minimum-Moves-to-Move-a-Box-to-Their-Target-Location" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1263-Minimum-Moves-to-Move-a-Box-to-Their-Target-Location/"
+    >leetcode 1263. Minimum Moves to Move a Box to Their Target Location</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1263-Minimum-Moves-to-Move-a-Box-to-Their-Target-Location/" class="article-date">
+  <time datetime="2020-05-08T07:22:46.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Storekeeper is a game in which the player pushes boxes around in a warehouse trying to get them to target locations.</p>
+<p>The game is represented by a <code>grid</code> of size <code>m x n</code>, where each element is a wall, floor, or a box.</p>
+<p>Your task is move the box <code>&#39;B&#39;</code> to the target position <code>&#39;T&#39;</code> under the following rules:</p>
+<ul>
+<li>Player is represented by character <code>&#39;S&#39;</code> and can move up, down, left, right in the <code>grid</code> if it is a floor (empy cell).</li>
+<li>Floor is represented by character <code>&#39;.&#39;</code> that means free cell to walk.</li>
+<li>Wall is represented by character <code>&#39;#&#39;</code> that means obstacle (impossible to walk there).</li>
+<li>There is only one box <code>&#39;B&#39;</code> and one target cell <code>&#39;T&#39;</code> in the <code>grid</code>.</li>
+<li>The box can be moved to an adjacent free cell by standing next to the box and then moving in the direction of the box. This is a <strong>push</strong>.</li>
+<li>The player cannot walk through the box.</li>
+</ul>
+<p>Return the minimum number of <strong>pushes</strong> to move the box to the target. If there is no way to reach the target, return <code>-1</code>.</p>
+<p><strong>Example 1:</strong></p>
+<p><strong><img src="https://assets.leetcode.com/uploads/2019/11/06/sample_1_1620.png" alt="img"></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: grid &#x3D; [[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;T&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;B&quot;,&quot;.&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;S&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: We return only the number of times the box is pushed.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: grid &#x3D; [[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;T&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;B&quot;,&quot;.&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;S&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]</span><br><span class="line">Output: -1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: grid &#x3D; [[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;T&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;B&quot;,&quot;.&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;S&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:  push the box down, left, left, up and up.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: grid &#x3D; [[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;S&quot;,&quot;#&quot;,&quot;.&quot;,&quot;B&quot;,&quot;T&quot;,&quot;#&quot;],</span><br><span class="line">               [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]</span><br><span class="line">Output: -1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>m == grid.length</code></li>
+<li><code>n == grid[i].length</code></li>
+<li><code>1 &lt;= m &lt;= 20</code></li>
+<li><code>1 &lt;= n &lt;= 20</code></li>
+<li><code>grid</code> contains only characters <code>&#39;.&#39;</code>, <code>&#39;#&#39;</code>, <code>&#39;S&#39;</code> , <code>&#39;T&#39;</code>, or <code>&#39;B&#39;</code>.</li>
+<li>There is only one character <code>&#39;S&#39;</code>, <code>&#39;B&#39;</code> and <code>&#39;T&#39;</code> in the <code>grid</code>.</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>使用队列保存（当前Block的位置，当前Player的位置）</li>
+<li>当队列不为空时，遍历Block的上下左右，并使用DFS测试当前Play的位置能否到达</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">         <span class="keyword">int</span>[][] move = <span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;</span><br><span class="line">            &#123;<span class="number">1</span> , <span class="number">0</span>&#125;,    <span class="comment">//down</span></span><br><span class="line">            &#123;-<span class="number">1</span> , <span class="number">0</span>&#125;,   <span class="comment">//up</span></span><br><span class="line">            &#123;<span class="number">0</span> , <span class="number">1</span>&#125;,    <span class="comment">//right</span></span><br><span class="line">            &#123;<span class="number">0</span> , -<span class="number">1</span>&#125;    <span class="comment">//left</span></span><br><span class="line">    &#125;;</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minPushBox</span><span class="params">(<span class="keyword">char</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.length , n = grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[] T = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>] , S = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>] , B = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">boolean</span>[][][][] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[m][n][m][n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="string">'T'</span>) T = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i , j&#125;;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="string">'B'</span>) B = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i , j&#125;;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="string">'S'</span>) S = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i , j&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span> ;</span><br><span class="line">        vis[B[<span class="number">0</span>]][B[<span class="number">1</span>]][S[<span class="number">0</span>]][S[<span class="number">1</span>]] = <span class="keyword">true</span>;</span><br><span class="line">        Queue&lt;<span class="keyword">int</span>[]&gt; que = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(B[<span class="number">0</span>] == T[<span class="number">0</span>] &amp;&amp; B[<span class="number">1</span>] == T[<span class="number">1</span>]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;B[<span class="number">0</span>] , B[<span class="number">1</span>] , S[<span class="number">0</span>] , S[<span class="number">1</span>]&#125;);</span><br><span class="line">        <span class="keyword">while</span>(!que.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span> size = que.size();</span><br><span class="line">            ct++;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; size ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span>[] cur = que.poll();</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; <span class="number">4</span> ; j++)&#123;</span><br><span class="line">                    <span class="keyword">int</span> nx = cur[<span class="number">0</span>] + move[j][<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">int</span> ny = cur[<span class="number">1</span>] + move[j][<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">int</span> px = cur[<span class="number">0</span>] - move[j][<span class="number">0</span>] , py =cur[<span class="number">1</span>] - move[j][<span class="number">1</span>];</span><br><span class="line">                        <span class="keyword">if</span>(px&lt;<span class="number">0</span>||px&gt;=m ||py&lt;<span class="number">0</span>||py&gt;=n) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(nx &lt; <span class="number">0</span> || nx &gt;= m || ny &lt; <span class="number">0</span> || ny &gt;= n || vis[nx][ny][px][py] || grid[nx][ny] == <span class="string">'#'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">boolean</span>[][] vvis = <span class="keyword">new</span> <span class="keyword">boolean</span>[m][n];</span><br><span class="line">                    <span class="keyword">if</span>(px &lt; <span class="number">0</span> || px &gt;= m || py &lt; <span class="number">0</span> || py &gt;= n || grid[px][py] == <span class="string">'#'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    vvis[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]] = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">if</span>(checkConnection(grid , px , py , cur[<span class="number">2</span>] , cur[<span class="number">3</span>] , vvis))&#123;</span><br><span class="line">                        <span class="keyword">if</span>(nx == T[<span class="number">0</span>] &amp;&amp; ny == T[<span class="number">1</span>]) <span class="keyword">return</span> ct;</span><br><span class="line">                        vis[nx][ny][px][py] = <span class="keyword">true</span>;</span><br><span class="line">                        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nx , ny,px,py&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">checkConnection</span><span class="params">(<span class="keyword">char</span>[][] grid , <span class="keyword">int</span> x , <span class="keyword">int</span> y , <span class="keyword">int</span> ex , <span class="keyword">int</span> ey , <span class="keyword">boolean</span>[][] vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.length , n = grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">if</span>(x == ex &amp;&amp; y == ey) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span> ; i &lt; <span class="number">4</span> ; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> nx = x + move[i][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> ny = y + move[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(nx &lt; <span class="number">0</span> || nx &gt;= m || ny &lt; <span class="number">0</span> || ny &gt;= n || vis[nx][ny] || grid[nx][ny] == <span class="string">'#'</span>) <span class="keyword">continue</span>;</span><br><span class="line">            vis[nx][ny] = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(checkConnection(grid , nx , ny , ex ,ey , vis)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-787-Cheapest-Flights-Within-K-Stops" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-787-Cheapest-Flights-Within-K-Stops/"
+    >leetcode 787. Cheapest Flights Within K Stops</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-787-Cheapest-Flights-Within-K-Stops/" class="article-date">
+  <time datetime="2020-05-08T07:21:05.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>There are <code>n</code> cities connected by <code>m</code> flights. Each flight starts from city <code>u</code>and arrives at <code>v</code> with a price <code>w</code>.</p>
+<p>Now given all the cities and flights, together with starting city <code>src</code> and the destination <code>dst</code>, your task is to find the cheapest price from <code>src</code> to <code>dst</code> with up to <code>k</code> stops. If there is no such route, output <code>-1</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: </span><br><span class="line">n &#x3D; 3, edges &#x3D; [[0,1,100],[1,2,100],[0,2,500]]</span><br><span class="line">src &#x3D; 0, dst &#x3D; 2, k &#x3D; 1</span><br><span class="line">Output: 200</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The cheapest price from city 0 to city 2 with at most 1 stop costs 200, as marked red in the picture.</span><br><span class="line">Example 2:</span><br><span class="line">Input: </span><br><span class="line">n &#x3D; 3, edges &#x3D; [[0,1,100],[1,2,100],[0,2,500]]</span><br><span class="line">src &#x3D; 0, dst &#x3D; 2, k &#x3D; 0</span><br><span class="line">Output: 500</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The cheapest price from city 0 to city 2 with at most 0 stop costs 500, as marked blue in the picture.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ul>
+<li>The number of nodes <code>n</code> will be in range <code>[1, 100]</code>, with nodes labeled from <code>0</code> to <code>n`` - 1</code>.</li>
+<li>The size of <code>flights</code> will be in range <code>[0, n * (n - 1) / 2]</code>.</li>
+<li>The format of each flight will be <code>(src, ``dst``, price)</code>.</li>
+<li>The price of each flight will be in the range <code>[1, 10000]</code>.</li>
+<li><code>k</code> is in the range of <code>[0, n - 1]</code>.</li>
+<li>There will not be any duplicated flights or self cycles.</li>
+</ul>
+<h2 id="解法一-BFS"><a href="#解法一-BFS" class="headerlink" title="解法一 BFS"></a>解法一 BFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//15ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findCheapestPrice</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] flights, <span class="keyword">int</span> src, <span class="keyword">int</span> dst, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] graph = <span class="keyword">new</span> List[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++) graph[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt;[] value = <span class="keyword">new</span> List[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++) value[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] flight : flights)&#123;</span><br><span class="line">            graph[flight[<span class="number">0</span>]].add(flight[<span class="number">1</span>]);</span><br><span class="line">            value[flight[<span class="number">0</span>]].add(flight[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">        PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((a , b) -&gt; Integer.compare(a[<span class="number">1</span>] , b[<span class="number">1</span>]));</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;src , <span class="number">0</span> , -<span class="number">1</span>&#125;);</span><br><span class="line">        <span class="keyword">int</span> ans = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span>[] cur = pq.poll();</span><br><span class="line">            <span class="keyword">if</span>(cur[<span class="number">0</span>] == dst) <span class="keyword">return</span> cur[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> step = cur[<span class="number">2</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(step &gt; K) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; graph[cur[<span class="number">0</span>]].size() ; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(vis[graph[cur[<span class="number">0</span>]].get(i)]) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">int</span> next = graph[cur[<span class="number">0</span>]].get(i);</span><br><span class="line">                <span class="keyword">int</span> val = value[cur[<span class="number">0</span>]].get(i) + cur[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(next == dst) ans = Math.min(ans , val);</span><br><span class="line">                pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;next , val , step&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans == Integer.MAX_VALUE ? -<span class="number">1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法二、DFS"><a href="#解法二、DFS" class="headerlink" title="解法二、DFS"></a>解法二、DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//33ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> price = Integer.MAX_VALUE;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findCheapestPrice</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] flights, <span class="keyword">int</span> src, <span class="keyword">int</span> dst, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] graph = <span class="keyword">new</span> List[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++) graph[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt;[] value = <span class="keyword">new</span> List[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++) value[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] flight : flights)&#123;</span><br><span class="line">            graph[flight[<span class="number">0</span>]].add(flight[<span class="number">1</span>]);</span><br><span class="line">            value[flight[<span class="number">0</span>]].add(flight[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">        vis[src] = <span class="keyword">true</span>;</span><br><span class="line">        dfs(graph , value , src , <span class="number">0</span> , dst , K , vis);</span><br><span class="line">        <span class="keyword">return</span> price == Integer.MAX_VALUE ? -<span class="number">1</span> : price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;Integer&gt;[] graph , List&lt;Integer&gt;[] value , <span class="keyword">int</span> cur ,<span class="keyword">int</span> val , <span class="keyword">int</span> dst , <span class="keyword">int</span> K , <span class="keyword">boolean</span>[] vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(K &lt; <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; graph[cur].size() ; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> next = graph[cur].get(i);</span><br><span class="line">            <span class="keyword">if</span>(vis[next]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> v = val + value[cur].get(i);</span><br><span class="line">            <span class="keyword">if</span>(v &gt; price) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(next == dst) &#123;</span><br><span class="line">                price = Math.min(price , v);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            vis[next] = <span class="keyword">true</span>;</span><br><span class="line">            dfs(graph , value , next , v , dst , K - <span class="number">1</span> , vis);</span><br><span class="line">            vis[next] = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法三、Bellman-Ford-algorithm"><a href="#解法三、Bellman-Ford-algorithm" class="headerlink" title="解法三、Bellman-Ford algorithm"></a>解法三、<strong>Bellman-Ford algorithm</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//6ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findCheapestPrice</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] flights, <span class="keyword">int</span> src, <span class="keyword">int</span> dst, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[K+<span class="number">2</span>][n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] row : dp)</span><br><span class="line">            Arrays.fill(row, Integer.MAX_VALUE);</span><br><span class="line">        dp[<span class="number">0</span>][src] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= K + <span class="number">1</span> ; i++ )&#123;</span><br><span class="line">                dp[i][src] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span>[] flight : flights)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dp[i-<span class="number">1</span>][flight[<span class="number">0</span>]] == Integer.MAX_VALUE) <span class="keyword">continue</span>;</span><br><span class="line">                dp[i][flight[<span class="number">1</span>]] = Math.min(dp[i][flight[<span class="number">1</span>]] , Math.min(dp[i-<span class="number">1</span>][flight[<span class="number">1</span>]] , dp[i-<span class="number">1</span>][flight[<span class="number">0</span>]] + flight[<span class="number">2</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[K+<span class="number">1</span>][dst] == Integer.MAX_VALUE? -<span class="number">1</span> : dp[K+<span class="number">1</span>][dst] ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-xml-使用Dom4J解析xml文件" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -810,302 +1007,6 @@
 </ul>
 </li>
 </ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-Servlet4-request-和-response对象" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/Servlet4-request-%E5%92%8C-response%E5%AF%B9%E8%B1%A1/"
-    >Servlet4 request 和 response对象</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/Servlet4-request-%E5%92%8C-response%E5%AF%B9%E8%B1%A1/" class="article-date">
-  <time datetime="2020-05-08T06:53:12.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="request和response-对象"><a href="#request和response-对象" class="headerlink" title="request和response 对象"></a>request和response 对象</h2><p>每当Tomcat服务器受到客户端的一条HTTP请求时，就会自动分别创建该请求的：</p>
-<p>1）request对象 ： 存储该http请求的信息</p>
-<p>2）response对象： 对于该请求的响应对象，存储<strong>向浏览器传输的输出数据</strong></p>
-<h3 id="request对象"><a href="#request对象" class="headerlink" title="request对象"></a>request对象</h3><p>问题：</p>
-<p> 我们希望存储每次HTTP请求的数据信息，还需要保证其完整性。</p>
-<p><strong>解决</strong></p>
-<p> <strong>使用对象进行存储</strong>，每当服务器受到一个请求，就创建一个专门的对象存储此次请求的数据。</p>
-<p>实现：</p>
-<p> <strong>request</strong>对象</p>
-<ul>
-<li>request对象会被作为<strong>实参</strong>传递给servlet方法，如<code>service()</code>方法</li>
-</ul>
-<p><strong>使用</strong></p>
-<p> 由于<strong>request</strong>对象中封存了请求数据的：</p>
-<ul>
-<li>请求行</li>
-<li>请求头</li>
-<li>请求本体（用户数据）</li>
-</ul>
-<p>自然而然，我们可以在servlet方法中获取。（request对象在创建后会作为实参，传入servlet方法）</p>
-<h4 id="通过request对象获取请求信息"><a href="#通过request对象获取请求信息" class="headerlink" title="通过request对象获取请求信息"></a>通过request对象获取请求信息</h4><ul>
-<li><p>请求行信息</p>
-<ol>
-<li><p>请求方法：<code>getMethod()</code></p>
-<p><code>req.getMethod();</code></p>
-</li>
-</ol>
-<p>2.*<em>获取URL *</em></p>
-<p> req.getRequestURL()</p>
-<p> <strong>获取URI</strong></p>
-<p> req.getRequestURI()</p>
-<ol>
-<li><p>获取请求协议：</p>
-<p> req.getScheme();</p>
-</li>
-</ol>
-</li>
-<li><p>获取请求头信息</p>
-<p>因为<strong>请求头</strong>中的数据都以<strong>键值对</strong>的形式存在，所以，通过<strong>键名</strong>获取对应的value:<br><code>req.getHeader(String keyName);</code></p>
-<p><strong>我们也可以直接获取所有的*键名*</strong>：</p>
-<p><code>req.getHeaderNames()；</code> <em>返回值为Enumeration</em></p>
-</li>
-<li><p>获取用户信息(请求体)</p>
-<p><code>req.getParameter(String keyName)</code>：<strong>不能获取同键不同值的多项数据</strong></p>
-<p>使用<code>req.getParameterValues(String var)</code>获取</p>
-</li>
-</ul>
-<h2 id="Response-对象"><a href="#Response-对象" class="headerlink" title="Response 对象"></a>Response 对象</h2><p><strong>问题</strong></p>
-<p>使用<strong>request</strong>对象获得了请求数据，并且处理过后，<strong>如何将处理结果显示到目标浏览器当中呢？</strong></p>
-<p>解决</p>
-<p>使用<strong>response</strong>对象，响应处理结果。</p>
-<p><strong>使用</strong></p>
-<ul>
-<li>设置响应头<ul>
-<li><code>setHeader(String keyName, String value)</code> //设置键值对 （不可以添加多个，新值覆盖旧值）</li>
-<li>addHeader(StringName , String value)//添加键值对（可以添加多个key名相同）</li>
-<li>设置响应状态：<ul>
-<li><code>sendError(int num , String msg)</code></li>
-</ul>
-</li>
-<li>设置响应编码：<ul>
-<li><code>resp.setContentType(&quot;文本格式;字符编码&quot;)</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>设置响应实体<ul>
-<li>resp.getWriter().write(String msg)</li>
-</ul>
-</li>
-</ul>
-<h2 id="Service-响应流程"><a href="#Service-响应流程" class="headerlink" title="Service 响应流程"></a>Service 响应流程</h2><ul>
-<li>设置响应编码格式<code>resp.setContentType()</code></li>
-<li>设置请求编码格式</li>
-<li>获取请求数据<strong>request对象</strong></li>
-<li>处理请求数据<ul>
-<li>数据库操作</li>
-<li>MVC思想</li>
-<li>。。。</li>
-</ul>
-</li>
-<li>响应处理结果<strong>response对象</strong></li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-Servlet3-Servlet中的一些细节" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/Servlet3-Servlet%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/"
-    >Servlet3 Servlet中的一些细节</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/Servlet3-Servlet%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/" class="article-date">
-  <time datetime="2020-05-08T06:51:11.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/servlet/">servlet</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="doGet-方法"><a href="#doGet-方法" class="headerlink" title="doGet() 方法"></a>doGet() 方法</h2><p>GET 请求来自于一个 URL 的正常请求，或者来自于一个未指定 METHOD 的 HTML 表单，它由 doGet() 方法处理。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">                  HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    <span class="comment">// Servlet 代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="doPost-方法"><a href="#doPost-方法" class="headerlink" title="doPost() 方法"></a>doPost() 方法</h2><p>POST 请求来自于一个特别指定了 METHOD 为 POST 的 HTML 表单，它由 doPost() 方法处理。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">                   HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    <span class="comment">// Servlet 代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果，这三个方法同时出现，那么，只有service方法会被调用。</p>
-<p>但是，如果使用了父类service的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    String method = req.getMethod();</span><br><span class="line">    <span class="keyword">long</span> lastModified;</span><br><span class="line">    <span class="keyword">if</span> (method.equals(<span class="string">"GET"</span>)) &#123;</span><br><span class="line">        lastModified = <span class="keyword">this</span>.getLastModified(req);</span><br><span class="line">        <span class="keyword">if</span> (lastModified == -<span class="number">1L</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.doGet(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">long</span> ifModifiedSince;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ifModifiedSince = req.getDateHeader(<span class="string">"If-Modified-Since"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IllegalArgumentException var9) &#123;</span><br><span class="line">                ifModifiedSince = -<span class="number">1L</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (ifModifiedSince &lt; lastModified / <span class="number">1000L</span> * <span class="number">1000L</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.maybeSetLastModified(resp, lastModified);</span><br><span class="line">                <span class="keyword">this</span>.doGet(req, resp);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                resp.setStatus(<span class="number">304</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"HEAD"</span>)) &#123;</span><br><span class="line">        lastModified = <span class="keyword">this</span>.getLastModified(req);</span><br><span class="line">        <span class="keyword">this</span>.maybeSetLastModified(resp, lastModified);</span><br><span class="line">        <span class="keyword">this</span>.doHead(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"POST"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"PUT"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doPut(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"DELETE"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doDelete(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"OPTIONS"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doOptions(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"TRACE"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doTrace(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        String errMsg = lStrings.getString(<span class="string">"http.method_not_implemented"</span>);</span><br><span class="line">        Object[] errArgs = <span class="keyword">new</span> Object[]&#123;method&#125;;</span><br><span class="line">        errMsg = MessageFormat.format(errMsg, errArgs);</span><br><span class="line">        resp.sendError(<span class="number">501</span>, errMsg);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>显然，<code>HttpServlet.service()</code>方法中根据HTTP的请求类型会调用子类的响应方法。如果子类没有重写doPost或者doGet方法就会报错：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        String protocol = req.getProtocol();</span><br><span class="line">        String msg = lStrings.getString(<span class="string">"http.method_get_not_supported"</span>);</span><br><span class="line">        <span class="keyword">if</span> (protocol.endsWith(<span class="string">"1.1"</span>)) &#123;</span><br><span class="line">            resp.sendError(<span class="number">405</span>, msg);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            resp.sendError(<span class="number">400</span>, msg);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>抛出405错误</li>
-</ul>
-<h2 id="Servlet常见错误"><a href="#Servlet常见错误" class="headerlink" title="Servlet常见错误"></a>Servlet常见错误</h2><ul>
-<li><p><strong>404</strong> ：资源未找到。</p>
-<ol>
-<li>请求地址中的servlet书写别名错误</li>
-<li>虚拟项目名称拼写错误</li>
-</ol>
-</li>
-<li><p><strong>500</strong> ：</p>
-<ol>
-<li>web.xml的servlet类书写错误。 <strong>ClassNotFound</strong></li>
-<li>方法运行时错误</li>
-</ol>
-</li>
-<li><p><strong>405</strong> ： 请求方式不支持</p>
-<p> e.g. 没有重写doGet 和doPost方法</p>
-</li>
-</ul>
-<h2 id><a href="#" class="headerlink" title></a><load-on-startup></load-on-startup></h2><p>如果在元素中配置了一个元素，那么<strong>WEB应用程序在启动时</strong>，就会<strong>装载并创建Servlet的实例对象</strong>、以及<strong>调用Servlet实例对象的init()方法</strong>。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hw<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.zxh.helloworld<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hw<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hw1<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Servlet中的缺省"><a href="#Servlet中的缺省" class="headerlink" title="Servlet中的缺省"></a>Servlet中的缺省</h2><p>　　<strong>一、JavaWeb中的资源</strong></p>
-<p>　　我们都知道，web服务器的作用是对外提供Web资源服务。比如浏览器中看到的一个网页，或者网页中展现的一张图片等，这些都是Web资源。对于Web资源来说，又分为静态资源和动态资源。</p>
-<p>　　<strong>1.静态资源</strong></p>
-<p>　　所谓的静态资源，就是固定的Web资源，该资源已经被生成，可以直接拿来存放在服务器上，比如当前服务器的某个Web应用下存放着如下这些静态资源：</p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/38284b43c2153d79d703b5ebba5c76d7.png" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.png"></p>
-<p>　　<strong>2.动态资源</strong></p>
-<p>　　由服务器上的java程序动态生成的资源，也就是说，在没有执行java程序时，该资源是不存在的，当程序运行时，由程序动态生成该资源。比如，以下java程序实现了动态生成一个html页面资源。</p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/c69d510aa84bb9ea1638489de6d04b7a.jpg" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.jpg"></p>
-<p>　　<strong>3.静态资源和动态资源的区别</strong></p>
-<p>　　从上述对静态资源和动态资源的分析可以看出，静态资源是已经成型的资源，而动态资源是由程序动态生成的，在程序执行前不存在。</p>
-<p>　　<strong>二、缺省的Servlet</strong></p>
-<p>　　在JavaWeb知识中，Servlet指的是服务器上的一个小程序，也就是说可以把java程序写在服务器上，供用户访问，而该java程序的载体就是Servlet。那么什么是缺省的servlet呢</p>
-<p>　　<strong>1.什么是缺省的Servlet</strong></p>
-<p>　　我们知道当我们在浏览器地址栏中输入url，实际上是在请求某个资源。该资源到底是静态资源还是动态资源呢?要想获得这个问题的答案，我们得先知道web.xml的作用。</p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/856b57762357c3762fd20315a3915ccb.jpg" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.jpg"></p>
-<p>　　当浏览器地址栏中输入任何的url，都会被web.xml中的servlet-mapping中的url-pattern匹配，当匹配成功后寻找相应的servlet，再通过反射获得该Servlet对象，最后执行该Servlet。详细过程如下图所示：</p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/03dcd2505e0d92ad52322ddcce747315.png" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.png"></p>
-<p>　　也就是说，浏览器中访问的任何资源，都是要经过web.xml匹配的，那么如果浏览器中访问的资源没有在web.xml的url-pattern中匹配，那么就会去寻找缺省的servlet。</p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/14ee05bbfa321e257fff1e7e4bb5c828.jpg" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.jpg"></p>
-<p>　　这段代码配置了一个缺省的Servlet，也就是说，如果在浏览器的url中没有匹配到任何url-pattern，那么就会与配置了”/“的url-pattern进行匹配，并执行该Servlet。</p>
-<p>　　<strong>2.起到全局配置作用的web.xml文件</strong></p>
-<p>　　我们发现，在大部分情况下我们不需要配置缺省的Servlet。因为我们直接通过url访问一个服务器上的静态资源时，这个url并不会与url-pattern中的任何一个匹配。但我们也确实访问到了，这是为什么呢?</p>
-<p>　　比如我们当前web应用下的web.xml文件中没有任何url-pattern，但我们却在地址栏里输入：<a href="http://localhost:8080/Servlet/1.html，此时能成功的访问到“1.html”静态资源。实际上这是因为，有一个文件帮我们配置了缺省的Servlet，而该缺省的servlet实现的效果，就是把静态资源逐一读取到Java程序中，再讲资源内容写给客户端浏览器。该文件，就是我们说的：起到全局配置作用的web.xml文件，该文件处在服务器的conf文件夹内。" target="_blank" rel="noopener">http://localhost:8080/Servlet/1.html，此时能成功的访问到“1.html”静态资源。实际上这是因为，有一个文件帮我们配置了缺省的Servlet，而该缺省的servlet实现的效果，就是把静态资源逐一读取到Java程序中，再讲资源内容写给客户端浏览器。该文件，就是我们说的：起到全局配置作用的web.xml文件，该文件处在服务器的conf文件夹内。</a></p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/d8f3ad19b7d9f19da3e85c0c643b3a04.png" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.png"></p>
-<p>　　<strong>全局Web.xml中的缺省Servlet主要完成以下两件事情：</strong></p>
-<p>　　· 根据url，成功找到服务器上的静态资源并读取，再发送给客户端</p>
-<p>　　· 根据url，无法找到服务器上的静态资源，于是发送404页面给客户端</p>
-<p><img src="http://www.mobiletrain.org/d/file/about/BBS/2b0ae5b98c5d55d8a21de42ca4e5228d.jpg" alt="&lt;a href=http://www.mobiletrain.org/ target=_blank class=infotextkey&gt;Java培训&lt;/a&gt;.jpg"></p>
-<p>　　<strong>三、总结</strong></p>
-<p>　　<strong>通过上述论述，我们得到了以下几个结论：</strong></p>
-<p>　　· JavaWeb中浏览器访问的任何url，实际上都是在访问服务器上的某个Servlet，因为web.xml中的url-pattern在负责url的匹配</p>
-<p>　　· 如果web.xml中的url-pattern匹配不到任何结果，那么就会去寻找缺省的Servlet，即url-pattern是“/”的Servlet</p>
-<p>　　· 如果在寻找缺省的Servlet时，发现当前Web.xml中没有，于是就会去全局的Web.xml文件中找，找到后执行该Servlet</p>
-<p>　　· JavaWeb中访问的任何资源，都是动态资源。因为都是经过Servlet运行后生成的，即使直接访问静态资源，也是由缺省的Servlet，通过读取静态资源的内容后，再发送给客户端的。</p>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a href="http://www.mobiletrain.org/about/BBS/8128.html" target="_blank" rel="noopener">Java技术学习之JavaWeb中缺省的Servlet的奥秘</a></p>
 
       
       <!-- reward -->
