@@ -80,6 +80,381 @@
     
     
     
+    <article id="post-leetcode-952-Largest-Component-Size-by-Common-Factor" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-952-Largest-Component-Size-by-Common-Factor/"
+    >leetcode 952.Largest Component Size by Common Factor</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-952-Largest-Component-Size-by-Common-Factor/" class="article-date">
+  <time datetime="2020-05-08T06:05:28.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given a non-empty array of unique positive integers <code>A</code>, consider the following graph:</p>
+<ul>
+<li>There are <code>A.length</code> nodes, labelled <code>A[0]</code> to <code>A[A.length - 1];</code></li>
+<li>There is an edge between <code>A[i]</code> and <code>A[j]</code> if and only if <code>A[i]</code> and <code>A[j]</code> share a common factor greater than 1.</li>
+</ul>
+<p>Return the size of the largest connected component in the graph.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [4,6,15,35]</span><br><span class="line">Output: 4</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [20,50,9,63]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,3,6,7,4,12,21,39]</span><br><span class="line">Output: 8</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>1 &lt;= A.length &lt;= 20000</code></li>
+<li><code>1 &lt;= A[i] &lt;= 100000</code></li>
+</ol>
+<hr>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这题的大意是，在一个数组<code>A</code>中，如果<code>A[i]</code>和<code>A[j]</code>有相同的<strong>因数</strong>，那么<code>A[i]</code>和<code>A[j]</code>之间就有一条相连的边，求这个数组构成的图中<strong>最大的联通块</strong>的大小。</p>
+<p> 一个很直截了当想法，两两比较，如果有相同因数，就合并两个集合。但由于数据规模比较大，这种做法会超时。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TLE</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestComponentSize</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(A);</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[A.length];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; A.length ; i++) parent[i] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; A.length ; i++)&#123;                </span><br><span class="line">                <span class="keyword">if</span>(A[i] == <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j &lt; A.length ; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(A[j] % A[i] == <span class="number">0</span> || hasSame(A[i] ,A[ j]))&#123;</span><br><span class="line">                    <span class="comment">//union</span></span><br><span class="line">                    parent[find(parent , j)] = find(parent , i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;Integer , Integer&gt; roots = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; A.length ; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> root = find(parent , i);</span><br><span class="line">            <span class="keyword">int</span> compSize = roots.getOrDefault(root , <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">            max = Math.max(max , compSize);</span><br><span class="line">            roots.put(root , compSize);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> parent[i] = find(parent , parent[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">hasSame</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span> ; i&lt;= a ; i++)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(a%i == <span class="number">0</span> &amp;&amp; b %i == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                 <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>既然，两两比较不现实，那么</p>
+<h3 id="1）我们可以将A-i-和自己每一个因数相连。这样有相同因数的A-i-就会在一个联通块中。"><a href="#1）我们可以将A-i-和自己每一个因数相连。这样有相同因数的A-i-就会在一个联通块中。" class="headerlink" title="1）我们可以将A[i]和自己每一个因数相连。这样有相同因数的A[i]就会在一个联通块中。"></a>1）我们可以将<code>A[i]</code>和自己每一个因数相连。这样有相同因数的<code>A[i]</code>就会在一个联通块中。</h3><ul>
+<li>遍历因数的时候，只需要遍历到<code>Math.sqrt(A[i])</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//208ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestComponentSize</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : A) max = Math.max(max , a);</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[max + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; max+<span class="number">1</span> ; i++) parent[i] =i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : A)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span> ; i &lt;= Math.sqrt(a) ; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a % i == <span class="number">0</span>)&#123;数</span><br><span class="line">                    <span class="comment">//和因数（另一个&gt; sqrt(a)）相连</span></span><br><span class="line">                    parent[find(parent , a)] = find(parent , i);</span><br><span class="line">                    parent[find(parent , a)] = find(parent , a/i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Integer , Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        max = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//计算联通块数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : A)&#123;</span><br><span class="line">            <span class="keyword">int</span> root = find(parent , a);</span><br><span class="line">            <span class="keyword">int</span> compSize = map.getOrDefault(root , <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">            max = Math.max(max , compSize);</span><br><span class="line">            map.put(root , compSize);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i;</span><br><span class="line">                <span class="keyword">return</span> parent[i] = find(parent , parent[i]);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-将A-i-只与自己的质因数相连"><a href="#2-将A-i-只与自己的质因数相连" class="headerlink" title="2) 将A[i]只与自己的质因数相连"></a>2) 将A[i]只与自己的质因数相连</h3><p>这个速度更快，79ms。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestComponentSize</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max =  <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : A) max = Math.max(max , a);</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[max + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= max ; i++) parent[i] = i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : A)&#123;</span><br><span class="line">            <span class="keyword">int</span> d = <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> num = a;</span><br><span class="line">            <span class="keyword">while</span>(d * d &lt;= a)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a % d == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">//prime factor</span></span><br><span class="line">                    parent[find(parent , num)] = find(parent , d);</span><br><span class="line">                    <span class="keyword">while</span>(a % d == <span class="number">0</span>)&#123;</span><br><span class="line">                        a /= d;</span><br><span class="line">                    &#125;                    </span><br><span class="line">                &#125;</span><br><span class="line">                d++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a &gt; <span class="number">1</span>) parent[find(parent , num)] = find(parent , a);</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="number">0</span>;</span><br><span class="line">        HashMap&lt;Integer , Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : A)&#123;</span><br><span class="line">            <span class="keyword">int</span> root = find(parent , a);</span><br><span class="line">            <span class="keyword">int</span> compSize = map.getOrDefault(root , <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">            max = Math.max(max , compSize);</span><br><span class="line">            map.put(root , compSize);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[]  parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i;</span><br><span class="line">                <span class="keyword">return</span> parent[i] = find(parent , parent[i]);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-785-Is-Graph-Bipartite" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-785-Is-Graph-Bipartite/"
+    >leetcode 785.Is Graph Bipartite?</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-785-Is-Graph-Bipartite/" class="article-date">
+  <time datetime="2020-05-08T06:03:07.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given an undirected <code>graph</code>, return <code>true</code> if and only if it is bipartite.</p>
+<p>Recall that a graph is <em>bipartite</em> if we can split it’s set of nodes into two independent subsets A and B such that every edge in the graph has one node in A and another node in B.</p>
+<p>The graph is given in the following form: <code>graph[i]</code> is a list of indexes <code>j</code> for which the edge between nodes <code>i</code> and <code>j</code> exists. Each node is an integer between <code>0</code> and <code>graph.length - 1</code>. There are no self edges or parallel edges: <code>graph[i]</code> does not contain <code>i</code>, and it doesn’t contain any element twice.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: [[1,3], [0,2], [1,3], [0,2]]</span><br><span class="line">Output: true</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line">0----1</span><br><span class="line">|        |</span><br><span class="line">|        |</span><br><span class="line">3----2</span><br><span class="line">We can divide the vertices into two groups: &#123;0, 2&#125; and &#123;1, 3&#125;.</span><br><span class="line">Example 2:</span><br><span class="line">Input: [[1,2,3], [0,2], [0,1,3], [0,2]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line">0----1</span><br><span class="line">|   \   |</span><br><span class="line">|     \ |</span><br><span class="line">3----2</span><br><span class="line">We cannot find a way to divide the set of nodes into two independent subsets.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ul>
+<li><code>graph</code> will have length in range <code>[1, 100]</code>.</li>
+<li><code>graph[i]</code> will contain integers in range <code>[0, graph.length - 1]</code>.</li>
+<li><code>graph[i]</code> will not contain <code>i</code> or duplicate values.</li>
+<li>The graph is undirected: if any element <code>j</code> is in <code>graph[i]</code>, then <code>i</code> will be in <code>graph[j]</code>.</li>
+</ul>
+<hr>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这题是判断一个Graph是否为<strong><em>Bipartite\</em></strong>：图中节点给以分成两个集合，每个集合中的节点间互不相连。</p>
+<p><strong>涂色</strong>：</p>
+<p> 使用DFS遍历，每一个节点我们将其图为红色（1），然后对其<strong>邻接节点</strong>图相反的颜色（-1）。如果这个图是<em>二分图</em>，那么就能顺利涂完。否则，肯定会出现一个节点有两种颜色。</p>
+<h2 id="代码-0ms"><a href="#代码-0ms" class="headerlink" title="代码 0ms"></a>代码 0ms</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBipartite</span><span class="params">(<span class="keyword">int</span>[][] graph)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = graph.length;</span><br><span class="line">        <span class="keyword">int</span>[] vis = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++)</span><br><span class="line">            <span class="comment">//如果，节点未涂色，遍历涂色</span></span><br><span class="line">            <span class="keyword">if</span>(vis[i] == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span>(!dfsBipartite(graph , vis , i, <span class="number">1</span>)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//color = 0:not visit , 1:red , -1: blue</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">dfsBipartite</span><span class="params">(<span class="keyword">int</span>[][] graph , <span class="keyword">int</span>[] vis , <span class="keyword">int</span> i , <span class="keyword">int</span> color)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[i] == <span class="number">0</span>) vis[i] = color;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[i] == color) <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">// same color</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">false</span>;	<span class="comment">//这个节点有两种颜色，不是bipartite</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//color neighbours</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> neighbor : graph[i])&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dfsBipartite(graph , vis , neighbor , -color)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bipartite/" rel="tag">Bipartite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-1162-As-Far-from-Land-as-Possible" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1162-As-Far-from-Land-as-Possible/"
+    >leetcode 1162.As Far from Land as Possible</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1162-As-Far-from-Land-as-Possible/" class="article-date">
+  <time datetime="2020-05-08T06:01:22.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given an N x N <code>grid</code> containing only values <code>0</code> and <code>1</code>, where <code>0</code> represents water and <code>1</code> represents land, find a water cell such that its distance to the nearest land cell is maximized and return the distance.</p>
+<p>The distance used in this problem is the <em>Manhattan distance</em>: the distance between two cells <code>(x0, y0)</code> and <code>(x1, y1)</code> is <code>|x0 - x1| + |y0 - y1|</code>.</p>
+<p>If no land or water exists in the grid, return <code>-1</code>.</p>
+<p><strong>Example 1:</strong></p>
+<p><strong><img src="https://assets.leetcode.com/uploads/2019/05/03/1336_ex1.JPG" alt="img"></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,0,1],[0,0,0],[1,0,1]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: </span><br><span class="line">The cell (1, 1) is as far as possible from all the land with distance 2.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<p><strong><img src="https://assets.leetcode.com/uploads/2019/05/03/1336_ex2.JPG" alt="img"></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,0,0],[0,0,0],[0,0,0]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: </span><br><span class="line">The cell (2, 2) is as far as possible from all the land with distance 4.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>1 &lt;= grid.length == grid[0].length &lt;= 100</code></li>
+<li><code>grid[i][j]</code> is <code>0</code> or <code>1</code></li>
+</ol>
+<h2 id="方法一、-计算每一个water-cell的最近岛屿-609ms"><a href="#方法一、-计算每一个water-cell的最近岛屿-609ms" class="headerlink" title="方法一、 计算每一个water cell的最近岛屿 609ms"></a>方法一、 计算每一个water cell的最近岛屿 609ms</h2><ul>
+<li>每一个water cell进行BFS找到最近岛屿。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDistance</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = -<span class="number">1</span> , m = grid.length , n = grid[<span class="number">0</span>].length;</span><br><span class="line">        Queue&lt;<span class="keyword">int</span>[]&gt; que = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span>[][] move = <span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;</span><br><span class="line">                &#123;<span class="number">1</span>,<span class="number">0</span>&#125; , &#123;-<span class="number">1</span> ,<span class="number">0</span>&#125; , &#123;<span class="number">0</span> , <span class="number">1</span>&#125; , &#123;<span class="number">0</span>,-<span class="number">1</span>&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i  = <span class="number">0</span> ; i &lt; m ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">int</span> lvl = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">boolean</span> find = <span class="keyword">false</span>;</span><br><span class="line">                    que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i , j&#125;);</span><br><span class="line">                        <span class="keyword">boolean</span>[][] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[m][n];</span><br><span class="line">                        vis[i ][j] = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">while</span>(!que.isEmpty() &amp;&amp; !find)&#123;</span><br><span class="line">                        lvl++;</span><br><span class="line">                            <span class="keyword">int</span> size = que.size();                            </span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; size&amp;&amp; !find ; k++) &#123;</span><br><span class="line">                            <span class="keyword">int</span>[] cur = que.poll();</span><br><span class="line">                            <span class="keyword">for</span>(<span class="keyword">int</span> h = <span class="number">0</span> ; h&lt;<span class="number">4</span> &amp;&amp; !find; h++)&#123;</span><br><span class="line">                                <span class="keyword">int</span> x = cur[<span class="number">0</span>] + move[h][<span class="number">0</span>];</span><br><span class="line">                                <span class="keyword">int</span> y = cur[<span class="number">1</span>] + move[h][<span class="number">1</span>];</span><br><span class="line">                                <span class="keyword">if</span>(x &lt;<span class="number">0</span> || x&gt;= m || y&lt;<span class="number">0</span> || y&gt;=n||vis[x][y]) <span class="keyword">continue</span>;</span><br><span class="line">                                <span class="keyword">if</span>(grid[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                                    max = Math.max(max , lvl);</span><br><span class="line">                                    find = <span class="keyword">true</span>;</span><br><span class="line">                                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                                        vis[x][y] = <span class="keyword">true</span>;</span><br><span class="line">                                        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;x , y&#125;);</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                        que.clear();</span><br><span class="line">                    <span class="keyword">if</span>(!find) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二、通过Island找到最远的water-cell"><a href="#方法二、通过Island找到最远的water-cell" class="headerlink" title="方法二、通过Island找到最远的water cell"></a>方法二、通过Island找到最远的water cell</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDistance</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span> , m = grid.length , n = grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] move = <span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;</span><br><span class="line">                &#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">boolean</span>[][] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[m][n];</span><br><span class="line">        Queue&lt;<span class="keyword">int</span>[]&gt; que = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="number">1</span>)&#123;        <span class="comment">//add all island into queue</span></span><br><span class="line">                    que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i , j&#125;);</span><br><span class="line">                    vis[i][j] = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!que.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span> size = que.size(); <span class="comment">// number of cells of a level</span></span><br><span class="line">            <span class="keyword">boolean</span> hasnext = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; size ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span>[] cur = que.poll();</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k  &lt; <span class="number">4</span>; k ++)&#123;</span><br><span class="line">                    <span class="keyword">int</span> x = cur[<span class="number">0</span>] + move[k][<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">int</span> y = cur[<span class="number">1</span>] + move[k][<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(x &lt; <span class="number">0</span> || x&gt;=m || y&lt;<span class="number">0</span> || y&gt;= n) <span class="keyword">continue</span>; <span class="comment">//out of grid</span></span><br><span class="line">                    <span class="keyword">if</span>(!vis[x][y])&#123;</span><br><span class="line">                        <span class="comment">//if not visited , add to queue</span></span><br><span class="line">                        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;x , y&#125;);</span><br><span class="line">                        vis[x][y] = <span class="keyword">true</span>;</span><br><span class="line">                        hasnext = <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(hasnext) max++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max == <span class="number">0</span>? -<span class="number">1</span> : max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-839-Similar-String-Groups" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-839-Similar-String-Groups/"
+    >leetcode 839.Similar String Groups</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-839-Similar-String-Groups/" class="article-date">
+  <time datetime="2020-05-08T05:59:39.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Two strings <code>X</code> and <code>Y</code> are similar if we can swap two letters (in different positions) of <code>X</code>, so that it equals <code>Y</code>. Also two strings <code>X</code> and <code>Y</code> are similar if they are equal.</p>
+<p>For example, <code>&quot;tars&quot;</code> and <code>&quot;rats&quot;</code> are similar (swapping at positions <code>0</code> and <code>2</code>), and <code>&quot;rats&quot;</code> and <code>&quot;arts&quot;</code> are similar, but <code>&quot;star&quot;</code> is not similar to <code>&quot;tars&quot;</code>, <code>&quot;rats&quot;</code>, or <code>&quot;arts&quot;</code>.</p>
+<p>Together, these form two connected groups by similarity: <code>{&quot;tars&quot;, &quot;rats&quot;, &quot;arts&quot;}</code> and <code>{&quot;star&quot;}</code>. Notice that <code>&quot;tars&quot;</code> and <code>&quot;arts&quot;</code> are in the same group even though they are not similar. Formally, each group is such that a word is in the group if and only if it is similar to at least one other word in the group.</p>
+<p>We are given a list <code>A</code> of strings. Every string in <code>A</code> is an anagram of every other string in <code>A</code>. How many groups are there?</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A &#x3D; [&quot;tars&quot;,&quot;rats&quot;,&quot;arts&quot;,&quot;star&quot;]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= A.length &lt;= 2000</code></li>
+<li><code>1 &lt;= A[i].length &lt;= 1000</code></li>
+<li><code>A.length * A[i].length &lt;= 20000</code></li>
+<li>All words in <code>A</code> consist of lowercase letters only.</li>
+<li>All words in <code>A</code> have the same length and are anagrams of each other.</li>
+<li>The judging time limit has been increased for this question.</li>
+</ul>
+<hr>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>判断两个字符串是否<em>similar</em>：<strong>Brute Force</strong></li>
+<li>对于两个<em>similar</em>的字符串我们就视它们是<strong>联通的</strong>，显然这又是一个求<strong>联通块数</strong>的问题。</li>
+<li>使用并查集来解决</li>
+</ul>
+<h2 id="代码-904ms"><a href="#代码-904ms" class="headerlink" title="代码 904ms"></a>代码 904ms</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numSimilarGroups</span><span class="params">(String[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[A.length];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; A.length ; i++)&#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">           Set&lt;String&gt; vis =<span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; A.length ; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(vis.contains(A[i])) <span class="keyword">continue</span>;</span><br><span class="line">                vis.add(A[i]);</span><br><span class="line">                <span class="keyword">boolean</span> fi = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j &lt; A.length &amp;&amp; !fi; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == j || parent[i] == j || parent[j] == i) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">char</span>[] a = A[i].toCharArray();</span><br><span class="line">                <span class="keyword">char</span>[] b = A[j].toCharArray();</span><br><span class="line">                <span class="keyword">char</span> diff1 = <span class="string">'0'</span> , diff2 = <span class="string">'0'</span>;</span><br><span class="line">                <span class="keyword">int</span> ct = <span class="number">0</span>; <span class="keyword">boolean</span> ok = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(A[i].equals(A[j])) ok = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; a.length; k++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (a[k] != b[k]) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (diff1 == <span class="string">'0'</span>) &#123;</span><br><span class="line">                                diff1 = a[k];</span><br><span class="line">                                diff2 = b[k];</span><br><span class="line">                                ct++;</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                <span class="keyword">if</span> (b[k] != diff1 || a[k] != diff2 || ct == <span class="number">2</span>) &#123;</span><br><span class="line">                                    ok = <span class="keyword">false</span>;</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                    ct++;</span><br><span class="line">                                    ok = <span class="keyword">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(ok)&#123;</span><br><span class="line">                    parent[find(parent , i)] = find(parent ,j);                       </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Set&lt;String&gt; ans = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; parent.length ; i++)&#123;</span><br><span class="line">            ans.add(A[find(parent , i)]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans.size();</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i; <span class="comment">//根结点</span></span><br><span class="line">        <span class="keyword">return</span> find(parent , parent[i]);<span class="comment">//不是根结点，返回父节点的根结点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-FInd/" rel="tag">Union FInd</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-399-Evaluate-Division" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
