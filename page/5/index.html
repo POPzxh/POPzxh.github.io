@@ -80,6 +80,119 @@
     
     
     
+    <article id="post-Alg1-KMP算法" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/"
+    >Alg1 KMP算法</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2020-05-08T06:07:25.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p><strong>KMP</strong>算法，常用于在一个字符串<code>S</code>中找到模式串<code>P</code>出现的位置。</p>
+<h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h2><p><img src="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/kmp1.jpg" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">boolean patternMatch(String s , String p)&#123;</span><br><span class="line">	for(int i  &#x3D; 0 ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">		if(s.charAt(i) &#x3D;&#x3D; p.charAt(0))&#123;</span><br><span class="line">			boolean isEqual &#x3D; true;</span><br><span class="line">			for(int j &#x3D; 0 ; j&lt; p.length() &amp;&amp; isEqual; j++)&#123;</span><br><span class="line">				if(s.charAt(i+j) !&#x3D; p.charAt(j))&#123;isEqual &#x3D; false ; break;&#125;</span><br><span class="line">			&#125;</span><br><span class="line">            if(isEqual) return true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过每一位的比较，显然效率是很低的，时间复杂度为$O(S * P)$</p>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p> 在Brute Force中，如果在<code>S[i]</code>那一趟中<strong>遍历失败</strong>了，下一趟我们就要从<code>s[i+1]</code>处开始。每一位都需要去比较，造成了<strong>比较趟数过高</strong>。所以，我们需要改进算法，使得我们比较的趟数减少。也就是跳过一些<strong>不可能成功的字符号比较</strong>。</p>
+<h2 id="跳过不可能成功的字符串比较"><a href="#跳过不可能成功的字符串比较" class="headerlink" title="跳过不可能成功的字符串比较"></a>跳过不可能成功的字符串比较</h2><p> 那么，我们如何确定哪些字符串比较是不可能成功的呢？</p>
+<p> 当我们一次匹配失败，例如：在<code>s[i + r]</code>处和<code>p[r]</code>失败。（<code>s[i]</code>为匹配开始位置）那么，我们就可以知道，从<code>s[i]</code>～<code>s[i+r-1]</code>这r个字符肯定与模式串<code>p</code>中的前r个字符相等：</p>
+<p><img src="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/kmp2.jpg" alt="img"></p>
+<p>那么如何利用这一信息确定哪些位置一定不可以成功？再看一个例子：</p>
+<p><img src="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/kmp3.jpg" alt="img"></p>
+<p>　首先，利用上一节的结论。既然是在 P[5] 失配的，那么说明 S[0:5] 等于 P[0:5]，即”abcab”. 现在我们来考虑：从 S[1]、S[2]、S[3] 开始的匹配尝试，有没有可能成功？<br>　　从 S[1] 开始肯定没办法成功，因为 S[1] = P[1] = ‘b’，和 P[0] 并不相等。从 S[2] 开始也是没戏的，因为 S[2] = P[2] = ‘c’，并不等于P[0]. 但是从 S[3] 开始是有可能成功的——至少按照已知的信息，我们推不出矛盾。</p>
+<p><img src="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/kmp4.jpg" alt="img"></p>
+<p>　　带着“跳过不可能成功的尝试”的思想，我们来看next数组。</p>
+<h2 id="next数组"><a href="#next数组" class="headerlink" title="next数组"></a>next数组</h2><p><strong>next数组</strong>可以说是<strong>KMP算法的核心了</strong>。</p>
+<p> next数组是对于<strong>模式串P</strong>而言：next[i]表示<code>p[0]</code>~<code>p[i]</code>这一子串中<strong>前缀</strong>和<strong>后缀</strong>的最长相等长度：</p>
+<p><img src="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/kmp5.jpg" alt="img"></p>
+<p><code>P=&quot;abcabd&quot;</code>时，<code>next[4]=2</code>，这是因为P[0] ~ P[4] 这个子串是<code>&quot;abcab&quot;</code>，前两个字符与后两个字符相等，因此next[4]取2. 而next[5]=0，是因为<code>&quot;abcabd&quot;</code>找不到前缀与后缀相同，因此只能取0.</p>
+<p>　　如果把模式串视为一把标尺，在主串上移动，那么 Brute-Force 就是每次失配之后只右移一位；改进算法则是<strong>每次失配之后，移很多位</strong>，跳过那些不可能匹配成功的位置。但是该如何确定要移多少位呢？</p>
+<p><img src="/2020/05/08/Alg1-KMP%E7%AE%97%E6%B3%95/kmp6.jpg" alt="img"></p>
+<p> 在 S[0] 尝试匹配，失配于 S[3] &lt;=&gt; P[3] 之后，我们直接把模式串往右移了两位，让 S[3] 对准 P[1]. 接着继续匹配，失配于 S[8] &lt;=&gt; P[6], 接下来我们把 P 往右平移了三位，把 S[8] 对准 P[3]. 此后继续匹配直到成功。<br>　　我们应该如何移动这把标尺？<strong>很明显，如图中蓝色箭头所示，旧的后缀要与新的前缀一致</strong>（如果不一致，那就肯定没法匹配上了）！</p>
+<p>　　回忆next数组的性质：P[0] 到 P[i] 这一段子串中，前next[i]个字符与后next[i]个字符一模一样。既然如此，如果失配在 P[r], 那么P[0]~P[r-1]这一段里面，<strong>前next[r-1]个字符恰好和后next[r-1]个字符相等</strong>——也就是说，我们可以拿长度为 next[r-1] 的那一段前缀，来顶替当前后缀的位置，让匹配继续下去！<br>　　您可以验证一下上面的匹配例子：P[3]失配后，把P[next[3-1]]也就是P[1]对准了主串刚刚失配的那一位；P[6]失配后，把P[next[6-1]]也就是P[3]对准了主串刚刚失配的那一位。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-6ddb50d021e9fa660b5add8ea225383a_hd.jpg" alt="img">))<img src="https://pic1.zhimg.com/80/v2-6ddb50d021e9fa660b5add8ea225383a_720w.jpg" alt="img"></p>
+<p>　　如上图所示，绿色部分是成功匹配，失配于红色部分。深绿色手绘线条标出了相等的前缀和后缀，<strong>其长度为next[右端]</strong>. 由于手绘线条部分的字符是一样的，所以直接把前面那条移到后面那条的位置。因此说，<strong>next数组为我们如何移动标尺提供了依据</strong>。接下来，我们实现这个优化的算法。</p>
+<h2 id="实现next数组"><a href="#实现next数组" class="headerlink" title="实现next数组"></a>实现next数组</h2><p> 如上面所说，<code>next[i]</code>就是以<code>p[i]结尾</code>的最长的公共前/后缀长度。这里引用一个leetcode题目：<a href="leetcode-1392-Longest-Happy-Prefix.md">1392. Longest Happy Prefix</a>。</p>
+<p> 分情况讨论，首先有个大前提，计算<code>next[i]</code>时，我们已经获得了<code>next[1]</code>~<code>next[n-1]</code>。设<code>now = next[n-1]</code></p>
+<ul>
+<li><p>如果 P[x] 与 P[now] 一样：</p>
+<p>那最长相等前后缀的长度就可以扩展一位，很明显 next[x] = now + 1. 图示如下。</p>
+</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/50/v2-6d6a40331cd9e44bfccd27ac5a764618_hd.jpg" alt="img">))<img src="https://pic4.zhimg.com/80/v2-6d6a40331cd9e44bfccd27ac5a764618_720w.jpg" alt="img"></p>
+<ul>
+<li>那如果 P[x] 与 P[now] 不一样，又该怎么办？</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/50/v2-ce1d46a1e3603b07a13789b6ece6022f_hd.jpg" alt="img">))<img src="https://pic2.zhimg.com/80/v2-ce1d46a1e3603b07a13789b6ece6022f_720w.jpg" alt="img"></p>
+<p>　　如图。长度为 now 的子串 A 和子串 B 是 P[0]<del>P[x-1] 中最长的公共前后缀。可惜 A 右边的字符和 B 右边的那个字符不相等，next[x]不能改成 now+1 了。因此，我们应该<strong>缩短这个now</strong>，把它改成小一点的值，再来试试 P[x] 是否等于 P[now].<br>　　now该缩小到多少呢？显然，我们不想让now缩小太多。因此我们决定，在保持“P[0]</del>P[x-1]的now-前缀仍然等于now-后缀”的前提下，让这个新的now尽可能大一点。 P[0]~P[x-1] 的公共前后缀，前缀一定落在串A里面、后缀一定落在串B里面。换句话讲：接下来now应该改成：使得 <strong>A的k-前缀</strong>等于<strong>B的k-后缀</strong> 的最大的k.<br>　　您应该已经注意到了一个非常强的性质——<strong>串A和串B是相同的</strong>！B的后缀等于A的后缀！因此，使得A的k-前缀等于B的k-后缀的最大的k，其实就是串A的最长公共前后缀的长度 —— next[now-1]！</p>
+<p><img src="https://pic1.zhimg.com/50/v2-c5ff4faaab9c3e13690deb86d8d17d71_hd.jpg" alt="img">))<img src="https://pic1.zhimg.com/80/v2-c5ff4faaab9c3e13690deb86d8d17d71_720w.jpg" alt="img"></p>
+<p>　　来看上面的例子。当P[now]与P[x]不相等的时候，我们需要缩小now——把now变成next[now-1]，直到P[now]=P[x]为止。P[now]=P[x]时，就可以直接向右扩展了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int[] next &#x3D; new int[s.length()];</span><br><span class="line">        int now &#x3D; 0;</span><br><span class="line">        for(int i &#x3D; 1 ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">            while(now !&#x3D; 0 &amp;&amp; s.charAt(now) !&#x3D; s.charAt(i))   &#x2F;&#x2F;如果</span><br><span class="line">                now &#x3D; next[now - 1];</span><br><span class="line">            if(s.charAt(now) &#x3D;&#x3D; s.charAt(i)) next[i] &#x3D; ++now;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用next数组进行匹配"><a href="#利用next数组进行匹配" class="headerlink" title="利用next数组进行匹配"></a>利用next数组进行匹配</h2><p> 其实，这个过程就和<strong>求next数组</strong>很像了，因为求next数组的过程就可以看成字符串<code>p</code>的<strong>自匹配过程</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; ans &#x3D; new ArrayList&lt;&gt;();&#x2F;&#x2F;</span><br><span class="line">int j &#x3D; 0; &#x2F;&#x2F; 当前字符串p中匹配的位置</span><br><span class="line">for(int i &#x3D; 0 ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">	while(j &gt; 0 &amp;&amp; s.charAt(i) !&#x3D; p.charAt(j))&#123;</span><br><span class="line">		j &#x3D; next[j-1];</span><br><span class="line">	&#125;</span><br><span class="line">	if(s.charAt(i) &#x3D;&#x3D; p.charAt(j)) &#123;	&#x2F;&#x2F;s[i] &#x3D;&#x3D; p[j] , j++</span><br><span class="line">		if(++j &#x3D;&#x3D; p.length())&#123;				   &#x2F;&#x2F;找到子串，加入起始位置</span><br><span class="line">			ans.add(i - p.length() + 1);</span><br><span class="line">			j &#x3D; next[j-1];								&#x2F;&#x2F;找下一组</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KMP/" rel="tag">KMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-952-Largest-Component-Size-by-Common-Factor" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 

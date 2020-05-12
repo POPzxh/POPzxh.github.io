@@ -80,6 +80,101 @@
     
     
     
+    <article id="post-leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/12/leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other/"
+    >leetcode 1434. Number of Ways to Wear Different Hats to Each Other</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/12/leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other/" class="article-date">
+  <time datetime="2020-05-12T06:55:21.000Z" itemprop="datePublished">2020-05-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>There are <code>n</code> people and 40 types of hats labeled from 1 to 40.</p>
+<p>Given a list of list of integers <code>hats</code>, where <code>hats[i]</code> is a list of all hats preferred by the <code>i-th</code> person.</p>
+<p>Return the number of ways that the n people wear different hats to each other.</p>
+<p>Since the answer may be too large, return it modulo <code>10^9 + 7</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[3,4],[4,5],[5]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: There is only one way to choose hats given the conditions. </span><br><span class="line">First person choose hat 3, Second person choose hat 4 and last one hat 5.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[3,5,1],[3,5]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: There are 4 ways to choose hats</span><br><span class="line">(3,5), (5,3), (1,3) and (1,5)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]</span><br><span class="line">Output: 24</span><br><span class="line">Explanation: Each person can choose hats labeled from 1 to 4.</span><br><span class="line">Number of Permutations of (1,2,3,4) &#x3D; 24.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[1,2,3],[2,3,5,6],[1,3,7,9],[1,8,9],[2,5,7]]</span><br><span class="line">Output: 111</span><br></pre></td></tr></table></figure>
+
+<h1 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h1><p>我们想到的第一个想法是，我们将像问题一样直截了当：<code>返回n个人戴着不同帽子的方式的数量</code>。我们将为n个人分配不同的帽子，并使用dp计算出路数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TLE</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        HashMap&lt;Long , Integer&gt; dp = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">return</span> dfs(hats , dp , (<span class="keyword">long</span>) <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats , HashMap&lt;Long , Integer&gt; dp , Long state , <span class="keyword">int</span> pos )</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pos == hats.size()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.containsKey(state)) <span class="keyword">return</span> dp.get(state);</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> hat : hats.get(pos))&#123;</span><br><span class="line">            <span class="keyword">if</span>((state &gt;&gt; hat &amp; <span class="number">1</span>) == <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            sum += dfs(hats , dp , state | <span class="number">1</span> &lt;&lt; hat , pos+<span class="number">1</span>);</span><br><span class="line">            sum %= (<span class="keyword">int</span>)<span class="number">1e9</span> +<span class="number">7</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dp.put(state , sum);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这个代码本身有点问题</span></span><br></pre></td></tr></table></figure>
+
+<p>这个方法==TLE==，原因很显然帽子的数量太多了，所以我们需要<code>给帽子分配人</code></p>
+<h1 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h1><p><code>dp[i][j]</code> := 前i顶帽子的分配情况，<code>j</code>是bit mask <code>dp[3][3]</code></p>
+<p>e.g. <code>dp[3][101]</code> == # of ways using first 3 hats that people 1 and 3 are wearing hats.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//20ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] map = <span class="keyword">new</span> List[<span class="number">41</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;=<span class="number">40</span> ; i++) map[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(List&lt;Integer&gt; list : hats)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> hat : list) map[hat].add(ct);</span><br><span class="line">            ct++;</span><br><span class="line">        &#125;</span><br><span class="line">        Integer[][] dp = <span class="keyword">new</span> Integer[<span class="number">41</span>][<span class="number">1</span>&lt;&lt;ct];</span><br><span class="line">        <span class="keyword">return</span> dfs(map , dp , <span class="number">1</span> , <span class="number">0</span> , ct);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(List&lt;Integer&gt;[] map , Integer[][] dp , <span class="keyword">int</span> cur , <span class="keyword">int</span> mask , <span class="keyword">int</span> rest)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">if</span>(rest == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(rest &gt; <span class="number">40</span> - cur + <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//剩余的帽子不够分配</span></span><br><span class="line">        <span class="keyword">if</span>(dp[cur][mask] != <span class="keyword">null</span>) <span class="keyword">return</span> dp[cur][mask];</span><br><span class="line">        <span class="keyword">int</span> sum = dfs(map , dp , cur + <span class="number">1</span> , mask , rest); <span class="comment">//不选择这顶帽子</span></span><br><span class="line">        sum %= mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : map[cur])&#123;</span><br><span class="line">            <span class="keyword">if</span>((mask &gt;&gt; i &amp; <span class="number">1</span>) == <span class="number">1</span>) <span class="keyword">continue</span>;	<span class="comment">//这个人已经有帽子了</span></span><br><span class="line">            sum += dfs(map , dp , cur + <span class="number">1</span> , mask | <span class="number">1</span>&lt;&lt;i , rest - <span class="number">1</span>);</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[cur][mask] = sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-1444-Number-of-Ways-of-Cutting-a-Pizza" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -575,11 +670,57 @@
 <p>cookie对象就是很简单的键值对。<em>name：value</em></p>
 <h2 id="expiry"><a href="#expiry" class="headerlink" title="expiry"></a>expiry</h2><p>也就是cookie也是拥有有效日期的。</p>
 <p>这个可以自由设置，默认是关闭浏览器，cookie就没用了。</p>
-<p>cookie.setMaxAge(expiry);　　//设置cookie被浏览器保存的时间。</p>
+<p><code>cookie.setMaxAge(expiry);</code>　　//设置cookie被浏览器保存的时间。</p>
 <p><strong>expiry</strong>：单位秒，默认为-1，</p>
 <p><strong>expiry=-1</strong>：代表浏览器关闭后，也就是会话结束后，cookie就失效了，也就没有了。</p>
 <p><strong>expiry&gt;0：</strong>代表浏览器关闭后，cookie不会失效，仍然存在。并且会将cookie保存到硬盘中，直到设置时间过期才会被浏览器自动删除，</p>
 <p><strong>expiry=0：</strong>删除cookie。不管是之前的expiry=-1还是expiry&gt;0，当设置expiry=0时，cookie都会被浏览器给删除。</p>
+<h2 id="cookie的特点"><a href="#cookie的特点" class="headerlink" title="cookie的特点"></a>cookie的特点</h2><ul>
+<li><p>每一个cookie文件大小：4kb ， 如果超过4kb浏览器不识别</p>
+</li>
+<li><p>一个web站点（web项目）：发送20个</p>
+</li>
+<li><p>一个浏览器保存总大小：300个</p>
+</li>
+<li><p>cookie 不安全，可能泄露用户信息。浏览器支持禁用cookie操作。</p>
+</li>
+<li><p>默认情况生命周期：与浏览器会话一样，当浏览器关闭时cookie销毁的。—临时cookie</p>
+</li>
+</ul>
+<h1 id="四、Session（重点）"><a href="#四、Session（重点）" class="headerlink" title="四、Session（重点）"></a>四、Session（重点）</h1><h2 id="session原理"><a href="#session原理" class="headerlink" title="session原理"></a>session原理</h2><p>当浏览器<strong>第一次</strong>访问一个web站点时，服务器首先会检查这个客户端请求是否已经包含了一个session标识、称为SESSIONID，如果已经包含了一个sessionid则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用，如果客户端请求不包含session id，则服务器为此客户端创建一个session并且生成一个与此session相关联的session id：</p>
+<p><img src="/2020/05/10/servlet7-cookie%E5%92%8Csession/session1.png" alt></p>
+<p> 这是响应头中的相应信息，可见，服务器把sessionID封装到cookie中发送给了浏览器。这样下次发送请求时，浏览器只需要把sessionID放到cookie中。</p>
+<h2 id="获取session"><a href="#获取session" class="headerlink" title="获取session"></a>获取session</h2><p><code>req.getSession();　　//如果没有将创建一个新的，等效getSession(true);</code></p>
+<p><code>request.getSession(boolean);　　//true：没有将创建，false：没有将返回null</code></p>
+<h2 id="session属性操作"><a href="#session属性操作" class="headerlink" title="session属性操作"></a>session属性操作</h2><p>用来存放一些信息，然后才能共享信息　</p>
+<p><code>setAttrubute(key,value);</code></p>
+<ul>
+<li>也是键值对，但是value可以是对象，而cookie中只能是字符串</li>
+</ul>
+<p><code>getAttribute(key);</code>获取value`</p>
+<h2 id="session生命周期"><a href="#session生命周期" class="headerlink" title="session生命周期"></a>session生命周期</h2><p>​        常常听到这样一种误解“只要关闭浏览器，session就消失了”。但其实是不准确的。准确来说，<strong>关闭浏览器只会使存储在客户端浏览器内存中的session cookie失效，不会使服务器端的session对象失效。</strong></p>
+<p>​        但是，服务器不可能一直保留session，这样十分占资源。所以，session在下列情况下被删除：</p>
+<ul>
+<li><p>程序调用<code>HttpSession.invalidate()</code>，手动删除</p>
+</li>
+<li><p><code>setMaxInactiveInterval(int interval)</code> 设置有效时间，单位秒</p>
+</li>
+<li><p>距离上一次收到客户端发送的session id时间间隔超过了session的最大有效时间。一般是30分钟，我们也可以在<code>web.xml</code>中设置:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>60 <span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span> <span class="comment">&lt;!--单位是分钟--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务器进程被停止</p>
+</li>
+</ul>
+<p>所以，一个session的生命周期就是：</p>
+<p><strong>创建：</strong>第一次调用<code>getSession()</code></p>
+<p><strong>销毁：</strong></p>
+<p>1、超时，默认30分钟</p>
+<p>2、执行<code>session.invalidate()</code>将session对象销毁、</p>
+<p>​    <code>setMaxInactiveInterval(int interval)</code>设置有效时间，单位秒</p>
+<p>3、服务器非正常关闭</p>
+<ul>
+<li>如果正常关闭，session就会被持久化(写入到文件中，因为session默认的超时时间为30分钟，正常关闭后，就会将session持久化，等30分钟后，就会被删除)</li>
+</ul>
 
       
       <!-- reward -->
@@ -1037,95 +1178,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K/"
-    >leetcode 1414. Find the Minimum Number of Fibonacci Numbers Whose Sum Is K</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K/" class="article-date">
-  <time datetime="2020-05-08T07:34:58.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/bi24/">bi24</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Given the number <code>k</code>, <em>return the minimum number of Fibonacci numbers whose sum is equal to</em> <code>k</code>, whether a Fibonacci number could be used multiple times.</p>
-<p>The Fibonacci numbers are defined as:</p>
-<ul>
-<li>F1 = 1</li>
-<li>F2 = 1</li>
-<li>Fn = Fn-1 + Fn-2 , for n &gt; 2.</li>
-</ul>
-<p>It is guaranteed that for the given constraints we can always find such fibonacci numbers that sum <code>k</code>.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: k &#x3D; 7</span><br><span class="line">Output: 2 </span><br><span class="line">Explanation: The Fibonacci numbers are: 1, 1, 2, 3, 5, 8, 13, ... </span><br><span class="line">For k &#x3D; 7 we can use 2 + 5 &#x3D; 7.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: k &#x3D; 10</span><br><span class="line">Output: 2 </span><br><span class="line">Explanation: For k &#x3D; 10 we can use 2 + 8 &#x3D; 10.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: k &#x3D; 19</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: For k &#x3D; 19 we can use 1 + 5 + 13 &#x3D; 19.</span><br></pre></td></tr></table></figure>
-
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每次选取最大的小于k的Fib数，<code>k -= max(fib)</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMinFibonacciNumbers</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (k &lt; <span class="number">2</span>) <span class="keyword">return</span> k;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (b &lt;= k) &#123;</span><br><span class="line">            b += a;</span><br><span class="line">            a = b - a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + findMinFibonacciNumbers(k - a);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
 
 
     </footer>

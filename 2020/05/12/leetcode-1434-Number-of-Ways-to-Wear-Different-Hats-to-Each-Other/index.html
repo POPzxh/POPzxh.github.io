@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    servlet7 cookie |  笑寒妙妙屋
+    leetcode 1434. Number of Ways to Wear Different Hats to Each Other |  笑寒妙妙屋
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -41,7 +41,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-servlet7-cookie和session" class="article article-type-post" itemscope
+  <article id="post-leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -49,7 +49,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  servlet7 cookie
+  leetcode 1434. Number of Ways to Wear Different Hats to Each Other
 </h1>
  
 
@@ -58,12 +58,12 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/10/servlet7-cookie%E5%92%8Csession/" class="article-date">
-  <time datetime="2020-05-10T05:35:51.000Z" itemprop="datePublished">2020-05-10</time>
+      <a href="/2020/05/12/leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other/" class="article-date">
+  <time datetime="2020-05-12T06:55:21.000Z" itemprop="datePublished">2020-05-12</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/servlet/">servlet</a>
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
   </div>
 
       
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.8k</span>
+            <span class="post-count">655</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">6 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -107,95 +107,30 @@
       
 
       
-      <h1 id="一、会话机制"><a href="#一、会话机制" class="headerlink" title="一、会话机制"></a>一、会话机制</h1><p><strong>会话</strong>：用户通过浏览器，访问一个web给服务器发送请求（会话开始），期间点击了许多超链接，直到关闭浏览器（会话结束）的过程。</p>
-<p>​        这个过程中，浏览器可以视为电话，当用户第一次访问web向服务器发送请求时，就视为一次会话的开始，期间无论作多少次点击，都是在同一个会话内（相当于两个人在电话两端不停通话），当关闭浏览器，会话结束。</p>
-<p>​        但，由于<code>HTTP</code>协议本身是无状态的，所以是无法保存用户的身份的，每一次会话的都是崭新的，对于一个购物网站来说无法记住用户，也就是每次登录都必须要再次输入用户名、密码。所以我们希望实现<strong>有状态会话</strong>。</p>
-<h1 id="二、实现有状态会话"><a href="#二、实现有状态会话" class="headerlink" title="二、实现有状态会话"></a>二、实现有状态会话</h1><p>正如标题，有两种手段实现<strong>有状态会话</strong>：</p>
-<ul>
-<li><p><strong>cookie</strong>：服务器给客户端一个信件，下次访问时带上这个信件表明自己的身份。（保存在<strong>客户端</strong>）</p>
-</li>
-<li><p><strong>session</strong>：服务器端登记你来过了，下次来的时候我来匹配你。</p>
-</li>
-</ul>
-<h2 id="Cookie和Session之间的区别和联系"><a href="#Cookie和Session之间的区别和联系" class="headerlink" title="Cookie和Session之间的区别和联系"></a>Cookie和Session之间的区别和联系</h2><p>​        假如一个咖啡店有喝5杯咖啡免费赠一杯咖啡的优惠，然而一次性消费5杯咖啡的机会微乎其微，这时就需要某种方式来纪录某位顾客的消费数量。想象一下其实也无外乎下面的几种方案：</p>
-<p>　    1、该店的店员很厉害，能记住每位顾客的消费数量，只要顾客一走进咖啡店，店员就知道该怎么对待了。这种做法就是协议本身支持状态。但是http协议本身是无状态的</p>
-<p>​        2、发给顾客一张卡片，上面记录着消费的数量，一般还有个有效期限。每次消费时，如果顾客出示这张卡片，则此次消费就会与以前或以后的消费相联系起来。这种做法就是在客户端保持状态。也就是cookie。 顾客就相当于浏览器，cookie如何工作，下面会详细讲解</p>
-<p>​        3、发给顾客一张会员卡，除了卡号之外什么信息也不纪录，每次消费时，如果顾客出示该卡片，则店员在店里的纪录本上找到这个卡号对应的纪录添加一些消费信息。这种做法就是在服务器端保持状态。</p>
-<p>简而言之，</p>
-<ul>
-<li>cookie机制采用的是在客户端保持状态的方案</li>
-<li>session机制采用的是在服务器端保持状态的方案</li>
-</ul>
-<h1 id="三、cookie"><a href="#三、cookie" class="headerlink" title="三、cookie"></a>三、cookie</h1><p>首先实现一个简单的cookie，记录用户的访问时间：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zxh.cs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">cookieDemo1</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">        resp.setContentType(<span class="string">"text/html; charset=utf-8"</span>);</span><br><span class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">        <span class="keyword">boolean</span> hasCookie = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(Cookie cookie : req.getCookies())&#123;</span><br><span class="line">            <span class="keyword">if</span>(cookie.getName().equals(<span class="string">"time"</span>))&#123;</span><br><span class="line">                hasCookie = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">long</span> t = Long.parseLong(cookie.getValue());</span><br><span class="line">                resp.getWriter().write(<span class="string">"你上次访问的时间是："</span> + sdf.format(<span class="keyword">new</span> Date(t)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!hasCookie) resp.getWriter().write(<span class="string">"这是你第一次访问"</span>);</span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"time"</span> , String.valueOf(System.currentTimeMillis()));</span><br><span class="line">        resp.addCookie(cookie);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <p>There are <code>n</code> people and 40 types of hats labeled from 1 to 40.</p>
+<p>Given a list of list of integers <code>hats</code>, where <code>hats[i]</code> is a list of all hats preferred by the <code>i-th</code> person.</p>
+<p>Return the number of ways that the n people wear different hats to each other.</p>
+<p>Since the answer may be too large, return it modulo <code>10^9 + 7</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[3,4],[4,5],[5]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: There is only one way to choose hats given the conditions. </span><br><span class="line">First person choose hat 3, Second person choose hat 4 and last one hat 5.</span><br></pre></td></tr></table></figure>
 
-<p>上面代码实现了：</p>
-<ul>
-<li><p>获取cookie<code>req.getCookies()</code></p>
-</li>
-<li><p>创建cookie<code>Cookie cookie = new Cookie(&quot;time&quot; , String.valueOf(System.currentTimeMillis()));</code></p>
-</li>
-<li><p>将cookie发送给浏览器<code>resp.addCookie(cookie);</code></p>
-</li>
-</ul>
-<p>很明显，客户端请求时，会将cookie包含在Http请求中提供给服务器</p>
-<blockquote>
-<p>Cookie:time=1589098910780</p>
-</blockquote>
-<p>cookie对象就是很简单的键值对。<em>name：value</em></p>
-<h2 id="expiry"><a href="#expiry" class="headerlink" title="expiry"></a>expiry</h2><p>也就是cookie也是拥有有效日期的。</p>
-<p>这个可以自由设置，默认是关闭浏览器，cookie就没用了。</p>
-<p><code>cookie.setMaxAge(expiry);</code>　　//设置cookie被浏览器保存的时间。</p>
-<p><strong>expiry</strong>：单位秒，默认为-1，</p>
-<p><strong>expiry=-1</strong>：代表浏览器关闭后，也就是会话结束后，cookie就失效了，也就没有了。</p>
-<p><strong>expiry&gt;0：</strong>代表浏览器关闭后，cookie不会失效，仍然存在。并且会将cookie保存到硬盘中，直到设置时间过期才会被浏览器自动删除，</p>
-<p><strong>expiry=0：</strong>删除cookie。不管是之前的expiry=-1还是expiry&gt;0，当设置expiry=0时，cookie都会被浏览器给删除。</p>
-<h2 id="cookie的特点"><a href="#cookie的特点" class="headerlink" title="cookie的特点"></a>cookie的特点</h2><ul>
-<li><p>每一个cookie文件大小：4kb ， 如果超过4kb浏览器不识别</p>
-</li>
-<li><p>一个web站点（web项目）：发送20个</p>
-</li>
-<li><p>一个浏览器保存总大小：300个</p>
-</li>
-<li><p>cookie 不安全，可能泄露用户信息。浏览器支持禁用cookie操作。</p>
-</li>
-<li><p>默认情况生命周期：与浏览器会话一样，当浏览器关闭时cookie销毁的。—临时cookie</p>
-</li>
-</ul>
-<h1 id="四、Session（重点）"><a href="#四、Session（重点）" class="headerlink" title="四、Session（重点）"></a>四、Session（重点）</h1><h2 id="session原理"><a href="#session原理" class="headerlink" title="session原理"></a>session原理</h2><p>当浏览器<strong>第一次</strong>访问一个web站点时，服务器首先会检查这个客户端请求是否已经包含了一个session标识、称为SESSIONID，如果已经包含了一个sessionid则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用，如果客户端请求不包含session id，则服务器为此客户端创建一个session并且生成一个与此session相关联的session id：</p>
-<p><img src="/2020/05/10/servlet7-cookie%E5%92%8Csession/session1.png" alt></p>
-<p> 这是响应头中的相应信息，可见，服务器把sessionID封装到cookie中发送给了浏览器。这样下次发送请求时，浏览器只需要把sessionID放到cookie中。</p>
-<h2 id="获取session"><a href="#获取session" class="headerlink" title="获取session"></a>获取session</h2><p><code>req.getSession();　　//如果没有将创建一个新的，等效getSession(true);</code></p>
-<p><code>request.getSession(boolean);　　//true：没有将创建，false：没有将返回null</code></p>
-<h2 id="session属性操作"><a href="#session属性操作" class="headerlink" title="session属性操作"></a>session属性操作</h2><p>用来存放一些信息，然后才能共享信息　</p>
-<p><code>setAttrubute(key,value);</code></p>
-<ul>
-<li>也是键值对，但是value可以是对象，而cookie中只能是字符串</li>
-</ul>
-<p><code>getAttribute(key);</code>获取value`</p>
-<h2 id="session生命周期"><a href="#session生命周期" class="headerlink" title="session生命周期"></a>session生命周期</h2><p>​        常常听到这样一种误解“只要关闭浏览器，session就消失了”。但其实是不准确的。准确来说，<strong>关闭浏览器只会使存储在客户端浏览器内存中的session cookie失效，不会使服务器端的session对象失效。</strong></p>
-<p>​        但是，服务器不可能一直保留session，这样十分占资源。所以，session在下列情况下被删除：</p>
-<ul>
-<li><p>程序调用<code>HttpSession.invalidate()</code>，手动删除</p>
-</li>
-<li><p><code>setMaxInactiveInterval(int interval)</code> 设置有效时间，单位秒</p>
-</li>
-<li><p>距离上一次收到客户端发送的session id时间间隔超过了session的最大有效时间。一般是30分钟，我们也可以在<code>web.xml</code>中设置:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>60 <span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span> <span class="comment">&lt;!--单位是分钟--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>服务器进程被停止</p>
-</li>
-</ul>
-<p>所以，一个session的生命周期就是：</p>
-<p><strong>创建：</strong>第一次调用<code>getSession()</code></p>
-<p><strong>销毁：</strong></p>
-<p>1、超时，默认30分钟</p>
-<p>2、执行<code>session.invalidate()</code>将session对象销毁、</p>
-<p>​    <code>setMaxInactiveInterval(int interval)</code>设置有效时间，单位秒</p>
-<p>3、服务器非正常关闭</p>
-<ul>
-<li>如果正常关闭，session就会被持久化(写入到文件中，因为session默认的超时时间为30分钟，正常关闭后，就会将session持久化，等30分钟后，就会被删除)</li>
-</ul>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[3,5,1],[3,5]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: There are 4 ways to choose hats</span><br><span class="line">(3,5), (5,3), (1,3) and (1,5)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]</span><br><span class="line">Output: 24</span><br><span class="line">Explanation: Each person can choose hats labeled from 1 to 4.</span><br><span class="line">Number of Permutations of (1,2,3,4) &#x3D; 24.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[1,2,3],[2,3,5,6],[1,3,7,9],[1,8,9],[2,5,7]]</span><br><span class="line">Output: 111</span><br></pre></td></tr></table></figure>
+
+<h1 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h1><p>我们想到的第一个想法是，我们将像问题一样直截了当：<code>返回n个人戴着不同帽子的方式的数量</code>。我们将为n个人分配不同的帽子，并使用dp计算出路数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TLE</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        HashMap&lt;Long , Integer&gt; dp = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">return</span> dfs(hats , dp , (<span class="keyword">long</span>) <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats , HashMap&lt;Long , Integer&gt; dp , Long state , <span class="keyword">int</span> pos )</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pos == hats.size()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.containsKey(state)) <span class="keyword">return</span> dp.get(state);</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> hat : hats.get(pos))&#123;</span><br><span class="line">            <span class="keyword">if</span>((state &gt;&gt; hat &amp; <span class="number">1</span>) == <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            sum += dfs(hats , dp , state | <span class="number">1</span> &lt;&lt; hat , pos+<span class="number">1</span>);</span><br><span class="line">            sum %= (<span class="keyword">int</span>)<span class="number">1e9</span> +<span class="number">7</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dp.put(state , sum);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这个代码本身有点问题</span></span><br></pre></td></tr></table></figure>
+
+<p>这个方法==TLE==，原因很显然帽子的数量太多了，所以我们需要<code>给帽子分配人</code></p>
+<h1 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h1><p><code>dp[i][j]</code> := 前i顶帽子的分配情况，<code>j</code>是bit mask <code>dp[3][3]</code></p>
+<p>e.g. <code>dp[3][101]</code> == # of ways using first 3 hats that people 1 and 3 are wearing hats.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//20ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] map = <span class="keyword">new</span> List[<span class="number">41</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;=<span class="number">40</span> ; i++) map[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(List&lt;Integer&gt; list : hats)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> hat : list) map[hat].add(ct);</span><br><span class="line">            ct++;</span><br><span class="line">        &#125;</span><br><span class="line">        Integer[][] dp = <span class="keyword">new</span> Integer[<span class="number">41</span>][<span class="number">1</span>&lt;&lt;ct];</span><br><span class="line">        <span class="keyword">return</span> dfs(map , dp , <span class="number">1</span> , <span class="number">0</span> , ct);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(List&lt;Integer&gt;[] map , Integer[][] dp , <span class="keyword">int</span> cur , <span class="keyword">int</span> mask , <span class="keyword">int</span> rest)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">if</span>(rest == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(rest &gt; <span class="number">40</span> - cur + <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//剩余的帽子不够分配</span></span><br><span class="line">        <span class="keyword">if</span>(dp[cur][mask] != <span class="keyword">null</span>) <span class="keyword">return</span> dp[cur][mask];</span><br><span class="line">        <span class="keyword">int</span> sum = dfs(map , dp , cur + <span class="number">1</span> , mask , rest); <span class="comment">//不选择这顶帽子</span></span><br><span class="line">        sum %= mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : map[cur])&#123;</span><br><span class="line">            <span class="keyword">if</span>((mask &gt;&gt; i &amp; <span class="number">1</span>) == <span class="number">1</span>) <span class="keyword">continue</span>;	<span class="comment">//这个人已经有帽子了</span></span><br><span class="line">            sum += dfs(map , dp , cur + <span class="number">1</span> , mask | <span class="number">1</span>&lt;&lt;i , rest - <span class="number">1</span>);</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[cur][mask] = sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
       <!-- reward -->
@@ -264,14 +199,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://popzxh.github.io/2020/05/10/servlet7-cookie%E5%92%8Csession/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://popzxh.github.io/2020/05/12/leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Session/" rel="tag">Session</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
 
 
     </footer>
@@ -282,19 +217,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/05/11/leetcode%201441-Build-an-Array-With-Stack-Operations/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            1441. Build an Array With Stack Operations
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/05/10/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit/" class="article-nav-link">
+      <a href="/2020/05/11/leetcode-1444-Number-of-Ways-of-Cutting-a-Pizza/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit</div>
+        <div class="article-nav-title">leetcode 1444. Number of Ways of Cutting a Pizza</div>
       </a>
     
   </nav>
