@@ -80,6 +80,101 @@
     
     
     
+    <article id="post-leetcode-1411-Number-of-Ways-to-Paint-N-×-3-Grid" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1411-Number-of-Ways-to-Paint-N-%C3%97-3-Grid/"
+    >leetcode 1411. Number of Ways to Paint N × 3 Grid</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1411-Number-of-Ways-to-Paint-N-%C3%97-3-Grid/" class="article-date">
+  <time datetime="2020-05-08T07:19:00.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>You have a <code>grid</code> of size <code>n x 3</code> and you want to paint each cell of the grid with exactly one of the three colours: <strong>Red</strong>, <strong>Yellow</strong> or <strong>Green</strong> while making sure that no two adjacent cells have the same colour (i.e no two cells that share vertical or horizontal sides have the same colour).</p>
+<p>You are given <code>n</code> the number of rows of the grid.</p>
+<p>Return <em>the number of ways</em> you can paint this <code>grid</code>. As the answer may grow large, the answer <strong>must be</strong> computed modulo <code>10^9 + 7</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 1</span><br><span class="line">Output: 12</span><br><span class="line">Explanation: There are 12 possible way to paint the grid as shown:</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 2</span><br><span class="line">Output: 54</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3</span><br><span class="line">Output: 246</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 7</span><br><span class="line">Output: 106494</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 5000</span><br><span class="line">Output: 30228214</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>n == grid.length</code></li>
+<li><code>grid[i].length == 3</code></li>
+<li><code>1 &lt;= n &lt;= 5000</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numOfWays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> +<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">long</span> _aba = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">long</span> _abc = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">            <span class="keyword">long</span> _121 = _aba , _123 = _abc;</span><br><span class="line">            _aba = (_121 * <span class="number">3</span> + _123 * <span class="number">2</span>) % mod;</span><br><span class="line">            _abc = (_121 * <span class="number">2</span> + _123 * <span class="number">2</span>) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ((<span class="keyword">int</span>)_abc + (<span class="keyword">int</span>)_aba)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-1409-Queries-on-a-Permutation-With-Key" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -1033,146 +1128,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-Servlet2-Servlet概念和运行流程" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/Servlet2-Servlet%E6%A6%82%E5%BF%B5%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/"
-    >Servlet2 Servlet概念和运行流程</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/Servlet2-Servlet%E6%A6%82%E5%BF%B5%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="article-date">
-  <time datetime="2020-05-08T06:43:45.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/servlet/">servlet</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="1-什么是Servlet？"><a href="#1-什么是Servlet？" class="headerlink" title="1. 什么是Servlet？"></a>1. 什么是Servlet？</h2><ol>
-<li><strong>Servlet广义上是接口规范，能够使服务器程序识别的接口规范。</strong></li>
-</ol>
-<p>　　Servlet是有SUN公司提供的动态Web资源开发技术</p>
-<p>　　本质上是一个Java程序(<strong>实现java接口的实现类</strong>)</p>
-<p>　　Servlet程序必须放在Servlet容器（tomcat）中，有容器调用才可以执行</p>
-<p>　　作用：用于在服务端接收客户端的请求，并处理，最后再做出回应</p>
-<ol>
-<li><strong>Servlet集成关系</strong></li>
-</ol>
-<p>　<code>Servlet</code>接口 —定义了一个Servlet类应该具有哪些功能</p>
-<p>　　　　 |</p>
-<p>　　　 |—<code>GenericServlet</code>抽象类，实现了Servlet接口，并且实现了接口中的大部分方法，但是 <code>Service()</code>方法没有实现，需要开发人员自己来实现</p>
-<p>　　　　 |</p>
-<p>　　　　 |—<code>HttpServlet</code>抽象类，继承了<code>GenericServlet</code>，并实现了s<code>ervice()</code>方法，在service方法中判断请求方式，根据不同的请求方式来调用不同的<code>doxxx</code>方法</p>
-<h2 id="2-HTTP"><a href="#2-HTTP" class="headerlink" title="2. HTTP"></a>2. HTTP</h2><p> 我们知道了Servlet可以通过服务器获取来自客户端的请求，然后再根据具体业务响应回客户端。那么，问题来了我们就需要知道客户端和服务端之间<strong>数据交互</strong>的格式–<strong>HTTP（Hyper Text Transfer Protocol）</strong></p>
-<p> Servlet主要接触的是HTTP的报文段，我们着重看其构成。</p>
-<h3 id="2-1-HTTP报文格式"><a href="#2-1-HTTP报文格式" class="headerlink" title="2.1 HTTP报文格式"></a>2.1 HTTP报文格式</h3><p><img src="/2020/05/08/Servlet2-Servlet%E6%A6%82%E5%BF%B5%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/servlet3.png" alt="HTTP Request 请求报文格式"></p>
-<ul>
-<li>请求行：请求方式 地址 版本</li>
-<li>请求头：键值对表示客户端要使用的附加消息</li>
-<li>空行：和请求主题分开</li>
-</ul>
-<h3 id="2-2-HTTP协议请求方式"><a href="#2-2-HTTP协议请求方式" class="headerlink" title="2.2 HTTP协议请求方式"></a>2.2 HTTP协议请求方式</h3><p><strong>HTTP 1.0</strong>:</p>
-<p><code>GET</code> 请求指定页面信息，并返回主体 (请求主体拼接在url中，请求主题本身没有数据。)</p>
-<blockquote>
-<p><strong>少量(HTTP并没有规定请求数据大小，但是浏览器对于URL长度有限制)、不安全</strong></p>
-<p><strong>效率高</strong></p>
-</blockquote>
-<p><code>POST</code> 向制定资源提交数据进行处理请求，如提交表单或者上传文件。</p>
-<blockquote>
-<p>URL中看不见请求主体。适合<strong>数据量大，安全发送</strong>。</p>
-</blockquote>
-<p><code>HEAD</code>类似于GET，但是只返回报文头。</p>
-<h3 id="2-3-HTTP响应"><a href="#2-3-HTTP响应" class="headerlink" title="2.3 HTTP响应"></a>2.3 HTTP响应</h3><p><img src="/2020/05/08/Servlet2-Servlet%E6%A6%82%E5%BF%B5%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/servlet4.png" alt="HTTP Request 请求报文格式"></p>
-<ul>
-<li>响应行：HTTP版本、状态码、状态消息</li>
-<li>响应头：客户端使用的附加信息</li>
-<li>空行：分割响应头和响应实体</li>
-<li>响应实体：正文</li>
-</ul>
-<h2 id="3-实现servlet接口编写servlet程序"><a href="#3-实现servlet接口编写servlet程序" class="headerlink" title="3. 实现servlet接口编写servlet程序"></a>3. 实现servlet接口编写servlet程序</h2><p> 我们现在可以实现一个简单的<strong>servlet</strong>程序。</p>
-<ul>
-<li>新建一个package，然后新建一个类继承<code>HttpServlet</code>抽象类（实现了 Servlet接口）</li>
-</ul>
-<p><img src="/2020/05/08/Servlet2-Servlet%E6%A6%82%E5%BF%B5%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/servlet1.png" alt="img"></p>
-<ul>
-<li><p>重写<code>void service(HttpServletRequest req, HttpServletResponse resp)</code>方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class helloworld extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        resp.getWriter().write(&quot;Hello World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这样，一个最简单的servlet程序就写好了。但是，现在依然不能启动服务器，我们需要在<strong>WEB-INF</strong>下的<code>web.xml</code>文件中进行配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;hw&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;cn.zxh.helloworld&lt;&#x2F;servlet-class&gt;</span><br><span class="line">    &lt;&#x2F;servlet&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hw&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;hw1&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>我们现在就可以启动服务器了，输入URL = <code>http://localhost:8080/servletTest/hw1</code>，成功。</li>
-</ul>
-</li>
-</ul>
-<p><img src="/2020/05/08/Servlet2-Servlet%E6%A6%82%E5%BF%B5%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/servlet2.png" alt="img"></p>
-<h2 id="4-Servlet-的生命周期"><a href="#4-Servlet-的生命周期" class="headerlink" title="4. Servlet 的生命周期"></a>4. Servlet 的生命周期</h2><ol>
-<li><strong>加载Servlet</strong>。当Tomcat第一次访问Servlet的时候，<strong>Tomcat会负责创建Servlet的实例</strong></li>
-<li><strong>初始化</strong>。当Servlet被实例化后，Tomcat会<strong>调用init()方法初始化这个对象</strong></li>
-<li><strong>处理服务</strong>。当浏览器<strong>访问Servlet</strong>的时候，Servlet <strong>会调用service()方法处理请求</strong></li>
-<li><strong>销毁</strong>。当Tomcat关闭时或者检测到Servlet要从Tomcat删除的时候会自动调用destroy()方法，<strong>让该实例释放掉所占的资源</strong>。一个Servlet如果长时间不被使用的话，也会被Tomcat自动销毁</li>
-<li><strong>卸载</strong>。当Servlet调用完destroy()方法后，等待垃圾回收。如果<strong>有需要再次使用这个Servlet，会重新调用init()方法进行初始化操作</strong>。</li>
-</ol>
-<ul>
-<li>简单总结：<strong>只要访问Servlet，service()就会被调用。init()只有第一次访问Servlet的时候才会被调用。 destroy()只有在Tomcat关闭的时候才会被调用。</strong></li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
 
 
     </footer>

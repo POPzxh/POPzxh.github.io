@@ -80,6 +80,107 @@
     
     
     
+    <article id="post-leetcode-1415-The-k-th-Lexicographical-String-of-All-Happy-Strings-of-Length-n" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1415-The-k-th-Lexicographical-String-of-All-Happy-Strings-of-Length-n/"
+    >leetcode 1415. The k-th Lexicographical String of All Happy Strings of Length n</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1415-The-k-th-Lexicographical-String-of-All-Happy-Strings-of-Length-n/" class="article-date">
+  <time datetime="2020-05-08T07:37:30.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/bi24/">bi24</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>A <strong>happy string</strong> is a string that:</p>
+<ul>
+<li>consists only of letters of the set <code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code>.</li>
+<li><code>s[i] != s[i + 1]</code> for all values of <code>i</code> from <code>1</code> to <code>s.length - 1</code> (string is 1-indexed).</li>
+</ul>
+<p>For example, strings <strong>“abc”, “ac”, “b”</strong> and <strong>“abcbabcbcb”</strong> are all happy strings and strings <strong>“aa”, “baa”</strong> and <strong>“ababbc”</strong> are not happy strings.</p>
+<p>Given two integers <code>n</code> and <code>k</code>, consider a list of all happy strings of length <code>n</code> sorted in lexicographical order.</p>
+<p>Return <em>the kth string</em> of this list or return an <strong>empty string</strong> if there are less than <code>k</code> happy strings of length <code>n</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 1, k &#x3D; 3</span><br><span class="line">Output: &quot;c&quot;</span><br><span class="line">Explanation: The list [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;] contains all happy strings of length 1. The third string is &quot;c&quot;.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 1, k &#x3D; 4</span><br><span class="line">Output: &quot;&quot;</span><br><span class="line">Explanation: There are only 3 happy strings of length 1.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3, k &#x3D; 9</span><br><span class="line">Output: &quot;cab&quot;</span><br><span class="line">Explanation: There are 12 different happy string of length 3 [&quot;aba&quot;, &quot;abc&quot;, &quot;aca&quot;, &quot;acb&quot;, &quot;bab&quot;, &quot;bac&quot;, &quot;bca&quot;, &quot;bcb&quot;, &quot;cab&quot;, &quot;cac&quot;, &quot;cba&quot;, &quot;cbc&quot;]. You will find the 9th string &#x3D; &quot;cab&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 2, k &#x3D; 7</span><br><span class="line">Output: &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 10, k &#x3D; 100</span><br><span class="line">Output: &quot;abacbabacb&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 10</code></li>
+<li><code>1 &lt;= k &lt;= 100</code></li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHappyString</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = (<span class="number">1</span> &lt;&lt; (n-<span class="number">1</span>)) * <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">if</span>(k &gt; max) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">char</span> c = <span class="string">'a'</span>;</span><br><span class="line">        <span class="keyword">int</span> lvl = max / <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">3</span> ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(lvl * (i+<span class="number">1</span>) &gt;= k) &#123;</span><br><span class="line">                c = (<span class="keyword">char</span>) (<span class="string">'a'</span> + i);</span><br><span class="line">                k -= lvl * i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(c);</span><br><span class="line">        n--;</span><br><span class="line">        <span class="keyword">char</span> pre = c;</span><br><span class="line">        max /= <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span>(n&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> part = max / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">char</span> cur = <span class="string">'a'</span> ; cur &lt;= <span class="string">'c'</span> ; cur++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(cur == pre) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(part &gt;= k) &#123;</span><br><span class="line">                    sb.append(cur);</span><br><span class="line">                    pre = cur;</span><br><span class="line">                    k -= part - max/<span class="number">2</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                part *= <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            n--;</span><br><span class="line">            max &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHappyString</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = (<span class="number">1</span> &lt;&lt; (n-<span class="number">1</span>)) * <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">if</span>(k &gt; max) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">char</span>[] ans = <span class="keyword">new</span> <span class="keyword">char</span>[n];</span><br><span class="line">        dfs(n , k , ans , <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(ans);</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n , <span class="keyword">int</span> k , <span class="keyword">char</span>[] arr , <span class="keyword">int</span> pos)</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(n == pos)&#123;</span><br><span class="line">                        num++;</span><br><span class="line">                        <span class="keyword">if</span>(k == num) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">char</span> c = <span class="string">'a'</span> ; c &lt;= <span class="string">'c'</span>;c++)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(pos &gt;<span class="number">0</span> &amp;&amp; arr[pos - <span class="number">1</span>] == c) <span class="keyword">continue</span>;</span><br><span class="line">                        arr[pos] = c;</span><br><span class="line">                        <span class="keyword">if</span>(dfs(n , k , arr , pos + <span class="number">1</span>)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -909,101 +1010,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1411-Number-of-Ways-to-Paint-N-×-3-Grid" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-1411-Number-of-Ways-to-Paint-N-%C3%97-3-Grid/"
-    >leetcode 1411. Number of Ways to Paint N × 3 Grid</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-1411-Number-of-Ways-to-Paint-N-%C3%97-3-Grid/" class="article-date">
-  <time datetime="2020-05-08T07:19:00.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>You have a <code>grid</code> of size <code>n x 3</code> and you want to paint each cell of the grid with exactly one of the three colours: <strong>Red</strong>, <strong>Yellow</strong> or <strong>Green</strong> while making sure that no two adjacent cells have the same colour (i.e no two cells that share vertical or horizontal sides have the same colour).</p>
-<p>You are given <code>n</code> the number of rows of the grid.</p>
-<p>Return <em>the number of ways</em> you can paint this <code>grid</code>. As the answer may grow large, the answer <strong>must be</strong> computed modulo <code>10^9 + 7</code>.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 1</span><br><span class="line">Output: 12</span><br><span class="line">Explanation: There are 12 possible way to paint the grid as shown:</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 2</span><br><span class="line">Output: 54</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3</span><br><span class="line">Output: 246</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 7</span><br><span class="line">Output: 106494</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 5:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 5000</span><br><span class="line">Output: 30228214</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>n == grid.length</code></li>
-<li><code>grid[i].length == 3</code></li>
-<li><code>1 &lt;= n &lt;= 5000</code></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numOfWays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> +<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">long</span> _aba = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">long</span> _abc = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">            <span class="keyword">long</span> _121 = _aba , _123 = _abc;</span><br><span class="line">            _aba = (_121 * <span class="number">3</span> + _123 * <span class="number">2</span>) % mod;</span><br><span class="line">            _abc = (_121 * <span class="number">2</span> + _123 * <span class="number">2</span>) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ((<span class="keyword">int</span>)_abc + (<span class="keyword">int</span>)_aba)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
 
 
     </footer>
