@@ -80,6 +80,104 @@
     
     
     
+    <article id="post-leetCode-863-All-Nodes-Distance-K-in-Binary-Tree" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetCode-863-All-Nodes-Distance-K-in-Binary-Tree/"
+    >leetCode 863. All Nodes Distance K in Binary Tree</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetCode-863-All-Nodes-Distance-K-in-Binary-Tree/" class="article-date">
+  <time datetime="2020-05-08T06:49:27.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>We are given a binary tree (with root node <code>root</code>), a <code>target</code> node, and an integer value <code>K</code>.</p>
+<p>Return a list of the values of all nodes that have a distance <code>K</code> from the <code>target</code> node. The answer can be returned in any order.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [3,5,1,6,2,0,8,null,null,7,4], target &#x3D; 5, K &#x3D; 2</span><br><span class="line"></span><br><span class="line">Output: [7,4,1]</span><br><span class="line"></span><br><span class="line">Explanation: </span><br><span class="line">The nodes that are a distance 2 from the target node (with value 5)</span><br><span class="line">have values 7, 4, and 1.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Note that the inputs &quot;root&quot; and &quot;target&quot; are actually TreeNodes.</span><br><span class="line">The descriptions of the inputs above are just serializations of these objects.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li>The given tree is non-empty.</li>
+<li>Each node in the tree has unique values <code>0 &lt;= node.val &lt;= 500</code>.</li>
+<li>The <code>target</code> node is a node in the tree.</li>
+<li><code>0 &lt;= K &lt;= 1000</code>.</li>
+</ol>
+<h2 id="解法一：记录parent"><a href="#解法一：记录parent" class="headerlink" title="解法一：记录parent"></a>解法一：记录parent</h2><ul>
+<li>DFS遍历二叉树，如果不是<code>target</code>，将次节点记录为其左右子节点的<code>parent</code>节点</li>
+<li>如果是<code>target</code>，就进行BFS，遍历<strong>左、右、parent</strong>节点。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">distanceK</span><span class="params">(TreeNode root, TreeNode target, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;TreeNode , TreeNode&gt; parent = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfsDistance(root , target ,  K , parent , ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfsDistance</span><span class="params">(TreeNode root , TreeNode target , <span class="keyword">int</span> k , HashMap&lt;TreeNode , TreeNode&gt;map , List&lt;Integer&gt; list)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.val == target.val)&#123;                    </span><br><span class="line">                    <span class="keyword">if</span>(k == <span class="number">0</span>) &#123;</span><br><span class="line">                            list.add(root.val); <span class="keyword">return</span> ;</span><br><span class="line">                    &#125;</span><br><span class="line">                Queue&lt;TreeNode&gt; que = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">                HashSet&lt;TreeNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">                <span class="keyword">int</span> level = <span class="number">0</span>;</span><br><span class="line">                que.add(root);</span><br><span class="line">                set.add(root);</span><br><span class="line">                <span class="keyword">while</span> (!que.isEmpty())&#123;                              </span><br><span class="line">                    level++;</span><br><span class="line">                    <span class="keyword">int</span> size = que.size();</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; size ; i++)&#123;</span><br><span class="line">                        TreeNode cur = que.poll();                            </span><br><span class="line">                        <span class="keyword">if</span>(cur.left != <span class="keyword">null</span> &amp;&amp; !set.contains(cur.left))&#123;</span><br><span class="line">                            <span class="keyword">if</span>(level == k) list.add(cur.left.val);</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                que.add(cur.left);</span><br><span class="line">                                set.add(cur.left);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(cur.right != <span class="keyword">null</span> &amp;&amp; !set.contains(cur.right))&#123;</span><br><span class="line">                            <span class="keyword">if</span>(level == k) list.add(cur.right.val);</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                que.add(cur.right);</span><br><span class="line">                                set.add(cur.right);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(map.containsKey(cur) &amp;&amp; !set.contains(map.get(cur)))&#123;                                </span><br><span class="line">                            cur = map.get(cur);</span><br><span class="line">                            <span class="keyword">if</span>(level == k) list.add(cur.val);</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                que.add(cur);</span><br><span class="line">                                set.add(cur);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;                            </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                    <span class="keyword">return</span>;                         </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                map.put(root.left , root);map.put(root.right , root);</span><br><span class="line">                dfsDistance(root.left ,target , k , map,list);</span><br><span class="line">                    dfsDistance(root.right , target , k , map,list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法二：递归，获取节点到target的距离"><a href="#解法二：递归，获取节点到target的距离" class="headerlink" title="解法二：递归，获取节点到target的距离"></a>解法二：递归，获取节点到target的距离</h2><ul>
+<li>对于一个结点有三种可能：<ol>
+<li>target在左子树</li>
+<li>target在右子树</li>
+<li>子树中没有target</li>
+</ol>
+</li>
+<li>对于前两种可能，距离为k的节点肯定在另一侧。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">distanceK</span><span class="params">(TreeNode root, TreeNode target, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfsDistance(root , target , K , list);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfsDistance</span><span class="params">(TreeNode root , TreeNode target , <span class="keyword">int</span> k , List&lt;Integer&gt; list)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.val == target.val)&#123;</span><br><span class="line">                collect(root ,  k , <span class="number">0</span> , list);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> l = dfsDistance(root.left , target , k , list);</span><br><span class="line">            <span class="keyword">int</span> r = dfsDistance(root.right , target , k , list);</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//target is in the left subtree</span></span><br><span class="line">                <span class="keyword">if</span>(l + <span class="number">1</span> == k) list.add(root.val);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(l+<span class="number">1</span> &lt; k)</span><br><span class="line">                    collect(root.right , k , l+<span class="number">2</span> ,  list);</span><br><span class="line">                <span class="keyword">return</span> l+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(r &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//target in the right subtree</span></span><br><span class="line">                <span class="keyword">if</span>(r + <span class="number">1</span> == k) list.add(root.val);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(r+<span class="number">1</span> &lt; k)</span><br><span class="line">                    collect(root.left , k , r+<span class="number">2</span> ,  list);</span><br><span class="line">                <span class="keyword">return</span> r+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">collect</span><span class="params">(TreeNode root , <span class="keyword">int</span> k , <span class="keyword">int</span> level , List&lt;Integer&gt; list)</span></span>&#123;            </span><br><span class="line">        <span class="keyword">if</span>(root != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k == level) list.add(root.val);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                collect(root.left ,  k , level + <span class="number">1</span>, list);</span><br><span class="line">                collect(root.right ,  k , level + <span class="number">1</span>, list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-Servlet2-Servlet概念和运行流程" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -1037,109 +1135,13 @@
 
 </article>
     
-    <article id="post-leetcode-1392-Longest-Happy-Prefix" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-1392-Longest-Happy-Prefix/"
-    >leetcode 1392.Longest Happy Prefix</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-1392-Longest-Happy-Prefix/" class="article-date">
-  <time datetime="2020-05-08T06:12:53.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>A string is called a <em>happy prefix</em> if is a <strong>non-empty</strong> prefix which is also a suffix (excluding itself).</p>
-<p>Given a string <code>s</code>. Return the <strong>longest happy prefix</strong> of <code>s</code> .</p>
-<p>Return an empty string if no such prefix exists.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;level&quot;</span><br><span class="line">Output: &quot;l&quot;</span><br><span class="line">Explanation: s contains 4 prefix excluding itself (&quot;l&quot;, &quot;le&quot;, &quot;lev&quot;, &quot;leve&quot;), and suffix (&quot;l&quot;, &quot;el&quot;, &quot;vel&quot;, &quot;evel&quot;). The largest prefix which is also suffix is given by &quot;l&quot;.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;ababab&quot;</span><br><span class="line">Output: &quot;abab&quot;</span><br><span class="line">Explanation: &quot;abab&quot; is the largest prefix which is also suffix. They can overlap in the original string.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;leetcodeleet&quot;</span><br><span class="line">Output: &quot;leet&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;a&quot;</span><br><span class="line">Output: &quot;&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= s.length &lt;= 10^5</code></li>
-<li><code>s</code> contains only lowercase English letters.</li>
-</ul>
-<h3 id="方法一：求KMP的next数组"><a href="#方法一：求KMP的next数组" class="headerlink" title="方法一：求KMP的next数组"></a>方法一：求KMP的next数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//11 ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPrefix</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] next = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</span><br><span class="line">        <span class="keyword">int</span> preLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(preLen != <span class="number">0</span> &amp;&amp; s.charAt(preLen) != s.charAt(i))</span><br><span class="line">                preLen = next[preLen - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(preLen) == s.charAt(i)) next[i] = ++preLen;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">return</span> s.substring(<span class="number">0</span> , next[s.length() - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="./Alg1-KMP算法.md">KMP算法</a></li>
-</ul>
-<h2 id="方法二：-String-Hashing"><a href="#方法二：-String-Hashing" class="headerlink" title="方法二： String Hashing"></a>方法二： String Hashing</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPrefix</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> base = <span class="number">128</span>;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">16769023</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> hashp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> hashq = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() -<span class="number">1</span> ; i++)&#123;</span><br><span class="line">            hashp = (hashp * base + s.charAt(i)) % mod;</span><br><span class="line">            hashq = (s.charAt(s.length() - <span class="number">1</span> - i) * a + hashq) % mod;</span><br><span class="line">            a = (a * base) % mod;</span><br><span class="line">            <span class="keyword">if</span>(hashp == hashq)</span><br><span class="line">                <span class="keyword">if</span>(s.substring(<span class="number">0</span>,i+<span class="number">1</span>).equals(s.substring(s.length() - <span class="number">1</span> - i , s.length()))) ans = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s.substring( <span class="number">0</span> , ans + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KMP/" rel="tag">KMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String-Hashing/" rel="tag">String Hashing</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
   </nav>
   
 </section>

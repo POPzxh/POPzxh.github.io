@@ -80,6 +80,108 @@
     
     
     
+    <article id="post-leetcode-1416-Restore-The-Array" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1416-Restore-The-Array/"
+    >leetcode 1416. Restore The Array</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1416-Restore-The-Array/" class="article-date">
+  <time datetime="2020-05-08T07:38:43.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/bi24/">bi24</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>A program was supposed to print an array of integers. The program forgot to print whitespaces and the array is printed as a string of digits and all we know is that all integers in the array were in the range <code>[1, k]</code> and there are no leading zeros in the array.</p>
+<p>Given the string <code>s</code> and the integer <code>k</code>. There can be multiple ways to restore the array.</p>
+<p>Return <em>the number of possible array</em> that can be printed as a string <code>s</code> using the mentioned program.</p>
+<p>The number of ways could be very large so return it <strong>modulo</strong> <code>10^9 + 7</code></p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;1000&quot;, k &#x3D; 10000</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The only possible array is [1000]</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;1000&quot;, k &#x3D; 10</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: There cannot be an array that was printed this way and has all integer &gt;&#x3D; 1 and &lt;&#x3D; 10.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;1317&quot;, k &#x3D; 2000</span><br><span class="line">Output: 8</span><br><span class="line">Explanation: Possible arrays are [1317],[131,7],[13,17],[1,317],[13,1,7],[1,31,7],[1,3,17],[1,3,1,7]</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;2020&quot;, k &#x3D; 30</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The only possible array is [20,20]. [2020] is invalid because 2020 &gt; 30. [2,020] is ivalid because 020 contains leading zeros.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;1234567890&quot;, k &#x3D; 90</span><br><span class="line">Output: 34</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 10^5</code>.</li>
+<li><code>s</code> consists of only digits and doesn’t contain leading zeros.</li>
+<li><code>1 &lt;= k &lt;= 10^9</code>.</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>记忆化搜索</li>
+</ul>
+<p>使用数组<code>dp[i]</code>记录，从位置<code>i</code>开始符合的分割方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfArrays</span><span class="params">(String s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()]; Arrays.fill(dp , -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span> , s , k , dp , mod) % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> pos , String s , <span class="keyword">int</span> k , <span class="keyword">int</span>[] dp , <span class="keyword">int</span> mod)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pos == s.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp[pos] != -<span class="number">1</span>) <span class="keyword">return</span> dp[pos];</span><br><span class="line">        <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(pos) != <span class="string">'0'</span>)&#123;</span><br><span class="line">            <span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = pos ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                num = num * <span class="number">10</span> + s.charAt(i) - <span class="string">'0'</span>;</span><br><span class="line">                <span class="keyword">if</span>(num &gt; k)  <span class="keyword">break</span>;</span><br><span class="line">                val += dfs(i + <span class="number">1</span> , s , k , dp , mod) % mod;</span><br><span class="line">                    val %= mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> dp[pos] = val % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bottom-Up-DP"><a href="#Bottom-Up-DP" class="headerlink" title="Bottom Up DP"></a>Bottom Up DP</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//33ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfArrays</span><span class="params">(String s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];  </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = s.length() - <span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i--)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(s.charAt(i) == <span class="string">'0'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">long</span> num = s.charAt(i) - <span class="string">'0'</span>;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span> ; j &lt;= s.length() ; j++)&#123;                            </span><br><span class="line">                            <span class="keyword">if</span>(num &gt; k) <span class="keyword">break</span>;</span><br><span class="line">                            <span class="keyword">if</span>(j == s.length()) dp[i]++;</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                    dp[i] += dp[j];</span><br><span class="line">                                    dp[i] %= mod;                            </span><br><span class="line">                                    num = <span class="number">10</span> * num + s.charAt(j) - <span class="string">'0'</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;            </span><br><span class="line">            <span class="keyword">return</span> dp[<span class="number">0</span>] % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-1415-The-k-th-Lexicographical-String-of-All-Happy-Strings-of-Length-n" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -939,102 +1041,13 @@
 
 </article>
     
-    <article id="post-xml-使用Dom4J解析xml文件" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/xml-%E4%BD%BF%E7%94%A8Dom4J%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6/"
-    >xml: 使用Dom4J解析xml文件</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/xml-%E4%BD%BF%E7%94%A8Dom4J%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6/" class="article-date">
-  <time datetime="2020-05-08T07:20:13.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/xml/">xml</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">package cn.zxh.Parser;</span><br><span class="line"></span><br><span class="line">import org.dom4j.Attribute;</span><br><span class="line">import org.dom4j.Document;</span><br><span class="line">import org.dom4j.DocumentException;</span><br><span class="line">import org.dom4j.Element;</span><br><span class="line">import org.dom4j.io.SAXReader;</span><br><span class="line"></span><br><span class="line">import java.util.Iterator;</span><br><span class="line"></span><br><span class="line">public class xmlParser &#123;</span><br><span class="line">    public static void main(String[] aargs)&#123;</span><br><span class="line">        &#x2F;&#x2F;获取（Document）xml文件对象</span><br><span class="line">        Document xmlDoc &#x3D; getXmlDoc(&quot;.&#x2F;src&#x2F;NewFile.xml&quot;);</span><br><span class="line">        Element root &#x3D; xmlDoc.getRootElement(); &#x2F;&#x2F;get root elememt</span><br><span class="line">&#x2F;&#x2F;        System.out.println(root.getName());</span><br><span class="line">        &#x2F;&#x2F;通过根目录的迭代器，遍历其中所有子元素</span><br><span class="line">        dfsRoot(root , 0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static Document getXmlDoc(String fileName)&#123;</span><br><span class="line">        Document doc &#x3D; null;</span><br><span class="line">        try &#123;</span><br><span class="line">            SAXReader reader &#x3D; new SAXReader(); &#x2F;&#x2F;实例化SAX解析器</span><br><span class="line">            doc &#x3D; reader.read(fileName); &#x2F;&#x2F;use reader get the document</span><br><span class="line">        &#125;catch (DocumentException e)&#123;</span><br><span class="line">            System.out.println(&quot;NO SUCH FILE: &quot; + fileName + &quot;!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return doc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void dfsRoot(Element root , int level)&#123;</span><br><span class="line">        StringBuilder sb &#x3D; new StringBuilder(&quot;&quot;);</span><br><span class="line">        for(int i &#x3D; 0 ; i &lt; level ; i ++) sb.append(&quot; &quot;);</span><br><span class="line">        System.out.printf(sb.toString() + root.getName() + &quot;: &quot;);</span><br><span class="line">        &#x2F;&#x2F;get elements&#39; attributes</span><br><span class="line">        Iterator&lt;Attribute&gt; attributeIterator &#x3D; root.attributeIterator();</span><br><span class="line">        while(attributeIterator.hasNext())&#123;</span><br><span class="line">            System.out.printf(&quot; &quot; + attributeIterator.next().getName());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        Iterator&lt;Element&gt; elementIterator &#x3D; root.elementIterator();</span><br><span class="line">        while (elementIterator.hasNext())&#123;</span><br><span class="line">            dfsRoot(elementIterator.next() , level + 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>获取根元素 <em>通过Document对象</em></p>
-<p><code>Element getRootElement()</code></p>
-</li>
-<li><p>获一个元素的取子元素</p>
-<p><code>Iterator elementIterator()</code></p>
-<p><code>List elements</code></p>
-</li>
-<li><p>获取元素的属性</p>
-<p><code>Iterator attributeIterator</code></p>
-<p><code>List attributes</code></p>
-</li>
-<li><p>获取text</p>
-<p><code>String getText()</code></p>
-</li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
   </nav>
   
 </section>

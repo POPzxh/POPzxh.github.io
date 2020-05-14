@@ -80,6 +80,95 @@
     
     
     
+    <article id="post-xml-使用Dom4J解析xml文件" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/xml-%E4%BD%BF%E7%94%A8Dom4J%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6/"
+    >xml: 使用Dom4J解析xml文件</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/xml-%E4%BD%BF%E7%94%A8Dom4J%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6/" class="article-date">
+  <time datetime="2020-05-08T07:20:13.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/xml/">xml</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">package cn.zxh.Parser;</span><br><span class="line"></span><br><span class="line">import org.dom4j.Attribute;</span><br><span class="line">import org.dom4j.Document;</span><br><span class="line">import org.dom4j.DocumentException;</span><br><span class="line">import org.dom4j.Element;</span><br><span class="line">import org.dom4j.io.SAXReader;</span><br><span class="line"></span><br><span class="line">import java.util.Iterator;</span><br><span class="line"></span><br><span class="line">public class xmlParser &#123;</span><br><span class="line">    public static void main(String[] aargs)&#123;</span><br><span class="line">        &#x2F;&#x2F;获取（Document）xml文件对象</span><br><span class="line">        Document xmlDoc &#x3D; getXmlDoc(&quot;.&#x2F;src&#x2F;NewFile.xml&quot;);</span><br><span class="line">        Element root &#x3D; xmlDoc.getRootElement(); &#x2F;&#x2F;get root elememt</span><br><span class="line">&#x2F;&#x2F;        System.out.println(root.getName());</span><br><span class="line">        &#x2F;&#x2F;通过根目录的迭代器，遍历其中所有子元素</span><br><span class="line">        dfsRoot(root , 0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static Document getXmlDoc(String fileName)&#123;</span><br><span class="line">        Document doc &#x3D; null;</span><br><span class="line">        try &#123;</span><br><span class="line">            SAXReader reader &#x3D; new SAXReader(); &#x2F;&#x2F;实例化SAX解析器</span><br><span class="line">            doc &#x3D; reader.read(fileName); &#x2F;&#x2F;use reader get the document</span><br><span class="line">        &#125;catch (DocumentException e)&#123;</span><br><span class="line">            System.out.println(&quot;NO SUCH FILE: &quot; + fileName + &quot;!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return doc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void dfsRoot(Element root , int level)&#123;</span><br><span class="line">        StringBuilder sb &#x3D; new StringBuilder(&quot;&quot;);</span><br><span class="line">        for(int i &#x3D; 0 ; i &lt; level ; i ++) sb.append(&quot; &quot;);</span><br><span class="line">        System.out.printf(sb.toString() + root.getName() + &quot;: &quot;);</span><br><span class="line">        &#x2F;&#x2F;get elements&#39; attributes</span><br><span class="line">        Iterator&lt;Attribute&gt; attributeIterator &#x3D; root.attributeIterator();</span><br><span class="line">        while(attributeIterator.hasNext())&#123;</span><br><span class="line">            System.out.printf(&quot; &quot; + attributeIterator.next().getName());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        Iterator&lt;Element&gt; elementIterator &#x3D; root.elementIterator();</span><br><span class="line">        while (elementIterator.hasNext())&#123;</span><br><span class="line">            dfsRoot(elementIterator.next() , level + 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>获取根元素 <em>通过Document对象</em></p>
+<p><code>Element getRootElement()</code></p>
+</li>
+<li><p>获一个元素的取子元素</p>
+<p><code>Iterator elementIterator()</code></p>
+<p><code>List elements</code></p>
+</li>
+<li><p>获取元素的属性</p>
+<p><code>Iterator attributeIterator</code></p>
+<p><code>List attributes</code></p>
+</li>
+<li><p>获取text</p>
+<p><code>String getText()</code></p>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-1411-Number-of-Ways-to-Paint-N-×-3-Grid" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -1048,111 +1137,13 @@
 
 </article>
     
-    <article id="post-leetCode-863-All-Nodes-Distance-K-in-Binary-Tree" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetCode-863-All-Nodes-Distance-K-in-Binary-Tree/"
-    >leetCode 863. All Nodes Distance K in Binary Tree</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetCode-863-All-Nodes-Distance-K-in-Binary-Tree/" class="article-date">
-  <time datetime="2020-05-08T06:49:27.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>We are given a binary tree (with root node <code>root</code>), a <code>target</code> node, and an integer value <code>K</code>.</p>
-<p>Return a list of the values of all nodes that have a distance <code>K</code> from the <code>target</code> node. The answer can be returned in any order.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [3,5,1,6,2,0,8,null,null,7,4], target &#x3D; 5, K &#x3D; 2</span><br><span class="line"></span><br><span class="line">Output: [7,4,1]</span><br><span class="line"></span><br><span class="line">Explanation: </span><br><span class="line">The nodes that are a distance 2 from the target node (with value 5)</span><br><span class="line">have values 7, 4, and 1.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Note that the inputs &quot;root&quot; and &quot;target&quot; are actually TreeNodes.</span><br><span class="line">The descriptions of the inputs above are just serializations of these objects.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Note:</strong></p>
-<ol>
-<li>The given tree is non-empty.</li>
-<li>Each node in the tree has unique values <code>0 &lt;= node.val &lt;= 500</code>.</li>
-<li>The <code>target</code> node is a node in the tree.</li>
-<li><code>0 &lt;= K &lt;= 1000</code>.</li>
-</ol>
-<h2 id="解法一：记录parent"><a href="#解法一：记录parent" class="headerlink" title="解法一：记录parent"></a>解法一：记录parent</h2><ul>
-<li>DFS遍历二叉树，如果不是<code>target</code>，将次节点记录为其左右子节点的<code>parent</code>节点</li>
-<li>如果是<code>target</code>，就进行BFS，遍历<strong>左、右、parent</strong>节点。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">distanceK</span><span class="params">(TreeNode root, TreeNode target, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;TreeNode , TreeNode&gt; parent = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfsDistance(root , target ,  K , parent , ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfsDistance</span><span class="params">(TreeNode root , TreeNode target , <span class="keyword">int</span> k , HashMap&lt;TreeNode , TreeNode&gt;map , List&lt;Integer&gt; list)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.val == target.val)&#123;                    </span><br><span class="line">                    <span class="keyword">if</span>(k == <span class="number">0</span>) &#123;</span><br><span class="line">                            list.add(root.val); <span class="keyword">return</span> ;</span><br><span class="line">                    &#125;</span><br><span class="line">                Queue&lt;TreeNode&gt; que = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">                HashSet&lt;TreeNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">                <span class="keyword">int</span> level = <span class="number">0</span>;</span><br><span class="line">                que.add(root);</span><br><span class="line">                set.add(root);</span><br><span class="line">                <span class="keyword">while</span> (!que.isEmpty())&#123;                              </span><br><span class="line">                    level++;</span><br><span class="line">                    <span class="keyword">int</span> size = que.size();</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; size ; i++)&#123;</span><br><span class="line">                        TreeNode cur = que.poll();                            </span><br><span class="line">                        <span class="keyword">if</span>(cur.left != <span class="keyword">null</span> &amp;&amp; !set.contains(cur.left))&#123;</span><br><span class="line">                            <span class="keyword">if</span>(level == k) list.add(cur.left.val);</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                que.add(cur.left);</span><br><span class="line">                                set.add(cur.left);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(cur.right != <span class="keyword">null</span> &amp;&amp; !set.contains(cur.right))&#123;</span><br><span class="line">                            <span class="keyword">if</span>(level == k) list.add(cur.right.val);</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                que.add(cur.right);</span><br><span class="line">                                set.add(cur.right);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(map.containsKey(cur) &amp;&amp; !set.contains(map.get(cur)))&#123;                                </span><br><span class="line">                            cur = map.get(cur);</span><br><span class="line">                            <span class="keyword">if</span>(level == k) list.add(cur.val);</span><br><span class="line">                            <span class="keyword">else</span>&#123;</span><br><span class="line">                                que.add(cur);</span><br><span class="line">                                set.add(cur);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;                            </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                    <span class="keyword">return</span>;                         </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                map.put(root.left , root);map.put(root.right , root);</span><br><span class="line">                dfsDistance(root.left ,target , k , map,list);</span><br><span class="line">                    dfsDistance(root.right , target , k , map,list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="解法二：递归，获取节点到target的距离"><a href="#解法二：递归，获取节点到target的距离" class="headerlink" title="解法二：递归，获取节点到target的距离"></a>解法二：递归，获取节点到target的距离</h2><ul>
-<li>对于一个结点有三种可能：<ol>
-<li>target在左子树</li>
-<li>target在右子树</li>
-<li>子树中没有target</li>
-</ol>
-</li>
-<li>对于前两种可能，距离为k的节点肯定在另一侧。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">distanceK</span><span class="params">(TreeNode root, TreeNode target, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfsDistance(root , target , K , list);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfsDistance</span><span class="params">(TreeNode root , TreeNode target , <span class="keyword">int</span> k , List&lt;Integer&gt; list)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.val == target.val)&#123;</span><br><span class="line">                collect(root ,  k , <span class="number">0</span> , list);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> l = dfsDistance(root.left , target , k , list);</span><br><span class="line">            <span class="keyword">int</span> r = dfsDistance(root.right , target , k , list);</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//target is in the left subtree</span></span><br><span class="line">                <span class="keyword">if</span>(l + <span class="number">1</span> == k) list.add(root.val);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(l+<span class="number">1</span> &lt; k)</span><br><span class="line">                    collect(root.right , k , l+<span class="number">2</span> ,  list);</span><br><span class="line">                <span class="keyword">return</span> l+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(r &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//target in the right subtree</span></span><br><span class="line">                <span class="keyword">if</span>(r + <span class="number">1</span> == k) list.add(root.val);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(r+<span class="number">1</span> &lt; k)</span><br><span class="line">                    collect(root.left , k , r+<span class="number">2</span> ,  list);</span><br><span class="line">                <span class="keyword">return</span> r+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">collect</span><span class="params">(TreeNode root , <span class="keyword">int</span> k , <span class="keyword">int</span> level , List&lt;Integer&gt; list)</span></span>&#123;            </span><br><span class="line">        <span class="keyword">if</span>(root != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k == level) list.add(root.val);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                collect(root.left ,  k , level + <span class="number">1</span>, list);</span><br><span class="line">                collect(root.right ,  k , level + <span class="number">1</span>, list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
   </nav>
   
 </section>
