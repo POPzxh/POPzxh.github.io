@@ -80,6 +80,606 @@
     
     
     
+    <article id="post-mybaits学习5-日志" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/16/mybaits%E5%AD%A6%E4%B9%A05-%E6%97%A5%E5%BF%97/"
+    >mybaits学习5 日志</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/16/mybaits%E5%AD%A6%E4%B9%A05-%E6%97%A5%E5%BF%97/" class="article-date">
+  <time datetime="2020-05-16T09:21:24.000Z" itemprop="datePublished">2020-05-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>在mybatis的配置文件中，设置<code>settings</code>标签：</p>
+<table>
+<thead>
+<tr>
+<th>设置名</th>
+<th>描述</th>
+<th>可用log</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>logImpl</td>
+<td>指定 MyBatis 所用日志的具体实现，未指定时将自动查找。</td>
+<td>SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING</td>
+<td>未设置</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>STDOUT_LOGGING系统默认的log实现，不需要导入多余的包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"logImpl"</span> <span class="attr">value</span>=<span class="string">"STDOUT_LOGGING"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Opening JDBC Connection</span><br><span class="line">Created connection 660339123.</span><br><span class="line">Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@275bf9b3]</span><br><span class="line">==&gt;  Preparing: select * from student </span><br><span class="line">==&gt; Parameters: </span><br><span class="line">&lt;==    Columns: id, name, PWD</span><br><span class="line">&lt;==        Row: 1, Xiaohan Zhu, 123</span><br><span class="line">&lt;==        Row: 2, San Zhang, 123</span><br><span class="line">&lt;==        Row: 3, Si Li, 123</span><br><span class="line">&lt;==        Row: 4, Joseph, 123567</span><br><span class="line">&lt;==      Total: 4</span><br><span class="line">1 Xiaohan Zhu 123</span><br><span class="line">2 San Zhang 123</span><br><span class="line">3 Si Li 123</span><br><span class="line">4 Joseph 123567</span><br><span class="line">Resetting autocommit to true on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@275bf9b3]</span><br><span class="line">Closing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@275bf9b3]</span><br><span class="line">Returned connection 660339123 to pool.</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h1 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h1><ul>
+<li>在<code>settings</code>中设置：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"logImpl"</span> <span class="attr">value</span>=<span class="string">"LOG4J"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>项目中导入log4j包</p>
+</li>
+<li><p>添加log4j配置文件 log4j.properties</p>
+</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码</span></span><br><span class="line"><span class="meta">log4j.rootLogger</span>=<span class="string">DEBUG,console,file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#控制台输出的相关设置</span></span><br><span class="line"><span class="meta">log4j.appender.console</span> = <span class="string">org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="meta">log4j.appender.console.Target</span> = <span class="string">System.out</span></span><br><span class="line"><span class="meta">log4j.appender.console.Threshold</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.appender.console.layout</span> = <span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.console.layout.ConversionPattern</span>=<span class="string">[%c]-%m%n</span></span><br><span class="line"></span><br><span class="line"><span class="attr">文件输出的相关设置</span></span><br><span class="line"><span class="meta">log4j.appender.file</span> = <span class="string">org.apache.log4j.RollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.file.File</span>=<span class="string">./log/zxh.log</span></span><br><span class="line"><span class="meta">log4j.appender.file.MaxFileSize</span>=<span class="string">10mb</span></span><br><span class="line"><span class="meta">log4j.appender.file.Threshold</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.appender.file.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.file.layout.ConversionPattern</span>=<span class="string">[%p][%d&#123;yy-MM-dd&#125;][%c]%m%n</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#日志输出级别</span></span><br><span class="line"><span class="meta">log4j.logger.org.mybatis</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.Statement</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.ResultSet</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.PreparedStatement</span>=<span class="string">DEBUG</span></span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-mybatis学习4-结果集映射" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/15/mybatis%E5%AD%A6%E4%B9%A04-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84/"
+    >mybatis学习4 结果集映射</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/15/mybatis%E5%AD%A6%E4%B9%A04-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84/" class="article-date">
+  <time datetime="2020-05-15T11:46:52.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>如果我们映射器的SQL语句的返回属性为一个Java Bean或者 Pojo 那么，mybatis会在幕后自动创建一个<code>ResultMap</code>将查询结果<strong>根据属性名</strong>映射到Java Bean的属性上。</p>
+<p><em>如果一个pojo中的属性名和数据库中的列名不匹配，那该属性会为null</em></p>
+<p><strong>我们也可以自己手写一个结果集映射<code>ResultMap</code></strong></p>
+<p>这里我们有一个pojo，student类，有<code>id</code>，<code>name</code>和<code>password</code>三个属性：</p>
+<p><em>省略了构造器和getter，setter</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>而，数据库中student的属性为<code>id</code>，<code>name</code>和<code>pwd</code>，显然不匹配。</p>
+<p>我们根据<code>mapper</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span> = <span class="string">"getStudents"</span> <span class="attr">resultType</span>= <span class="string">"Student"</span>&gt;</span></span><br><span class="line">    select * from student</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>查询得到的结果，pwd属性均为<strong>null</strong></p>
+<ul>
+<li><p>修改sql语句，添加别名：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span> = <span class="string">"getStudents"</span> <span class="attr">resultType</span>= <span class="string">"Student"</span>&gt;</span></span><br><span class="line">    select id , name , pwd as password from student</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li>使用<code>ResultMap</code></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"studentMap"</span> <span class="attr">type</span>=<span class="string">"student"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">r</span> <span class="attr">esult</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">property</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"pwd"</span> <span class="attr">property</span>=<span class="string">"password"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>先看<code>reslutMap</code>部分：</p>
+<ul>
+<li><code>id</code>：标识这个记过映射</li>
+<li><code>type</code>：将要映射成的类型名称（这里我们使用了别名，如果没有需要写完全）</li>
+<li><code>result</code>：将列名和属性名进行映射<ul>
+<li><code>column</code>：sql中的列名</li>
+<li><code>property</code>：pojo中的属性名</li>
+</ul>
+</li>
+</ul>
+<p>然后在引用它的语句中设置 <code>resultMap</code> 属性就行了（注意我们去掉了 <code>resultType</code> 属性）。比如:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span> = <span class="string">"getStudents"</span> <span class="attr">resultMap</span>=<span class="string">"studentMap"</span>&gt;</span></span><br><span class="line">    select * from student</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，<code>resultType</code>变为了<code>resultMap</code>且使用了我们之前标识的<code>id</code></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-77-Combinations" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/15/leetcode-77-Combinations/"
+    >leetcode 77.Combinations</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/15/leetcode-77-Combinations/" class="article-date">
+  <time datetime="2020-05-15T04:55:52.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combine(<span class="keyword">int</span> n, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfs(ans , k , <span class="number">0</span> , <span class="keyword">new</span> ArrayList&lt;&gt;() , n);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; ans , <span class="keyword">int</span> pos , <span class="keyword">int</span> pre , List&lt;Integer&gt; temp , <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pos == <span class="number">0</span>)&#123;</span><br><span class="line">            ans.add(<span class="keyword">new</span> ArrayList&lt;&gt;(temp));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = pre + <span class="number">1</span> ; i &lt;= n ; i++)&#123;</span><br><span class="line">                temp.add(i);</span><br><span class="line">                dfs(ans , pos - <span class="number">1</span> , i , temp , n);</span><br><span class="line">                temp.remove(temp.size() - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Backtracking/" rel="tag">Backtracking</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-40-Combination-Sum-II" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/15/leetcode-40-Combination-Sum-II/"
+    >leetcode 40. Combination Sum II</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/15/leetcode-40-Combination-Sum-II/" class="article-date">
+  <time datetime="2020-05-15T04:14:08.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given a collection of candidate numbers (<code>candidates</code>) and a target number (<code>target</code>), find all unique combinations in <code>candidates</code> where the candidate numbers sums to <code>target</code>.</p>
+<p>Each number in <code>candidates</code> may only be used <strong>once</strong> in the combination.</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>All numbers (including <code>target</code>) will be positive integers.</li>
+<li>The solution set must not contain duplicate combinations.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: candidates &#x3D; [10,1,2,7,6,1,5], target &#x3D; 8,</span><br><span class="line">A solution set is:</span><br><span class="line">[</span><br><span class="line">  [1, 7],</span><br><span class="line">  [1, 2, 5],</span><br><span class="line">  [2, 6],</span><br><span class="line">  [1, 1, 6]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: candidates &#x3D; [2,5,2,1,2], target &#x3D; 5,</span><br><span class="line">A solution set is:</span><br><span class="line">[</span><br><span class="line">  [1,2,2],</span><br><span class="line">  [5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>整体做法和39题差不多，但是要注意<strong>去重</strong></p>
+<h2 id="方法一、在加入时判断"><a href="#方法一、在加入时判断" class="headerlink" title="方法一、在加入时判断"></a>方法一、在加入时判断</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum2(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Arrays.sort(candidates);</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfs(ans , candidates , target , <span class="keyword">new</span> ArrayList&lt;&gt;() , <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; ans , <span class="keyword">int</span>[] candidates , <span class="keyword">int</span> sum , List&lt;Integer&gt; temp , <span class="keyword">int</span> pos)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sum == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!ans.contains(temp))</span><br><span class="line">                <span class="comment">//判断重复</span></span><br><span class="line">                ans.add(<span class="keyword">new</span> ArrayList&lt;&gt;(temp));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = pos ; i &lt; candidates.length ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> num = candidates[i];</span><br><span class="line">                <span class="keyword">if</span>(sum - num &lt; <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">                temp.add(num);</span><br><span class="line">                dfs(ans , candidates , sum - num , temp , i + <span class="number">1</span>);</span><br><span class="line">                temp.remove(temp.size() - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二、同一层不能使用相同数字"><a href="#方法二、同一层不能使用相同数字" class="headerlink" title="方法二、同一层不能使用相同数字"></a>方法二、同一层不能使用相同数字</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum2(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Arrays.sort(candidates);</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfs(ans , candidates , target , <span class="keyword">new</span> ArrayList&lt;&gt;() , <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; ans , <span class="keyword">int</span>[] candidates , <span class="keyword">int</span> sum , List&lt;Integer&gt; temp , <span class="keyword">int</span> pos)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sum == <span class="number">0</span>)&#123;</span><br><span class="line">            ans.add(<span class="keyword">new</span> ArrayList&lt;&gt;(temp));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = pos ; i &lt; candidates.length ; i++)&#123;</span><br><span class="line">                <span class="comment">//判断数字是否已经使用过</span></span><br><span class="line">                <span class="keyword">if</span>(i != pos &amp;&amp; candidates[i] == candidates[i-<span class="number">1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">int</span> num = candidates[i];</span><br><span class="line">                <span class="keyword">if</span>(sum - num &lt; <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">                temp.add(num);</span><br><span class="line">                dfs(ans , candidates , sum - num , temp , i + <span class="number">1</span>);</span><br><span class="line">                temp.remove(temp.size() - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Backtracking/" rel="tag">Backtracking</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-39-Combination-Sum" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/15/leetcode-39-Combination-Sum/"
+    >leetcode 39. Combination Sum</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/15/leetcode-39-Combination-Sum/" class="article-date">
+  <time datetime="2020-05-15T04:08:15.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given a <strong>set</strong> of candidate numbers (<code>candidates</code>) <strong>(without duplicates)</strong> and a target number (<code>target</code>), find all unique combinations in <code>candidates</code> where the candidate numbers sums to <code>target</code>.</p>
+<p>The <strong>same</strong> repeated number may be chosen from <code>candidates</code> unlimited number of times.</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>All numbers (including <code>target</code>) will be positive integers.</li>
+<li>The solution set must not contain duplicate combinations.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: candidates &#x3D; [2,3,6,7], target &#x3D; 7,</span><br><span class="line">A solution set is:</span><br><span class="line">[</span><br><span class="line">  [7],</span><br><span class="line">  [2,2,3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: candidates &#x3D; [2,3,5], target &#x3D; 8,</span><br><span class="line">A solution set is:</span><br><span class="line">[</span><br><span class="line">  [2,2,2,2],</span><br><span class="line">  [2,3,3],</span><br><span class="line">  [3,5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>DFS，但要注意可以一个数字重复选择，所以下次的位置不变。</p>
+<ul>
+<li>先对<code>cndidates</code>数组排序，剪枝</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Arrays.sort(candidates);</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfs(ans , candidates , target , <span class="keyword">new</span> ArrayList&lt;&gt;() , <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; ans , <span class="keyword">int</span>[] candidates , <span class="keyword">int</span> sum , List&lt;Integer&gt; temp , <span class="keyword">int</span> pos)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sum == <span class="number">0</span>)&#123;</span><br><span class="line">            ans.add(<span class="keyword">new</span> ArrayList&lt;&gt;(temp));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = pos ; i &lt; candidates.length ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> candidate = candidates[i];</span><br><span class="line">                <span class="keyword">if</span>(sum - candidate &lt; <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">                temp.add(candidate);</span><br><span class="line">                dfs(ans , candidates , sum - candidate , temp , i);</span><br><span class="line">                temp.remove(temp.size() - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Backtracking/" rel="tag">Backtracking</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-mybatis学习3-mybatis部分配置" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/14/mybatis%E5%AD%A6%E4%B9%A03-mybatis%E9%83%A8%E5%88%86%E9%85%8D%E7%BD%AE/"
+    >mybatis学习3 mybatis配置及优化</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/14/mybatis%E5%AD%A6%E4%B9%A03-mybatis%E9%83%A8%E5%88%86%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2020-05-14T12:06:08.000Z" itemprop="datePublished">2020-05-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="mybatis配置文件-mybatis-conf-xml"><a href="#mybatis配置文件-mybatis-conf-xml" class="headerlink" title="mybatis配置文件 mybatis-conf.xml"></a>mybatis配置文件 mybatis-conf.xml</h1><p>MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息。 配置文档的顶层结构如下：</p>
+<ul>
+<li>configuration（配置）<ul>
+<li>properties（属性）</li>
+<li>settings（设置）</li>
+<li>typeAliases（类型别名）</li>
+<li>typeHandlers（类型处理器）</li>
+<li>objectFactory（对象工厂）</li>
+<li>plugins（插件）</li>
+<li>environments（环境配置）<ul>
+<li>environment（环境变量）<ul>
+<li>transactionManager（事务管理器）</li>
+<li>dataSource（数据源）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>databaseIdProvider（数据库厂商标识）</li>
+<li>mappers（映射器）</li>
+</ul>
+</li>
+</ul>
+<h2 id="属性（properties）"><a href="#属性（properties）" class="headerlink" title="属性（properties）"></a>属性（properties）</h2><ul>
+<li>这些在<strong>属性</strong>标签中配置的属性在整个配置文件中可以<strong>动态配置</strong>。<ul>
+<li>可以在java的<code>.properties</code>文件中进行配置</li>
+<li>也可以在<em>属性</em>的子元素中进行配置</li>
+</ul>
+</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"org/mybatis/example/config.properties"</span>&gt;</span> <span class="comment">&lt;!--引入外部配置文件--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"dev_user"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"F2Fa3!33TYyg"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>设置好的属性可以在整个配置文件中用来替换需要动态配置的属性值。比如:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;driver&#125;"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;url&#125;"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;username&#125;"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;password&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子中的 <code>username</code> 和 <code>password</code> 将会由 <code>properties</code> 元素中设置的相应值来替换。 <code>driver</code> 和 <code>url</code> 属性将会由 <code>config.properties</code> 文件中对应的值来替换。</p>
+<p>如果一个属性在不只一个地方进行了配置，那么，MyBatis 将按照下面的顺序来加载：</p>
+<ul>
+<li>首先读取在 properties 元素体内指定的属性。</li>
+<li>然后根据 properties 元素中的 resource 属性读取类路径下属性文件，或根据 url 属性指定的路径读取属性文件，并覆盖之前读取过的同名属性。</li>
+<li>最后读取作为方法参数传递的属性，并覆盖之前读取过的同名属性。</li>
+</ul>
+<p>因此，通过方法参数传递的属性具有最高优先级，resource/url 属性中指定的配置文件次之，最低优先级的则是 properties 元素中指定的属性。</p>
+<h2 id="类型别名（typeAliases）"><a href="#类型别名（typeAliases）" class="headerlink" title="类型别名（typeAliases）"></a>类型别名（typeAliases）</h2><ul>
+<li>类型别名可为 Java 类型设置一个缩写名字。 </li>
+<li>用于降低冗余的全限定类名书写。</li>
+</ul>
+<h3 id="对单独java类起别名"><a href="#对单独java类起别名" class="headerlink" title="对单独java类起别名"></a>对单独java类起别名</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"student"</span> <span class="attr">type</span>=<span class="string">"com.zxh.pojo.student"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="指定包名"><a href="#指定包名" class="headerlink" title="指定包名"></a>指定包名</h3><p>MyBatis 会在包名下面搜索需要的 Java Bean，比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"domain.blog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>每一个在包 <code>domain.blog</code> 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。 比如 <code>domain.blog.Author</code> 的别名为 <code>author</code>；若有注解，则别名为其注解值。见下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Alias</span>(<span class="string">"author"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Author</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-mybatis学习2-实现简单的CRUD" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -477,682 +1077,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/12/leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other/"
-    >leetcode 1434. Number of Ways to Wear Different Hats to Each Other</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/12/leetcode-1434-Number-of-Ways-to-Wear-Different-Hats-to-Each-Other/" class="article-date">
-  <time datetime="2020-05-12T06:55:21.000Z" itemprop="datePublished">2020-05-12</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>There are <code>n</code> people and 40 types of hats labeled from 1 to 40.</p>
-<p>Given a list of list of integers <code>hats</code>, where <code>hats[i]</code> is a list of all hats preferred by the <code>i-th</code> person.</p>
-<p>Return the number of ways that the n people wear different hats to each other.</p>
-<p>Since the answer may be too large, return it modulo <code>10^9 + 7</code>.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[3,4],[4,5],[5]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: There is only one way to choose hats given the conditions. </span><br><span class="line">First person choose hat 3, Second person choose hat 4 and last one hat 5.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[3,5,1],[3,5]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: There are 4 ways to choose hats</span><br><span class="line">(3,5), (5,3), (1,3) and (1,5)</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]</span><br><span class="line">Output: 24</span><br><span class="line">Explanation: Each person can choose hats labeled from 1 to 4.</span><br><span class="line">Number of Permutations of (1,2,3,4) &#x3D; 24.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: hats &#x3D; [[1,2,3],[2,3,5,6],[1,3,7,9],[1,8,9],[2,5,7]]</span><br><span class="line">Output: 111</span><br></pre></td></tr></table></figure>
-
-<h1 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h1><p>我们想到的第一个想法是，我们将像问题一样直截了当：<code>返回n个人戴着不同帽子的方式的数量</code>。我们将为n个人分配不同的帽子，并使用dp计算出路数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TLE</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        HashMap&lt;Long , Integer&gt; dp = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">return</span> dfs(hats , dp , (<span class="keyword">long</span>) <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats , HashMap&lt;Long , Integer&gt; dp , Long state , <span class="keyword">int</span> pos )</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pos == hats.size()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.containsKey(state)) <span class="keyword">return</span> dp.get(state);</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> hat : hats.get(pos))&#123;</span><br><span class="line">            <span class="keyword">if</span>((state &gt;&gt; hat &amp; <span class="number">1</span>) == <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            sum += dfs(hats , dp , state | <span class="number">1</span> &lt;&lt; hat , pos+<span class="number">1</span>);</span><br><span class="line">            sum %= (<span class="keyword">int</span>)<span class="number">1e9</span> +<span class="number">7</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dp.put(state , sum);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这个代码本身有点问题</span></span><br></pre></td></tr></table></figure>
-
-<p>这个方法==TLE==，原因很显然帽子的数量太多了，所以我们需要<code>给帽子分配人</code></p>
-<h1 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h1><p><code>dp[i][j]</code> := 前i顶帽子的分配情况，<code>j</code>是bit mask <code>dp[3][3]</code></p>
-<p>e.g. <code>dp[3][101]</code> == # of ways using first 3 hats that people 1 and 3 are wearing hats.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//20ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] map = <span class="keyword">new</span> List[<span class="number">41</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;=<span class="number">40</span> ; i++) map[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(List&lt;Integer&gt; list : hats)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> hat : list) map[hat].add(ct);</span><br><span class="line">            ct++;</span><br><span class="line">        &#125;</span><br><span class="line">        Integer[][] dp = <span class="keyword">new</span> Integer[<span class="number">41</span>][<span class="number">1</span>&lt;&lt;ct];</span><br><span class="line">        <span class="keyword">return</span> dfs(map , dp , <span class="number">1</span> , <span class="number">0</span> , ct);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(List&lt;Integer&gt;[] map , Integer[][] dp , <span class="keyword">int</span> cur , <span class="keyword">int</span> mask , <span class="keyword">int</span> rest)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">if</span>(rest == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(rest &gt; <span class="number">40</span> - cur + <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//剩余的帽子不够分配</span></span><br><span class="line">        <span class="keyword">if</span>(dp[cur][mask] != <span class="keyword">null</span>) <span class="keyword">return</span> dp[cur][mask];</span><br><span class="line">        <span class="keyword">int</span> sum = dfs(map , dp , cur + <span class="number">1</span> , mask , rest); <span class="comment">//不选择这顶帽子</span></span><br><span class="line">        sum %= mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : map[cur])&#123;</span><br><span class="line">            <span class="keyword">if</span>((mask &gt;&gt; i &amp; <span class="number">1</span>) == <span class="number">1</span>) <span class="keyword">continue</span>;	<span class="comment">//这个人已经有帽子了</span></span><br><span class="line">            sum += dfs(map , dp , cur + <span class="number">1</span> , mask | <span class="number">1</span>&lt;&lt;i , rest - <span class="number">1</span>);</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[cur][mask] = sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Time: <code>O(40 * 2^n * n)</code>, where <code>n</code> is the number of people, <code>n &lt;= 10</code><br>Explain: There are total <code>hat*assignedPeople</code> = <code>40*2^n</code> states in <code>dfs(..hat, assignedPeople...)</code> function, each state needs a loop up to <code>n</code> times (<code>int p : h2p[hat]</code>) to calculate the result.</p>
-<h3 id="Bottom-UP-DP"><a href="#Bottom-UP-DP" class="headerlink" title="Bottom-UP DP"></a>Bottom-UP DP</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberWays</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; hats)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        List&lt;Integer&gt;[] map = <span class="keyword">new</span> List[<span class="number">41</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;=<span class="number">40</span> ; i++) map[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(List&lt;Integer&gt; list : hats)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> hat : list) map[hat].add(ct);</span><br><span class="line">            ct++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">41</span>][<span class="number">1</span>&lt;&lt;ct];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; <span class="number">41</span> ; i ++)&#123;<span class="comment">//40</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; <span class="number">1</span>&lt;&lt;ct ; j++)&#123;<span class="comment">//2^n2</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k : map[i])&#123;<span class="comment">//找可能的人//n</span></span><br><span class="line">                    <span class="keyword">if</span>((j&gt;&gt;k &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">                        dp[i][j] += dp[i - <span class="number">1</span>][j &amp; ~(<span class="number">1</span> &lt;&lt; k)];<span class="comment">//把帽子摘了</span></span><br><span class="line">                        dp[i][j] %= mod;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                dp[i][j] += dp[i-<span class="number">1</span>][j]; <span class="comment">//不选这个帽子</span></span><br><span class="line">                dp[i][j] %= mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">40</span>][(<span class="number">1</span>&lt;&lt;ct) -<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>显然，复杂度为 <code>40*2^n*n</code></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1444-Number-of-Ways-of-Cutting-a-Pizza" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/11/leetcode-1444-Number-of-Ways-of-Cutting-a-Pizza/"
-    >leetcode 1444. Number of Ways of Cutting a Pizza</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/11/leetcode-1444-Number-of-Ways-of-Cutting-a-Pizza/" class="article-date">
-  <time datetime="2020-05-11T05:40:01.000Z" itemprop="datePublished">2020-05-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/188/">188</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Given a rectangular pizza represented as a <code>rows x cols</code> matrix containing the following characters: <code>&#39;A&#39;</code> (an apple) and <code>&#39;.&#39;</code> (empty cell) and given the integer <code>k</code>. You have to cut the pizza into <code>k</code> pieces using <code>k-1</code> cuts. </p>
-<p>For each cut you choose the direction: vertical or horizontal, then you choose a cut position at the cell boundary and cut the pizza into two pieces. If you cut the pizza vertically, give the left part of the pizza to a person. If you cut the pizza horizontally, give the upper part of the pizza to a person. Give the last piece of pizza to the last person.</p>
-<p><em>Return the number of ways of cutting the pizza such that each piece contains <strong>at least</strong> one apple.</em> Since the answer can be a huge number, return this modulo 10^9 + 7.</p>
-<p><strong>Example 1:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2020/04/23/ways_to_cut_apple_1.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: pizza &#x3D; [&quot;A..&quot;,&quot;AAA&quot;,&quot;...&quot;], k &#x3D; 3</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: The figure above shows the three ways to cut the pizza. Note that pieces must contain at least one apple.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: pizza &#x3D; [&quot;A..&quot;,&quot;AA.&quot;,&quot;...&quot;], k &#x3D; 3</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: pizza &#x3D; [&quot;A..&quot;,&quot;A..&quot;,&quot;...&quot;], k &#x3D; 1</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= rows, cols &lt;= 50</code></li>
-<li><code>rows == pizza.length</code></li>
-<li><code>cols == pizza[i].length</code></li>
-<li><code>1 &lt;= k &lt;= 10</code></li>
-<li><code>pizza</code> consists of characters <code>&#39;A&#39;</code> and <code>&#39;.&#39;</code> only.</li>
-</ul>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="构图"><a href="#构图" class="headerlink" title="构图"></a>构图</h2><p>​        根据题意，只能1）横着切取上面。2）竖着切取左边。</p>
-<p>​        所以，<code>map[i][j]</code>记录在<code>pizza[i][j]</code>左下部分所有苹果的数目。</p>
-<h2 id="记忆数组dp-i-j-k"><a href="#记忆数组dp-i-j-k" class="headerlink" title="记忆数组dp[i][j][k]"></a>记忆数组<code>dp[i][j][k]</code></h2><p>这个数组记录<code>row&gt;=i , col&gt;=j ,还有k份</code>时的方法数</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">ways</span><span class="params">(String[] pizza, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> hi = pizza.length , wi = pizza[<span class="number">0</span>].length();</span><br><span class="line">        <span class="keyword">int</span>[][] map = <span class="keyword">new</span> <span class="keyword">int</span>[hi+<span class="number">1</span>][wi+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = hi - <span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i --)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = wi -<span class="number">1</span> ; j &gt;= <span class="number">0</span> ; j--)&#123;</span><br><span class="line">                map[i][j] = map[i+<span class="number">1</span>][j] + map[i][j+<span class="number">1</span>] - map[i+<span class="number">1</span>][j+<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(pizza[i].charAt(j) == <span class="string">'A'</span>) map[i][j] += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Integer[][][] dp = <span class="keyword">new</span> Integer[hi][wi][k+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> dfs(map , <span class="number">0</span> , <span class="number">0</span> ,dp , k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[][] map , <span class="keyword">int</span> l , <span class="keyword">int</span> r , Integer[][][] dp , <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">if</span>(map[l][r] &lt; k) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(map[l][r] &gt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[l][r][k] != <span class="keyword">null</span>) <span class="keyword">return</span> dp[l][r][k];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> sum  = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = l+<span class="number">1</span> ; i &lt; map.length-<span class="number">1</span> ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(map[i][r] == map[l][r]) <span class="keyword">continue</span>;</span><br><span class="line">            sum += dfs(map , i , r , dp , k-<span class="number">1</span>);</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = r+<span class="number">1</span> ; i &lt; map[<span class="number">0</span>].length-<span class="number">1</span> ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(map[l][i] == map[l][r]) <span class="keyword">continue</span>;</span><br><span class="line">            sum += dfs(map , l , i , dp , k-<span class="number">1</span>);</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[l][r][k] = sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode 1443-Minimum-Time-to-Collect-All-Apples-in-a-Tree" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/11/leetcode%201443-Minimum-Time-to-Collect-All-Apples-in-a-Tree/"
-    >1443. Minimum Time to Collect All Apples in a Tree</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/11/leetcode%201443-Minimum-Time-to-Collect-All-Apples-in-a-Tree/" class="article-date">
-  <time datetime="2020-05-11T05:35:05.000Z" itemprop="datePublished">2020-05-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/188/">188</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Given an undirected tree consisting of <code>n</code> vertices numbered from 0 to <code>n-1</code>, which has some apples in their vertices. You spend 1 second to walk over one edge of the tree. <em>Return the minimum time in seconds you have to spend in order to collect all apples in the tree starting at <strong>vertex 0</strong> and coming back to this vertex.</em></p>
-<p>The edges of the undirected tree are given in the array <code>edges</code>, where <code>edges[i] = [fromi, toi]</code> means that exists an edge connecting the vertices <code>fromi</code> and <code>toi</code>. Additionally, there is a boolean array <code>hasApple</code>, where <code>hasApple[i] = true</code> means that vertex <code>i</code> has an apple, otherwise, it does not have any apple.</p>
-<p><strong>Example 1:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2020/04/23/min_time_collect_apple_1.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 7, edges &#x3D; [[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple &#x3D; [false,false,true,false,true,true,false]</span><br><span class="line">Output: 8 </span><br><span class="line">Explanation: The figure above represents the given tree where red vertices have an apple. One optimal path to collect all apples is shown by the green arrows.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2020/04/23/min_time_collect_apple_2.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 7, edges &#x3D; [[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple &#x3D; [false,false,true,false,false,true,false]</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: The figure above represents the given tree where red vertices have an apple. One optimal path to collect all apples is shown by the green arrows.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 7, edges &#x3D; [[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple &#x3D; [false,false,false,false,false,false,false]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 10^5</code></li>
-<li><code>edges.length == n-1</code></li>
-<li><code>edges[i].length == 2</code></li>
-<li><code>0 &lt;= fromi, toi &lt;= n-1</code></li>
-<li><code>fromi &lt; toi</code></li>
-<li><code>hasApple.length == n</code></li>
-</ul>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><strong>构造树 + DFS</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minTime</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, List&lt;Boolean&gt; hasApple)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] tree = <span class="keyword">new</span> List[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++) tree[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] edge : edges)&#123;</span><br><span class="line">            <span class="keyword">int</span> from = edge[<span class="number">0</span>] , to = edge[<span class="number">1</span>];</span><br><span class="line">            tree[from].add(to);</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(tree , hasApple , <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(List&lt;Integer&gt;[] tree, List&lt;Boolean&gt; hasApple , <span class="keyword">int</span> node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> has = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> child : tree[node])&#123;        </span><br><span class="line">            <span class="keyword">if</span>(dfs(tree , hasApple , child))&#123;</span><br><span class="line">                len+=<span class="number">2</span>;</span><br><span class="line">                has = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(hasApple.get(node)) has =<span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">return</span> has;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode 1442-Count-Triplets-That-Can-Form-Two-Arrays-of-Equal-XOR" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/11/leetcode%201442-Count-Triplets-That-Can-Form-Two-Arrays-of-Equal-XOR/"
-    >1442. Count Triplets That Can Form Two Arrays of Equal XOR</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/11/leetcode%201442-Count-Triplets-That-Can-Form-Two-Arrays-of-Equal-XOR/" class="article-date">
-  <time datetime="2020-05-11T05:05:30.000Z" itemprop="datePublished">2020-05-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/188/">188</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Given an array of integers <code>arr</code>.</p>
-<p>We want to select three indices <code>i</code>, <code>j</code> and <code>k</code> where <code>(0 &lt;= i &lt; j &lt;= k &lt; arr.length)</code>.</p>
-<p>Let’s define <code>a</code> and <code>b</code> as follows:</p>
-<ul>
-<li><code>a = arr[i] ^ arr[i + 1] ^ ... ^ arr[j - 1]</code></li>
-<li><code>b = arr[j] ^ arr[j + 1] ^ ... ^ arr[k]</code></li>
-</ul>
-<p>Note that <strong>^</strong> denotes the <strong>bitwise-xor</strong> operation.</p>
-<p>Return <em>the number of triplets</em> (<code>i</code>, <code>j</code> and <code>k</code>) Where <code>a == b</code>. </p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: arr &#x3D; [2,3,1,6,7]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The triplets are (0,1,2), (0,2,2), (2,3,4) and (2,4,4)</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: arr &#x3D; [1,1,1,1,1]</span><br><span class="line">Output: 10</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: arr &#x3D; [2,3]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: arr &#x3D; [1,3,5,7,9]</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 5:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: arr &#x3D; [7,11,12,9,5,2,7,17,22]</span><br><span class="line">Output: 8</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= arr.length &lt;= 300</code></li>
-<li><code>1 &lt;= arr[i] &lt;= 10^8</code></li>
-</ul>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>需要知道<strong>异或XOR</strong>的一个性质：</p>
-<p>如果 <code>a == b</code>, 那么<br><code>a ^ a = b ^ a</code></p>
-<p>然后，根据题意：</p>
-<p><code>a = arr[i] ^ arr[i + 1] ^ ... ^ arr[j - 1]</code></p>
-<p><code>b = arr[j] ^ arr[j + 1] ^ ... ^ arr[k]</code></p>
-<p>对于i，k间所有的j是一样的，所以<strong>不需要考虑j，只需要找到满足的i、k对</strong></p>
-<ul>
-<li>我们先求出0～i的XOR值存放在<code>prefix[]</code>中</li>
-</ul>
-<p>如果，有一对<code>i</code>，<code>k</code>满足，那么<code>prefix[i] ^ prefix[i-1]== prefix[k] ^ prefix[i]</code></p>
-<p>显然，<code>prefix[i-1] == prefix[k]</code>，现在就变成了prefix中有多少组相同的值。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countTriplets</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> step = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>[] prefix = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length + <span class="number">1</span>];        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= arr.length ; i++) prefix[i] = prefix[i-<span class="number">1</span>] ^ arr[i-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; arr.length ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i + <span class="number">1</span> ; k &lt;= arr.length ; k++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(prefix[i] == prefix[k]) ans += k - i -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode 1441-Build-an-Array-With-Stack-Operations" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/11/leetcode%201441-Build-an-Array-With-Stack-Operations/"
-    >1441. Build an Array With Stack Operations</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/11/leetcode%201441-Build-an-Array-With-Stack-Operations/" class="article-date">
-  <time datetime="2020-05-11T05:00:44.000Z" itemprop="datePublished">2020-05-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/188/">188</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Given an array <code>target</code> and an integer <code>n</code>. In each iteration, you will read a number from  <code>list = {1,2,3..., n}</code>.</p>
-<p>Build the <code>target</code> array using the following operations:</p>
-<ul>
-<li><strong>Push</strong>: Read a new element from the beginning <code>list</code>, and push it in the array.</li>
-<li><strong>Pop</strong>: delete the last element of the array.</li>
-<li>If the target array is already built, stop reading more elements.</li>
-</ul>
-<p>You are guaranteed that the target array is strictly increasing, only containing numbers between 1 to <code>n</code> inclusive.</p>
-<p>Return the operations to build the target array.</p>
-<p>You are guaranteed that the answer is unique.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: target &#x3D; [1,3], n &#x3D; 3</span><br><span class="line">Output: [&quot;Push&quot;,&quot;Push&quot;,&quot;Pop&quot;,&quot;Push&quot;]</span><br><span class="line">Explanation: </span><br><span class="line">Read number 1 and automatically push in the array -&gt; [1]</span><br><span class="line">Read number 2 and automatically push in the array then Pop it -&gt; [1]</span><br><span class="line">Read number 3 and automatically push in the array -&gt; [1,3]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: target &#x3D; [1,2,3], n &#x3D; 3</span><br><span class="line">Output: [&quot;Push&quot;,&quot;Push&quot;,&quot;Push&quot;]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: target &#x3D; [1,2], n &#x3D; 4</span><br><span class="line">Output: [&quot;Push&quot;,&quot;Push&quot;]</span><br><span class="line">Explanation: You only need to read the first 2 numbers and stop.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: target &#x3D; [2,3,4], n &#x3D; 4</span><br><span class="line">Output: [&quot;Push&quot;,&quot;Pop&quot;,&quot;Push&quot;,&quot;Push&quot;,&quot;Push&quot;]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= target.length &lt;= 100</code></li>
-<li><code>1 &lt;= target[i] &lt;= 100</code></li>
-<li><code>1 &lt;= n &lt;= 100</code></li>
-<li><code>target</code> is strictly increasing.</li>
-</ul>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
-<li><ul>
-<li>如果当前数字<code>i</code>在<code>target array</code>中，添加<code>&quot;push&quot;</code></li>
-<li>否则，添加<code>&quot;push&quot;，&quot;pop&quot;</code></li>
-</ul>
-</li>
-<li><p><code>i++</code>直到，<code>i==n</code></p>
-</li>
-</ul>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">buildArray</span><span class="params">(<span class="keyword">int</span>[] target, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= n ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i != target[cur])&#123;</span><br><span class="line">               list.add(<span class="string">"Push"</span>);</span><br><span class="line">                list.add(<span class="string">"Pop"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                list.add(<span class="string">"Push"</span>);</span><br><span class="line">                cur++;</span><br><span class="line">                <span class="keyword">if</span>(cur == target.length) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stack/" rel="tag">stack</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-servlet7-cookie和session" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/10/servlet7-cookie%E5%92%8Csession/"
-    >servlet7 cookie</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/10/servlet7-cookie%E5%92%8Csession/" class="article-date">
-  <time datetime="2020-05-10T05:35:51.000Z" itemprop="datePublished">2020-05-10</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/servlet/">servlet</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h1 id="一、会话机制"><a href="#一、会话机制" class="headerlink" title="一、会话机制"></a>一、会话机制</h1><p><strong>会话</strong>：用户通过浏览器，访问一个web给服务器发送请求（会话开始），期间点击了许多超链接，直到关闭浏览器（会话结束）的过程。</p>
-<p>​        这个过程中，浏览器可以视为电话，当用户第一次访问web向服务器发送请求时，就视为一次会话的开始，期间无论作多少次点击，都是在同一个会话内（相当于两个人在电话两端不停通话），当关闭浏览器，会话结束。</p>
-<p>​        但，由于<code>HTTP</code>协议本身是无状态的，所以是无法保存用户的身份的，每一次会话的都是崭新的，对于一个购物网站来说无法记住用户，也就是每次登录都必须要再次输入用户名、密码。所以我们希望实现<strong>有状态会话</strong>。</p>
-<h1 id="二、实现有状态会话"><a href="#二、实现有状态会话" class="headerlink" title="二、实现有状态会话"></a>二、实现有状态会话</h1><p>正如标题，有两种手段实现<strong>有状态会话</strong>：</p>
-<ul>
-<li><p><strong>cookie</strong>：服务器给客户端一个信件，下次访问时带上这个信件表明自己的身份。（保存在<strong>客户端</strong>）</p>
-</li>
-<li><p><strong>session</strong>：服务器端登记你来过了，下次来的时候我来匹配你。</p>
-</li>
-</ul>
-<h2 id="Cookie和Session之间的区别和联系"><a href="#Cookie和Session之间的区别和联系" class="headerlink" title="Cookie和Session之间的区别和联系"></a>Cookie和Session之间的区别和联系</h2><p>​        假如一个咖啡店有喝5杯咖啡免费赠一杯咖啡的优惠，然而一次性消费5杯咖啡的机会微乎其微，这时就需要某种方式来纪录某位顾客的消费数量。想象一下其实也无外乎下面的几种方案：</p>
-<p>　    1、该店的店员很厉害，能记住每位顾客的消费数量，只要顾客一走进咖啡店，店员就知道该怎么对待了。这种做法就是协议本身支持状态。但是http协议本身是无状态的</p>
-<p>​        2、发给顾客一张卡片，上面记录着消费的数量，一般还有个有效期限。每次消费时，如果顾客出示这张卡片，则此次消费就会与以前或以后的消费相联系起来。这种做法就是在客户端保持状态。也就是cookie。 顾客就相当于浏览器，cookie如何工作，下面会详细讲解</p>
-<p>​        3、发给顾客一张会员卡，除了卡号之外什么信息也不纪录，每次消费时，如果顾客出示该卡片，则店员在店里的纪录本上找到这个卡号对应的纪录添加一些消费信息。这种做法就是在服务器端保持状态。</p>
-<p>简而言之，</p>
-<ul>
-<li>cookie机制采用的是在客户端保持状态的方案</li>
-<li>session机制采用的是在服务器端保持状态的方案</li>
-</ul>
-<h1 id="三、cookie"><a href="#三、cookie" class="headerlink" title="三、cookie"></a>三、cookie</h1><p>首先实现一个简单的cookie，记录用户的访问时间：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zxh.cs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">cookieDemo1</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">        resp.setContentType(<span class="string">"text/html; charset=utf-8"</span>);</span><br><span class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">        <span class="keyword">boolean</span> hasCookie = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(Cookie cookie : req.getCookies())&#123;</span><br><span class="line">            <span class="keyword">if</span>(cookie.getName().equals(<span class="string">"time"</span>))&#123;</span><br><span class="line">                hasCookie = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">long</span> t = Long.parseLong(cookie.getValue());</span><br><span class="line">                resp.getWriter().write(<span class="string">"你上次访问的时间是："</span> + sdf.format(<span class="keyword">new</span> Date(t)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!hasCookie) resp.getWriter().write(<span class="string">"这是你第一次访问"</span>);</span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"time"</span> , String.valueOf(System.currentTimeMillis()));</span><br><span class="line">        resp.addCookie(cookie);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码实现了：</p>
-<ul>
-<li><p>获取cookie<code>req.getCookies()</code></p>
-</li>
-<li><p>创建cookie<code>Cookie cookie = new Cookie(&quot;time&quot; , String.valueOf(System.currentTimeMillis()));</code></p>
-</li>
-<li><p>将cookie发送给浏览器<code>resp.addCookie(cookie);</code></p>
-</li>
-</ul>
-<p>很明显，客户端请求时，会将cookie包含在Http请求中提供给服务器</p>
-<blockquote>
-<p>Cookie:time=1589098910780</p>
-</blockquote>
-<p>cookie对象就是很简单的键值对。<em>name：value</em></p>
-<h2 id="expiry"><a href="#expiry" class="headerlink" title="expiry"></a>expiry</h2><p>也就是cookie也是拥有有效日期的。</p>
-<p>这个可以自由设置，默认是关闭浏览器，cookie就没用了。</p>
-<p><code>cookie.setMaxAge(expiry);</code>　　//设置cookie被浏览器保存的时间。</p>
-<p><strong>expiry</strong>：单位秒，默认为-1，</p>
-<p><strong>expiry=-1</strong>：代表浏览器关闭后，也就是会话结束后，cookie就失效了，也就没有了。</p>
-<p><strong>expiry&gt;0：</strong>代表浏览器关闭后，cookie不会失效，仍然存在。并且会将cookie保存到硬盘中，直到设置时间过期才会被浏览器自动删除，</p>
-<p><strong>expiry=0：</strong>删除cookie。不管是之前的expiry=-1还是expiry&gt;0，当设置expiry=0时，cookie都会被浏览器给删除。</p>
-<h2 id="cookie的特点"><a href="#cookie的特点" class="headerlink" title="cookie的特点"></a>cookie的特点</h2><ul>
-<li><p>每一个cookie文件大小：4kb ， 如果超过4kb浏览器不识别</p>
-</li>
-<li><p>一个web站点（web项目）：发送20个</p>
-</li>
-<li><p>一个浏览器保存总大小：300个</p>
-</li>
-<li><p>cookie 不安全，可能泄露用户信息。浏览器支持禁用cookie操作。</p>
-</li>
-<li><p>默认情况生命周期：与浏览器会话一样，当浏览器关闭时cookie销毁的。—临时cookie</p>
-</li>
-</ul>
-<h1 id="四、Session（重点）"><a href="#四、Session（重点）" class="headerlink" title="四、Session（重点）"></a>四、Session（重点）</h1><h2 id="session原理"><a href="#session原理" class="headerlink" title="session原理"></a>session原理</h2><p>当浏览器<strong>第一次</strong>访问一个web站点时，服务器首先会检查这个客户端请求是否已经包含了一个session标识、称为SESSIONID，如果已经包含了一个sessionid则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用，如果客户端请求不包含session id，则服务器为此客户端创建一个session并且生成一个与此session相关联的session id：</p>
-<p><img src="/2020/05/10/servlet7-cookie%E5%92%8Csession/session1.png" alt></p>
-<p> 这是响应头中的相应信息，可见，服务器把sessionID封装到cookie中发送给了浏览器。这样下次发送请求时，浏览器只需要把sessionID放到cookie中。</p>
-<h2 id="获取session"><a href="#获取session" class="headerlink" title="获取session"></a>获取session</h2><p><code>req.getSession();　　//如果没有将创建一个新的，等效getSession(true);</code></p>
-<p><code>request.getSession(boolean);　　//true：没有将创建，false：没有将返回null</code></p>
-<h2 id="session属性操作"><a href="#session属性操作" class="headerlink" title="session属性操作"></a>session属性操作</h2><p>用来存放一些信息，然后才能共享信息　</p>
-<p><code>setAttrubute(key,value);</code></p>
-<ul>
-<li>也是键值对，但是value可以是对象，而cookie中只能是字符串</li>
-</ul>
-<p><code>getAttribute(key);</code>获取value`</p>
-<h2 id="session生命周期"><a href="#session生命周期" class="headerlink" title="session生命周期"></a>session生命周期</h2><p>​        常常听到这样一种误解“只要关闭浏览器，session就消失了”。但其实是不准确的。准确来说，<strong>关闭浏览器只会使存储在客户端浏览器内存中的session cookie失效，不会使服务器端的session对象失效。</strong></p>
-<p>​        但是，服务器不可能一直保留session，这样十分占资源。所以，session在下列情况下被删除：</p>
-<ul>
-<li><p>程序调用<code>HttpSession.invalidate()</code>，手动删除</p>
-</li>
-<li><p><code>setMaxInactiveInterval(int interval)</code> 设置有效时间，单位秒</p>
-</li>
-<li><p>距离上一次收到客户端发送的session id时间间隔超过了session的最大有效时间。一般是30分钟，我们也可以在<code>web.xml</code>中设置:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>60 <span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span> <span class="comment">&lt;!--单位是分钟--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>服务器进程被停止</p>
-</li>
-</ul>
-<p>所以，一个session的生命周期就是：</p>
-<p><strong>创建：</strong>第一次调用<code>getSession()</code></p>
-<p><strong>销毁：</strong></p>
-<p>1、超时，默认30分钟</p>
-<p>2、执行<code>session.invalidate()</code>将session对象销毁、</p>
-<p>​    <code>setMaxInactiveInterval(int interval)</code>设置有效时间，单位秒</p>
-<p>3、服务器非正常关闭</p>
-<ul>
-<li>如果正常关闭，session就会被持久化(写入到文件中，因为session默认的超时时间为30分钟，正常关闭后，就会将session持久化，等30分钟后，就会被删除)</li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Session/" rel="tag">Session</a></li></ul>
 
 
     </footer>

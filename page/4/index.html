@@ -80,6 +80,567 @@
     
     
     
+    <article id="post-leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K/"
+    >leetcode 1414. Find the Minimum Number of Fibonacci Numbers Whose Sum Is K</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1414-Find-the-Minimum-Number-of-Fibonacci-Numbers-Whose-Sum-Is-K/" class="article-date">
+  <time datetime="2020-05-08T07:34:58.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/bi24/">bi24</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given the number <code>k</code>, <em>return the minimum number of Fibonacci numbers whose sum is equal to</em> <code>k</code>, whether a Fibonacci number could be used multiple times.</p>
+<p>The Fibonacci numbers are defined as:</p>
+<ul>
+<li>F1 = 1</li>
+<li>F2 = 1</li>
+<li>Fn = Fn-1 + Fn-2 , for n &gt; 2.</li>
+</ul>
+<p>It is guaranteed that for the given constraints we can always find such fibonacci numbers that sum <code>k</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: k &#x3D; 7</span><br><span class="line">Output: 2 </span><br><span class="line">Explanation: The Fibonacci numbers are: 1, 1, 2, 3, 5, 8, 13, ... </span><br><span class="line">For k &#x3D; 7 we can use 2 + 5 &#x3D; 7.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: k &#x3D; 10</span><br><span class="line">Output: 2 </span><br><span class="line">Explanation: For k &#x3D; 10 we can use 2 + 8 &#x3D; 10.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: k &#x3D; 19</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: For k &#x3D; 19 we can use 1 + 5 + 13 &#x3D; 19.</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每次选取最大的小于k的Fib数，<code>k -= max(fib)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMinFibonacciNumbers</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (k &lt; <span class="number">2</span>) <span class="keyword">return</span> k;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (b &lt;= k) &#123;</span><br><span class="line">            b += a;</span><br><span class="line">            a = b - a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + findMinFibonacciNumbers(k - a);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-1413-Minimum-Value-to-Get-Positive-Step-by-Step-Sum" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1413-Minimum-Value-to-Get-Positive-Step-by-Step-Sum/"
+    >leetcode 1413. Minimum Value to Get Positive Step by Step Sum</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1413-Minimum-Value-to-Get-Positive-Step-by-Step-Sum/" class="article-date">
+  <time datetime="2020-05-08T07:33:35.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/bi24/">bi24</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Given an array of integers <code>nums</code>, you start with an initial <strong>positive</strong> value <em>startValue**.</em></p>
+<p>In each iteration, you calculate the step by step sum of <em>startValue</em> plus elements in <code>nums</code> (from left to right).</p>
+<p>Return the minimum <strong>positive</strong> value of <em>startValue</em> such that the step by step sum is never less than 1.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [-3,2,-3,4,2]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: If you choose startValue &#x3D; 4, in the third iteration your step by step sum is less than 1.</span><br><span class="line">                step by step sum</span><br><span class="line">                startValue &#x3D; 4 | startValue &#x3D; 5 | nums</span><br><span class="line">                  (4 -3 ) &#x3D; 1  | (5 -3 ) &#x3D; 2    |  -3</span><br><span class="line">                  (1 +2 ) &#x3D; 3  | (2 +2 ) &#x3D; 4    |   2</span><br><span class="line">                  (3 -3 ) &#x3D; 0  | (4 -3 ) &#x3D; 1    |  -3</span><br><span class="line">                  (0 +4 ) &#x3D; 4  | (1 +4 ) &#x3D; 5    |   4</span><br><span class="line">                  (4 +2 ) &#x3D; 6  | (5 +2 ) &#x3D; 7    |   2</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,2]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: Minimum start value should be positive.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,-2,-3]</span><br><span class="line">Output: 5</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minStartValue</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">                    sum += num;</span><br><span class="line">                    min = Math.min(min , sum);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(min &gt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span> ;</span><br><span class="line">            <span class="keyword">return</span> Math.abs(min) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Easy/" rel="tag">Easy</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-924-Minimize-Malware-Spread" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-924-Minimize-Malware-Spread/"
+    >leetcode 924. Minimize Malware Spread</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-924-Minimize-Malware-Spread/" class="article-date">
+  <time datetime="2020-05-08T07:28:13.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>In a network of nodes, each node <code>i</code> is directly connected to another node <code>j</code> if and only if <code>graph[i][j] = 1</code>.</p>
+<p>Some nodes <code>initial</code> are initially infected by malware. Whenever two nodes are directly connected and at least one of those two nodes is infected by malware, both nodes will be infected by malware. This spread of malware will continue until no more nodes can be infected in this manner.</p>
+<p>Suppose <code>M(initial)</code> is the final number of nodes infected with malware in the entire network, after the spread of malware stops.</p>
+<p>We will remove one node from the initial list. Return the node that if removed, would minimize <code>M(initial)</code>. If multiple nodes could be removed to minimize <code>M(initial)</code>, return such a node with the smallest index.</p>
+<p>Note that if a node was removed from the <code>initial</code> list of infected nodes, it may still be infected later as a result of the malware spread</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: graph &#x3D; [[1,1,0],[1,1,0],[0,0,1]], initial &#x3D; [0,1]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: graph &#x3D; [[1,0,0],[0,1,0],[0,0,1]], initial &#x3D; [0,2]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: graph &#x3D; [[1,1,1],[1,1,1],[1,1,1]], initial &#x3D; [1,2]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ul>
+<li><code>1 &lt; graph.length = graph[0].length &lt;= 300</code></li>
+<li><code>0 &lt;= graph[i][j] == graph[j][i] &lt;= 1</code></li>
+<li><code>graph[i][i] == 1</code></li>
+<li><code>1 &lt;= initial.length &lt;= graph.length</code></li>
+<li><code>0 &lt;= initial[i] &lt; graph.length</code></li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>通过并查集将所有节点分为若干个联通块</li>
+<li>对于<code>initial</code>节点，找到其所属的root，相同root保留最小的index。记录个数</li>
+<li>找到最小的结果</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minMalwareSpread</span><span class="params">(<span class="keyword">int</span>[][] graph, <span class="keyword">int</span>[] initial)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = graph.length;</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[n]; <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++) parent[i] = i;</span><br><span class="line">        <span class="keyword">int</span>[] num = <span class="keyword">new</span> <span class="keyword">int</span>[n]; Arrays.fill(num , <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+ <span class="number">1</span> ; j &lt; n ; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(graph[i][j] == <span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">int</span> rooti = find(parent , i);</span><br><span class="line">                    <span class="keyword">int</span> rootj = find(parent , j);</span><br><span class="line">                    <span class="keyword">if</span>(rooti != rootj)&#123;</span><br><span class="line">                        parent[rooti] = rootj;</span><br><span class="line">                        num[j] += num[i];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        HashMap&lt;Integer , Integer&gt; roots = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        HashMap&lt;Integer , Integer&gt; nums = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> init : initial)&#123;</span><br><span class="line">            <span class="keyword">int</span> root = find(parent , init);</span><br><span class="line">            <span class="keyword">if</span>(!roots.containsKey(root)) &#123;</span><br><span class="line">                roots.put(root , init);</span><br><span class="line">                sum += num[root];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(roots.get(root) &gt; init) roots.put(root , init);</span><br><span class="line">            &#125;</span><br><span class="line">            nums.put(root , nums.getOrDefault(root , <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = n;</span><br><span class="line">        <span class="keyword">int</span> m = sum;</span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;Integer , Integer&gt; entry: roots.entrySet())&#123;</span><br><span class="line">            <span class="keyword">int</span> root = entry.getKey();                 </span><br><span class="line">            <span class="keyword">if</span>(nums.get(root) != <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(sum == m) ans = Math.min(entry.getValue() , ans);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> comp = sum - num[root];</span><br><span class="line">                <span class="keyword">if</span>(comp &lt; m)&#123;</span><br><span class="line">                    m = comp; ans = entry.getValue();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(comp == m) ans = Math.min(entry.getValue() , ans);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i; <span class="comment">//根结点</span></span><br><span class="line">        <span class="keyword">return</span> parent[i] = find(parent , parent[i]);<span class="comment">//不是根结点，返回父节点的根结点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-882-Reachable-Nodes-In-Subdivided-Graph" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/882-Reachable-Nodes-In-Subdivided-Graph/"
+    >882. Reachable Nodes In Subdivided Graph</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/882-Reachable-Nodes-In-Subdivided-Graph/" class="article-date">
+  <time datetime="2020-05-08T07:27:14.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Starting with an <strong>undirected</strong> graph (the “original graph”) with nodes from <code>0</code> to <code>N-1</code>, subdivisions are made to some of the edges.</p>
+<p>The graph is given as follows: <code>edges[k]</code> is a list of integer pairs <code>(i, j, n)</code> such that <code>(i, j)</code> is an edge of the original graph,</p>
+<p>and <code>n</code> is the total number of <strong>new</strong> nodes on that edge.</p>
+<p>Then, the edge <code>(i, j)</code> is deleted from the original graph, <code>n</code> new nodes <code>(x_1, x_2, ..., x_n)</code> are added to the original graph,</p>
+<p>and <code>n+1</code> new edges <code>(i, x_1), (x_1, x_2), (x_2, x_3), ..., (x_{n-1}, x_n), (x_n, j)</code> are added to the original graph.</p>
+<p>Now, you start at node <code>0</code> from the original graph, and in each move, you travel along one edge.</p>
+<p>Return how many nodes you can reach in at most <code>M</code> moves.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: edges &#x3D; [[0,1,10],[0,2,1],[1,2,2]], M &#x3D; 6, N &#x3D; 3</span><br><span class="line">Output: 13</span><br><span class="line">Explanation: </span><br><span class="line">The nodes that are reachable in the final graph after M &#x3D; 6 moves are indicated below.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: edges &#x3D; [[0,1,4],[1,2,6],[0,2,8],[1,3,1]], M &#x3D; 10, N &#x3D; 4</span><br><span class="line">Output: 23</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>0 &lt;= edges.length &lt;= 10000</code></li>
+<li><code>0 &lt;= edges[i][0] &lt; edges[i][1] &lt; N</code></li>
+<li>There does not exist any <code>i != j</code> for which <code>edges[i][0] == edges[j][0]</code> and <code>edges[i][1] == edges[j][1]</code>.</li>
+<li>The original graph has no parallel edges.</li>
+<li><code>0 &lt;= edges[i][2] &lt;= 10000</code></li>
+<li><code>0 &lt;= M &lt;= 10^9</code></li>
+<li><code>1 &lt;= N &lt;= 3000</code></li>
+<li>A reachable node is a node that can be travelled to using at most M moves starting from node 0.</li>
+</ol>
+<hr>
+<ul>
+<li>使用<code>Dijkstra</code>计算 每个节点还能走多少步保存到数组<code>vis[]</code>中</li>
+<li>对于每一条边<code>[i , j , n]</code>能访问到的节点个数位：<code>min(vis[i] + vis[j] , n)</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reachableNodes</span><span class="params">(<span class="keyword">int</span>[][] edges, <span class="keyword">int</span> M, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] graph = <span class="keyword">new</span> <span class="keyword">int</span>[N][N];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] edg : edges) &#123;</span><br><span class="line">            graph[edg[<span class="number">0</span>]][edg[<span class="number">1</span>]] = edg[<span class="number">2</span>] + <span class="number">1</span>;</span><br><span class="line">            graph[edg[<span class="number">1</span>]][edg[<span class="number">0</span>]] = edg[<span class="number">2</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] vis = <span class="keyword">new</span> <span class="keyword">int</span>[N]; Arrays.fill(vis , Integer.MAX_VALUE);</span><br><span class="line">        PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((a , b) -&gt; -Integer.compare(a[<span class="number">1</span>] , b[<span class="number">1</span>]));</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123; <span class="number">0</span> , M&#125;);</span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span>[] cur = pq.poll();</span><br><span class="line">            <span class="keyword">if</span>(vis[cur[<span class="number">0</span>]] != Integer.MAX_VALUE) <span class="keyword">continue</span>;</span><br><span class="line">            vis[cur[<span class="number">0</span>]] = cur[<span class="number">1</span>];</span><br><span class="line">            ans ++;</span><br><span class="line">            <span class="keyword">if</span>(cur[<span class="number">1</span>] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> next = <span class="number">0</span> ; next &lt; N ; next++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(vis[next] != Integer.MAX_VALUE || graph[cur[<span class="number">0</span>]][next] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">int</span> dis = cur[<span class="number">1</span>] - graph[cur[<span class="number">0</span>]][next];</span><br><span class="line">                <span class="keyword">if</span>(dis &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;next , dis&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] edg:edges)&#123;</span><br><span class="line">                <span class="keyword">int</span> a = vis[edg[<span class="number">0</span>]] == Integer.MAX_VALUE ? <span class="number">0</span> : vis[edg[<span class="number">0</span>]];</span><br><span class="line">                <span class="keyword">int</span> b = vis[edg[<span class="number">1</span>]] == Integer.MAX_VALUE ? <span class="number">0</span> : vis[edg[<span class="number">1</span>]];</span><br><span class="line">            ans += Math.min(edg[<span class="number">2</span>] , a  + b);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-1334-Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-1334-Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance/"
+    >leetcode 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-1334-Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance/" class="article-date">
+  <time datetime="2020-05-08T07:25:43.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>There are <code>n</code> cities numbered from <code>0</code> to <code>n-1</code>. Given the array <code>edges</code> where <code>edges[i] = [fromi, toi, weighti]</code> represents a bidirectional and weighted edge between cities <code>fromi</code> and <code>toi</code>, and given the integer <code>distanceThreshold</code>.</p>
+<p>Return the city with the smallest number of cities that are reachable through some path and whose distance is <strong>at most</strong> <code>distanceThreshold</code>, If there are multiple such cities, return the city with the greatest number.</p>
+<p>Notice that the distance of a path connecting cities <strong><em>i\</em></strong> and <strong><em>j\</em></strong> is equal to the sum of the edges’ weights along that path.</p>
+<p><strong>Example 1:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/01/16/find_the_city_01.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 4, edges &#x3D; [[0,1,3],[1,2,1],[1,3,4],[2,3,1]], distanceThreshold &#x3D; 4</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The figure above describes the graph. </span><br><span class="line">The neighboring cities at a distanceThreshold &#x3D; 4 for each city are:</span><br><span class="line">City 0 -&gt; [City 1, City 2] </span><br><span class="line">City 1 -&gt; [City 0, City 2, City 3] </span><br><span class="line">City 2 -&gt; [City 0, City 1, City 3] </span><br><span class="line">City 3 -&gt; [City 1, City 2] </span><br><span class="line">Cities 0 and 3 have 2 neighboring cities at a distanceThreshold &#x3D; 4, but we have to return city 3 since it has the greatest number.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<p><strong><img src="https://assets.leetcode.com/uploads/2020/01/16/find_the_city_02.png" alt="img"></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 5, edges &#x3D; [[0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1]], distanceThreshold &#x3D; 2</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: The figure above describes the graph. </span><br><span class="line">The neighboring cities at a distanceThreshold &#x3D; 2 for each city are:</span><br><span class="line">City 0 -&gt; [City 1] </span><br><span class="line">City 1 -&gt; [City 0, City 4] </span><br><span class="line">City 2 -&gt; [City 3, City 4] </span><br><span class="line">City 3 -&gt; [City 2, City 4]</span><br><span class="line">City 4 -&gt; [City 1, City 2, City 3] </span><br><span class="line">The city 0 has 1 neighboring city at a distanceThreshold &#x3D; 2.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>2 &lt;= n &lt;= 100</code></li>
+<li><code>1 &lt;= edges.length &lt;= n * (n - 1) / 2</code></li>
+<li><code>edges[i].length == 3</code></li>
+<li><code>0 &lt;= fromi &lt; toi &lt; n</code></li>
+<li><code>1 &lt;= weighti, distanceThreshold &lt;= 10^4</code></li>
+<li>All pairs <code>(fromi, toi)</code> are distinct.</li>
+</ul>
+<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//72ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTheCity</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> distanceThreshold)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] graph =<span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] edg : edges) &#123;</span><br><span class="line">            graph[edg[<span class="number">0</span>]][edg[<span class="number">1</span>]] = edg[<span class="number">2</span>];</span><br><span class="line">            graph[edg[<span class="number">1</span>]][edg[<span class="number">0</span>]] = edg[<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>  ; i &lt; n ; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> ct = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">            PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((a,b) -&gt; Integer.compare(a[<span class="number">1</span>] , b[<span class="number">1</span>]));</span><br><span class="line">            pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i , <span class="number">0</span>&#125;);</span><br><span class="line">            <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">               <span class="keyword">int</span>[] cur = pq.poll();</span><br><span class="line">                <span class="keyword">if</span>(vis[cur[<span class="number">0</span>]]) <span class="keyword">continue</span>;</span><br><span class="line">                ct++;</span><br><span class="line">                vis[cur[<span class="number">0</span>]] = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">int</span> next = -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> d : graph[cur[<span class="number">0</span>]])&#123;</span><br><span class="line">                    next++;</span><br><span class="line">                    <span class="keyword">if</span>(d == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(vis[next]) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">int</span> dis = d + cur[<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(dis &gt; distanceThreshold) <span class="keyword">continue</span>;</span><br><span class="line">                    pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;next , dis&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(ct &lt;= min) &#123;</span><br><span class="line">                ans = i;</span><br><span class="line">                min = ct;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//10ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTheCity</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> distanceThreshold)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] row : dp) Arrays.fill(row , Integer.MAX_VALUE/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] edg : edges)&#123;</span><br><span class="line">            dp[edg[<span class="number">0</span>]][edg[<span class="number">1</span>]] = edg[<span class="number">2</span>];</span><br><span class="line">            dp[edg[<span class="number">1</span>]][edg[<span class="number">0</span>]] = edg[<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt;  n ; k++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++)</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ;  j &lt; n ; j++)</span><br><span class="line">                    dp[i][j] = Math.min(dp[i][j] , dp[i][k] + dp[k][j]);</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(i == j) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(dp[i][j] &lt;= distanceThreshold) ct++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(ct &lt;= min)&#123;</span><br><span class="line">                min = ct;</span><br><span class="line">                ans = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Floyd/" rel="tag">Floyd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-leetcode-685-Redundant-Connection-II" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/08/leetcode-685-Redundant-Connection-II/"
+    >leetcode 685. Redundant Connection II</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/leetcode-685-Redundant-Connection-II/" class="article-date">
+  <time datetime="2020-05-08T07:24:09.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>In this problem, a rooted tree is a <strong>directed</strong> graph such that, there is exactly one node (the root) for which all other nodes are descendants of this node, plus every node has exactly one parent, except for the root node which has no parents.</p>
+<p>The given input is a directed graph that started as a rooted tree with N nodes (with distinct values 1, 2, …, N), with one additional directed edge added. The added edge has two different vertices chosen from 1 to N, and was not an edge that already existed.</p>
+<p>The resulting graph is given as a 2D-array of <code>edges</code>. Each element of <code>edges</code> is a pair <code>[u, v]</code> that represents a <strong>directed</strong> edge connecting nodes <code>u</code> and <code>v</code>, where <code>u</code> is a parent of child <code>v</code>.</p>
+<p>Return an edge that can be removed so that the resulting graph is a rooted tree of N nodes. If there are multiple answers, return the answer that occurs last in the given 2D-array.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [1,3], [2,3]]</span><br><span class="line">Output: [2,3]</span><br><span class="line">Explanation: The given directed graph will be like this:</span><br><span class="line">  1</span><br><span class="line"> &#x2F; \</span><br><span class="line">v   v</span><br><span class="line">2--&gt;3</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [2,3], [3,4], [4,1], [1,5]]</span><br><span class="line">Output: [4,1]</span><br><span class="line">Explanation: The given directed graph will be like this:</span><br><span class="line">5 &lt;- 1 -&gt; 2</span><br><span class="line">     ^    |</span><br><span class="line">     |    v</span><br><span class="line">     4 &lt;- 3</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<p>The size of the input 2D-array will be between 3 and 1000.</p>
+<p>Every integer represented in the 2D-array will be between 1 and N, where N is the size of the input array.</p>
+<hr>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>根据题意，每一个node最多只有一个parent。所以，可以分为三种情况：</p>
+<ul>
+<li>没有出现重复parent的情况，返回最后一个造成loop的边</li>
+<li>出现重复parent<ul>
+<li>如果，有产生loop，返回在loop中的parent</li>
+<li>如果没有，返回最晚出现的parent</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] findRedundantDirectedConnection(<span class="keyword">int</span>[][] edges) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1001</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= <span class="number">1000</span> ; i++) parent[i] = i;</span><br><span class="line">        <span class="keyword">int</span>[] hasParent = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1001</span>];</span><br><span class="line">        <span class="keyword">int</span>[] temp = <span class="keyword">null</span>; <span class="keyword">int</span> cc = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] ans = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] edge : edges)&#123;</span><br><span class="line">            <span class="keyword">int</span> p = edge[<span class="number">0</span>] , c = edge[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> rootp = find(parent , p) , rootc = find(parent , c);</span><br><span class="line">                parent[rootp] = rootc;</span><br><span class="line">            <span class="keyword">if</span>(rootc == rootp) ans = edge;</span><br><span class="line">            <span class="keyword">if</span>(hasParent[c] != <span class="number">0</span>) &#123;</span><br><span class="line">                temp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">                temp[<span class="number">1</span>] = hasParent[c];</span><br><span class="line">                temp[<span class="number">0</span>] = p;</span><br><span class="line">                cc = c;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                hasParent[c] = p;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(temp != <span class="keyword">null</span>) &#123;                </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> t : temp) &#123;</span><br><span class="line">                <span class="keyword">int</span> pp = t;</span><br><span class="line">                <span class="keyword">while</span>(pp != <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(pp == cc) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;t , cc&#125;;</span><br><span class="line">                        pp = hasParent[pp];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;temp[<span class="number">0</span>] , cc&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> parent[i] = find(parent , parent[i]);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-leetcode-1263-Minimum-Moves-to-Move-a-Box-to-Their-Target-Location" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -443,583 +1004,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hard/" rel="tag">Hard</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1409-Queries-on-a-Permutation-With-Key" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-1409-Queries-on-a-Permutation-With-Key/"
-    >leetcode 1409. Queries on a Permutation With Key</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-1409-Queries-on-a-Permutation-With-Key/" class="article-date">
-  <time datetime="2020-05-08T07:16:30.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/contest/">contest</a> / <a class="article-category-link" href="/categories/contest/184/">184</a> / <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Given the array <code>queries</code> of positive integers between <code>1</code> and <code>m</code>, you have to process all <code>queries[i]</code> (from <code>i=0</code> to <code>i=queries.length-1</code>) according to the following rules:</p>
-<ul>
-<li>In the beginning, you have the permutation <code>P=[1,2,3,...,m]</code>.</li>
-<li>For the current <code>i</code>, find the position of <code>queries[i]</code> in the permutation <code>P</code> (<strong>indexing from 0</strong>) and then move this at the beginning of the permutation <code>P.</code> Notice that the position of <code>queries[i]</code> in <code>P</code> is the result for <code>queries[i]</code>.</li>
-</ul>
-<p>Return an array containing the result for the given <code>queries</code>.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: queries &#x3D; [3,1,2,1], m &#x3D; 5</span><br><span class="line">Output: [2,1,2,1] </span><br><span class="line">Explanation: The queries are processed as follow: </span><br><span class="line">For i&#x3D;0: queries[i]&#x3D;3, P&#x3D;[1,2,3,4,5], position of 3 in P is 2, then we move 3 to the beginning of P resulting in P&#x3D;[3,1,2,4,5]. </span><br><span class="line">For i&#x3D;1: queries[i]&#x3D;1, P&#x3D;[3,1,2,4,5], position of 1 in P is 1, then we move 1 to the beginning of P resulting in P&#x3D;[1,3,2,4,5]. </span><br><span class="line">For i&#x3D;2: queries[i]&#x3D;2, P&#x3D;[1,3,2,4,5], position of 2 in P is 2, then we move 2 to the beginning of P resulting in P&#x3D;[2,1,3,4,5]. </span><br><span class="line">For i&#x3D;3: queries[i]&#x3D;1, P&#x3D;[2,1,3,4,5], position of 1 in P is 1, then we move 1 to the beginning of P resulting in P&#x3D;[1,2,3,4,5]. </span><br><span class="line">Therefore, the array containing the result is [2,1,2,1].</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: queries &#x3D; [4,1,2,2], m &#x3D; 4</span><br><span class="line">Output: [3,1,2,0]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: queries &#x3D; [7,5,5,8,3], m &#x3D; 8</span><br><span class="line">Output: [6,5,0,7,5]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= m &lt;= 10^3</code></li>
-<li><code>1 &lt;= queries.length &lt;= m</code></li>
-<li><code>1 &lt;= queries[i] &lt;= m</code></li>
-</ul>
-<h2 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h2><p>Brute Force : 使用<code>ArrayList</code>，每次<strong>query</strong>，遍历<code>ArrayList</code>，找到后，将<code>remove()</code>的数放在<code>ArrayList</code>的起始位置：<code>list.add(0 , list.remove(index of query));</code></p>
-<p>复杂度：<code>O(m*q)</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//O(m * q) 13ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] processQueries(<span class="keyword">int</span>[] queries, <span class="keyword">int</span> m) &#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[queries.length];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= m ;i++) list.add(i);</span><br><span class="line">        <span class="keyword">int</span> ct =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> q : queries)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; list.size() ; i++) &#123;</span><br><span class="line">                <span class="comment">//find query</span></span><br><span class="line">                <span class="keyword">if</span> (list.get(i) == q) &#123;</span><br><span class="line">                    ans[ct++] = i;</span><br><span class="line">                    <span class="comment">//put it on the top of the list</span></span><br><span class="line">                    list.add(<span class="number">0</span>, list.remove(i));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Fenwick-Tree-BIT"><a href="#Fenwick-Tree-BIT" class="headerlink" title="Fenwick Tree / BIT"></a>Fenwick Tree / BIT</h2><p>使用<strong>索引树</strong>计算前缀和：</p>
-<ul>
-<li>使用HashMap存储每个<strong>key</strong>的<strong>index</strong></li>
-<li>每次<code>query</code>，找到其index，计算<code>index - 1</code>的prefix sum</li>
-<li>将<code>c[index]</code>置0，将<code>a[m-1]</code>置1</li>
-</ul>
-<p>复杂度：<strong>O(logq * m)</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] processQueries(<span class="keyword">int</span>[] queries, <span class="keyword">int</span> m) &#123;</span><br><span class="line">        Fenick fenick = <span class="keyword">new</span> Fenick(<span class="number">2</span>*m+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span>[] keys = <span class="keyword">new</span> <span class="keyword">int</span>[m + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[queries.length];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;= m ; i++) &#123;</span><br><span class="line">            keys[i] = i + m;</span><br><span class="line">            fenick.update(i+m , <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> q : queries)&#123;</span><br><span class="line">            <span class="keyword">int</span> index = keys[q];</span><br><span class="line">            ans[ct++] = fenick.query(index - <span class="number">1</span>);</span><br><span class="line">            keys[q] = m;</span><br><span class="line">            fenick.update(index , -<span class="number">1</span>);</span><br><span class="line">            fenick.update(m-- , <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Fenick</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span>[] c;</span><br><span class="line">        Fenick(<span class="keyword">int</span> len)&#123;</span><br><span class="line">            c = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>( i &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                sum += c[i];</span><br><span class="line">                i -= i &amp; -i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; c.length)&#123;</span><br><span class="line">                c[i] += val;</span><br><span class="line">                i += i &amp; -i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1319-Number-of-Operations-to-Make-Network-Connected" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-1319-Number-of-Operations-to-Make-Network-Connected/"
-    >leetcode 1319. Number of Operations to Make Network Connected</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-1319-Number-of-Operations-to-Make-Network-Connected/" class="article-date">
-  <time datetime="2020-05-08T07:15:18.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>There are <code>n</code> computers numbered from <code>0</code> to <code>n-1</code> connected by ethernet cables <code>connections</code> forming a network where <code>connections[i] = [a, b]</code> represents a connection between computers <code>a</code> and <code>b</code>. Any computer can reach any other computer directly or indirectly through the network.</p>
-<p>Given an initial computer network <code>connections</code>. You can extract certain cables between two directly connected computers, and place them between any pair of disconnected computers to make them directly connected. Return the <em>minimum number of times</em> you need to do this in order to make all the computers connected. If it’s not possible, return -1.</p>
-<p><strong>Example 1:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2020/01/02/sample_1_1677.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 4, connections &#x3D; [[0,1],[0,2],[1,2]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: Remove cable between computer 1 and 2 and place between computers 1 and 3.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2020/01/02/sample_2_1677.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 6, connections &#x3D; [[0,1],[0,2],[0,3],[1,2],[1,3]]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 6, connections &#x3D; [[0,1],[0,2],[0,3],[1,2]]</span><br><span class="line">Output: -1</span><br><span class="line">Explanation: There are not enough cables.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 5, connections &#x3D; [[0,1],[0,2],[3,4],[2,3]]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 10^5</code></li>
-<li><code>1 &lt;= connections.length &lt;= min(n*(n-1)/2, 10^5)</code></li>
-<li><code>connections[i].length == 2</code></li>
-<li><code>0 &lt;= connections[i][0], connections[i][1] &lt; n</code></li>
-<li><code>connections[i][0] != connections[i][1]</code></li>
-<li>There are no repeated connections.</li>
-<li>No two computers are connected by more than one cable.</li>
-</ul>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>通过并查集找出<strong>联通块的个数</strong>和<strong>多余的网线的个数</strong>，比较两者。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">makeConnected</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] connections)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++) parent[i] = i;</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rest = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] con : connections)&#123;</span><br><span class="line">            <span class="keyword">int</span> roota = find(parent , con[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">int</span> rootb = find(parent , con[<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span>(roota == rootb)&#123;</span><br><span class="line">                <span class="comment">//already connected</span></span><br><span class="line">                rest++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                parent[roota] = rootb;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        HashSet&lt;Integer&gt; roots = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt;n ; i++)&#123;</span><br><span class="line">            roots.add(find(parent , i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(rest &lt; roots.size() - <span class="number">1</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> roots.size() - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">      <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">              <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i;</span><br><span class="line">              <span class="keyword">else</span> <span class="keyword">return</span> parent[i] = find(parent , parent[i]);</span><br><span class="line">      &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-743-Network-Delay-Time" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-743-Network-Delay-Time/"
-    >leetcode 743. Network Delay Time</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-743-Network-Delay-Time/" class="article-date">
-  <time datetime="2020-05-08T07:13:37.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>There are <code>N</code> network nodes, labelled <code>1</code> to <code>N</code>.</p>
-<p>Given <code>times</code>, a list of travel times as <strong>directed</strong> edges <code>times[i] = (u, v, w)</code>, where <code>u</code> is the source node, <code>v</code> is the target node, and <code>w</code> is the time it takes for a signal to travel from source to target.</p>
-<p>Now, we send a signal from a certain node <code>K</code>. How long will it take for all nodes to receive the signal? If it is impossible, return <code>-1</code>.</p>
-<p><strong>Example 1:</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: times &#x3D; [[2,1,1],[2,3,1],[3,4,1]], N &#x3D; 4, K &#x3D; 2</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
-
-<p><strong>Note:</strong></p>
-<ol>
-<li><code>N</code> will be in the range <code>[1, 100]</code>.</li>
-<li><code>K</code> will be in the range <code>[1, N]</code>.</li>
-<li>The length of <code>times</code> will be in the range <code>[1, 6000]</code>.</li>
-<li>All edges <code>times[i] = (u, v, w)</code> will have <code>1 &lt;= u, v &lt;= N</code> and <code>0 &lt;= w &lt;= 100</code>.</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有向图，Dijkstra求最短路</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">networkDelayTime</span><span class="params">(<span class="keyword">int</span>[][] times, <span class="keyword">int</span> N, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt;[] graph = <span class="keyword">new</span> List[N + <span class="number">1</span>]; <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= N ; i++) graph[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt;[] value = <span class="keyword">new</span> List[N + <span class="number">1</span>]; <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= N ; i++) value[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] time : times)&#123;</span><br><span class="line">            graph[time[<span class="number">0</span>]].add(time[<span class="number">1</span>]);</span><br><span class="line">            value[time[<span class="number">0</span>]].add(time[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[N+<span class="number">1</span>];</span><br><span class="line">        PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((a , b) -&gt; Integer.compare(a[<span class="number">1</span>] , b[<span class="number">1</span>]));</span><br><span class="line">        <span class="keyword">int</span> time = <span class="number">0</span>;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;K, <span class="number">0</span>&#125;);</span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span>[] cur = pq.poll();</span><br><span class="line">            <span class="keyword">if</span>(vis[cur[<span class="number">0</span>]]) <span class="keyword">continue</span>;</span><br><span class="line">            time = cur[<span class="number">1</span>];</span><br><span class="line">            vis[cur[<span class="number">0</span>]] = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; graph[cur[<span class="number">0</span>]].size() ; i ++)&#123;</span><br><span class="line">                <span class="keyword">int</span> next = graph[cur[<span class="number">0</span>]].get(i);</span><br><span class="line">                <span class="keyword">if</span>(vis[next]) <span class="keyword">continue</span>;</span><br><span class="line">                pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;next , cur[<span class="number">1</span>] + value[cur[<span class="number">0</span>]].get(i)&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!vis[i]) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> time;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-1129-Shortest-Path-with-Alternating-Colors" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-1129-Shortest-Path-with-Alternating-Colors/"
-    >leetcode 1129. Shortest Path with Alternating Colors</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-1129-Shortest-Path-with-Alternating-Colors/" class="article-date">
-  <time datetime="2020-05-08T07:12:26.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Consider a directed graph, with nodes labelled <code>0, 1, ..., n-1</code>. In this graph, each edge is either red or blue, and there could be self-edges or parallel edges.</p>
-<p>Each <code>[i, j]</code> in <code>red_edges</code> denotes a red directed edge from node <code>i</code> to node <code>j</code>. Similarly, each <code>[i, j]</code> in <code>blue_edges</code> denotes a blue directed edge from node <code>i</code> to node <code>j</code>.</p>
-<p>Return an array <code>answer</code> of length <code>n</code>, where each <code>answer[X]</code> is the length of the shortest path from node <code>0</code> to node <code>X</code> such that the edge colors alternate along the path (or <code>-1</code> if such a path doesn’t exist).</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3, red_edges &#x3D; [[0,1],[1,2]], blue_edges &#x3D; []</span><br><span class="line">Output: [0,1,-1]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3, red_edges &#x3D; [[0,1]], blue_edges &#x3D; [[2,1]]</span><br><span class="line">Output: [0,1,-1]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3, red_edges &#x3D; [[1,0]], blue_edges &#x3D; [[2,1]]</span><br><span class="line">Output: [0,-1,-1]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3, red_edges &#x3D; [[0,1]], blue_edges &#x3D; [[1,2]]</span><br><span class="line">Output: [0,1,2]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 5:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 3, red_edges &#x3D; [[0,1],[0,2]], blue_edges &#x3D; [[1,0]]</span><br><span class="line">Output: [0,1,1]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 100</code></li>
-<li><code>red_edges.length &lt;= 400</code></li>
-<li><code>blue_edges.length &lt;= 400</code></li>
-<li><code>red_edges[i].length == blue_edges[i].length == 2</code></li>
-<li><code>0 &lt;= red_edges[i][j], blue_edges[i][j] &lt; n</code></li>
-</ul>
-<hr>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>我们给当前节点涂色，经过<code>red_edge</code>到达的节点是<strong>红色节点（0）</strong>，反之则是<strong>蓝色节点（1）</strong>。那么，就按传统的BFS做，只不过出使情况<code>node[0]</code>可以是红色也可以是蓝色，拓展。</p>
-<ul>
-<li><code>vis</code>数组是二维的，要分别记录两种颜色的情况。</li>
-<li>如果当前节点是蓝色，那么它只能通过红色边到达下一个节点</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//3ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] shortestAlternatingPaths(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] red_edges, <span class="keyword">int</span>[][] blue_edges) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        Arrays.fill(ans , -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">boolean</span>[][] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">2</span>][n];</span><br><span class="line">        List&lt;Integer&gt;[] redG = <span class="keyword">new</span> List[n];<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++) redG[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt;[] blueG = <span class="keyword">new</span> List[n];<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i++) blueG[i] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//create graph</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] pair : red_edges)</span><br><span class="line">            redG[pair[<span class="number">0</span>]].add(pair[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] pair : blue_edges)</span><br><span class="line">            blueG[pair[<span class="number">0</span>]].add(pair[<span class="number">1</span>]);</span><br><span class="line">        Queue&lt;<span class="keyword">int</span>[]&gt; que = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span> , <span class="number">0</span>&#125;); que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span> , <span class="number">1</span>&#125;);</span><br><span class="line">        <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">        vis[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>; vis[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">true</span>;ans[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!que.isEmpty())&#123;</span><br><span class="line">            ct++;</span><br><span class="line">            <span class="keyword">int</span> size = que.size();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; size ; i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="keyword">int</span>[] cur = que.poll();</span><br><span class="line">                <span class="keyword">if</span>(cur[<span class="number">1</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">//next node should be blue</span></span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> nextN : blueG[cur[<span class="number">0</span>]])&#123;</span><br><span class="line">                        <span class="keyword">if</span>(vis[<span class="number">1</span>][nextN]) <span class="keyword">continue</span>;<span class="comment">//already visited</span></span><br><span class="line">                        vis[<span class="number">1</span>][nextN] = <span class="keyword">true</span>;</span><br><span class="line">                        ans[nextN] = ans[nextN] == -<span class="number">1</span>? ct : Math.min(ans[nextN] , ct);</span><br><span class="line">                        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextN , <span class="number">1</span>&#125;);<span class="comment">//add the next node to the queue</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> nextN : redG[cur[<span class="number">0</span>]]) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (vis[<span class="number">0</span>][nextN]) <span class="keyword">continue</span>;<span class="comment">//already visited</span></span><br><span class="line">                        vis[<span class="number">0</span>][nextN] = <span class="keyword">true</span>;</span><br><span class="line">                        ans[nextN] = ans[nextN] == -<span class="number">1</span>? ct : Math.min(ans[nextN] , ct);</span><br><span class="line">                        que.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextN, <span class="number">0</span>&#125;);<span class="comment">//add the next node to the queue</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-leetcode-684-Redundant-Connection" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/leetcode-684-Redundant-Connection/"
-    >leetcode 684. Redundant Connection</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/leetcode-684-Redundant-Connection/" class="article-date">
-  <time datetime="2020-05-08T06:57:00.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>In this problem, a tree is an <strong>undirected</strong> graph that is connected and has no cycles.</p>
-<p>The given input is a graph that started as a tree with N nodes (with distinct values 1, 2, …, N), with one additional edge added. The added edge has two different vertices chosen from 1 to N, and was not an edge that already existed.</p>
-<p>The resulting graph is given as a 2D-array of <code>edges</code>. Each element of <code>edges</code> is a pair <code>[u, v]</code> with <code>u &lt; v</code>, that represents an <strong>undirected</strong> edge connecting nodes <code>u</code> and <code>v</code>.</p>
-<p>Return an edge that can be removed so that the resulting graph is a tree of N nodes. If there are multiple answers, return the answer that occurs last in the given 2D-array. The answer edge <code>[u, v]</code> should be in the same format, with <code>u &lt; v</code>.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [1,3], [2,3]]</span><br><span class="line">Output: [2,3]</span><br><span class="line">Explanation: The given undirected graph will be like this:</span><br><span class="line">  1</span><br><span class="line"> &#x2F; \</span><br><span class="line">2 - 3</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [2,3], [3,4], [1,4], [1,5]]</span><br><span class="line">Output: [1,4]</span><br><span class="line">Explanation: The given undirected graph will be like this:</span><br><span class="line">5 - 1 - 2</span><br><span class="line">    |   |</span><br><span class="line">    4 - 3</span><br></pre></td></tr></table></figure>
-
-<p><strong>Note:</strong></p>
-<p>The size of the input 2D-array will be between 3 and 1000.</p>
-<p>Every integer represented in the 2D-array will be between 1 and N, where N is the size of the input array.</p>
-<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Set&lt;Integer&gt; seen = <span class="keyword">new</span> HashSet();</span><br><span class="line">    <span class="keyword">int</span> MAX_EDGE_VAL = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] findRedundantConnection(<span class="keyword">int</span>[][] edges) &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt;[] graph = <span class="keyword">new</span> ArrayList[MAX_EDGE_VAL + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= MAX_EDGE_VAL; i++) &#123;</span><br><span class="line">            graph[i] = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] edge: edges) &#123;</span><br><span class="line">            seen.clear();</span><br><span class="line">            <span class="keyword">if</span> (!graph[edge[<span class="number">0</span>]].isEmpty() &amp;&amp; !graph[edge[<span class="number">1</span>]].isEmpty() &amp;&amp;</span><br><span class="line">                    dfs(graph, edge[<span class="number">0</span>], edge[<span class="number">1</span>])) &#123;</span><br><span class="line">                <span class="keyword">return</span> edge;</span><br><span class="line">            &#125;</span><br><span class="line">            graph[edge[<span class="number">0</span>]].add(edge[<span class="number">1</span>]);</span><br><span class="line">            graph[edge[<span class="number">1</span>]].add(edge[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(ArrayList&lt;Integer&gt;[] graph, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!seen.contains(source)) &#123;</span><br><span class="line">            seen.add(source);</span><br><span class="line">            <span class="keyword">if</span> (source == target) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> nei: graph[source]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dfs(graph, nei, target)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="并查集Union-Find"><a href="#并查集Union-Find" class="headerlink" title="并查集Union Find"></a>并查集Union Find</h2><p>如果<code>edge[0]</code>和<code>edge[1]</code>有相同的<code>root</code>，说明之间有环：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] findRedundantConnection(<span class="keyword">int</span>[][] edges) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10001</span>];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= <span class="number">10000</span> ; i++)&#123;</span><br><span class="line">                    parent[i]=  i;</span><br><span class="line">        &#125;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span>[] edge : edges)&#123;</span><br><span class="line">                  <span class="keyword">int</span> roota = find(parent , edge[<span class="number">0</span>]);</span><br><span class="line">                  <span class="keyword">int</span> rootb = find(parent , edge[<span class="number">1</span>]);</span><br><span class="line">                  <span class="keyword">if</span>(roota == rootb) <span class="keyword">return</span> edge; <span class="comment">//have the same root</span></span><br><span class="line">                  <span class="keyword">else</span> parent[roota] = rootb;</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> edges[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent , <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(parent[i] == i) <span class="keyword">return</span> i;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> parent[i] = find(parent , parent[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Medium/" rel="tag">Medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-Servlet5-处理中文乱码" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/08/Servlet5-%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/"
-    >Servlet5 处理中文乱码</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/08/Servlet5-%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/" class="article-date">
-  <time datetime="2020-05-08T06:54:59.000Z" itemprop="datePublished">2020-05-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/servlet/">servlet</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h1 id="响应出现乱码"><a href="#响应出现乱码" class="headerlink" title="响应出现乱码"></a>响应出现乱码</h1><p>如果我们希望直接在响应网页中打出中文：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.getWriter().write(<span class="string">"好好学习"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>显然这是不行的：</p>
-<p><img src="/2020/05/08/Servlet5-%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/servlet1.png" alt="img"></p>
-<p>主要问题是，编码格式的问题，所以只需要在响应之前，设置响应的编码格式，也就是在http报文的响应头部中添加响应信息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setContentType(<span class="string">"text/html;charset=utf8"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>告诉浏览器，我们相应的信息是<code>html</code>文本，字符编码是<code>utf-8</code>：</p>
-<p><img src="/2020/05/08/Servlet5-%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/servlet2.png" alt="img"></p>
-<h2 id="处理request中的乱码"><a href="#处理request中的乱码" class="headerlink" title="处理request中的乱码"></a>处理request中的乱码</h2><p>如果，客户端发送过来的请求中有中文数据，那么也会出现乱码（现在好多浏览器都不会了。。。）</p>
-<p>有两种方法可以解决：</p>
-<ul>
-<li><p>对接受的String进行重新编码：</p>
-<p><code>uname = new String(uname.getBytes(&quot;ISO8859-1&quot;) , &quot;utf-8&quot;);</code></p>
-</li>
-<li><p>使用公共配置</p>
-<ul>
-<li><p><strong>get请求</strong>：</p>
-<ol>
-<li><code>req.setCharacterEncoding(&quot;utf-8&quot;);</code></li>
-<li>在tomcat的目录下的conf目录中修改<code>server.xml</code>文件，在``标签中增加属性<code>useBodyEncodingForURI = &quot;true&quot;</code></li>
-</ol>
-</li>
-<li><p><strong>post</strong>请求</p>
-<p><code>req.setCharacterEncoding(&quot;utf-8&quot;);</code>就可以了</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Web/" rel="tag">Java Web</a></li></ul>
 
 
     </footer>
